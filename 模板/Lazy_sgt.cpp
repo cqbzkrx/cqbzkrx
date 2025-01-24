@@ -1,5 +1,5 @@
 template <typename T>
-class sgt {
+class sgt_lazy {
     protected:
 
     int n;
@@ -65,8 +65,8 @@ class sgt {
 
     public:
 
-    sgt () : n(0) {}
-    sgt (const vector <T> &a) {init (a);}
+    sgt_lazy () : n(0) {}
+    sgt_lazy (const vector <T> &a) {init (a);}
 
     void modify(int l, int r, T x) {modify(l, r, x, rt, 0, n - 1);}
     Node qry(int l, int r) {return qry(l, r, rt, 0, n - 1);}
