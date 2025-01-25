@@ -114,6 +114,10 @@ void init_prime(int n = N - 1){
     }
 }
 
+namespace K {
+    
+}
+
 void init(){
     // init_prime();
     // init_fac();
