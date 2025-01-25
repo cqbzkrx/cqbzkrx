@@ -114,10 +114,6 @@ void init_prime(int n = N - 1){
     }
 }
 
-namespace K {
-    
-}
-
 void init(){
     // init_prime();
     // init_fac();
@@ -141,7 +137,7 @@ int main(){
     int t = 1;
     cout << setprecision(15) << fixed;
     cerr << setprecision(2) << fixed;
-    // cin >> t;
+    cin >> t;
     // read(t);
     while(t--) {
         solve();
