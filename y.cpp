@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define int ll
 #define all(x) x.begin(), x.end()
 using namespace std;
 using ll = long long;
@@ -7,7 +8,7 @@ using ull = unsigned long long;
 const int inf = 1e9 + 7;
 const ll INF = 1e18 + 7;
 const int mod = 1e9 + 7;
-const int N = 3e6 + 5;
+const int N = 4e5 + 5;
 const int M = 1e6 + 100;
 const db eps = 1e-8;
 
@@ -112,31 +113,48 @@ void init_prime(int n = N - 1){
     }
 }
 
+
 void init(){
     // init_prime();
     // init_fac();
 }
 
 void solve(){
-    int n; cin >> n;
-    vector a(n + 1, 0ll), b(n + 1, 0ll);
-    for (int i = 1; i <= n; i++) cin >> a[i];
-    for (int i = 1; i <= n; i++) cin >> b[i];
+    int n; ll m; cin >> n >> m;
+    vector a(n, 0ll);
+    for (auto &v : a) cin >> v, v %= m;
+    // for (auto &v : a) cerr << v << ' '; cerr << '\n';
 
-    vector e(n + 1, vector (0, 0));
-    for (int i = 1; i <= n; i++) e[b[i]].push_back(i);
+    ll cnt1 = 0, cnt2 = 0;
+    for (int i = 0; i < n; i++) {
+        if (a[i] < m - a[i]) cnt1++;
+        else if (a[i] > m - a[i]) cnt2++;
+    }
+
+    if (cnt1 > cnt2) {
+        for (auto &v : a) if (v > m - v) v = v - m;
+    }
+    else {
+        for (auto &v : a) if (v < m - v) v = m + v;
+    }
+
+    // for (auto &v : a) cerr << v << ' '; cerr << '\n';
+    
+    nth_element (a.begin(), a.begin() + (n - 1) / 2, a.end());
+    auto u = a[(n - 1) / 2];
+    // cerr << u << '\n';
+
+    for (auto &v : a) v -= u;
+
+    // for (auto &v : a) cerr << v << ' '; cerr << '\n';
+    // cerr << cnt << '\n';
 
     ll ans = 0;
-    for (int i = 1; i <= n; i++) for (auto &v : e[a[i]]) {
-        if (i >= v) ans += min(n - i + 1, v);
-        else ans += min(n - v + 1, i);
-
-        if (i == v) ans += 1ll * (n - i + 1) * (n - i) / 2 + 1ll * i * (i - 1) / 2;
-    }
+    for (auto &v : a) ans += abs(v);
     cout << ans << '\n';
 }
 
-int main(){
+signed main(){
     // cerr << inv(2) << endl;
     // clock_t st = clock(), ed;
 // #ifndef ONLINE_JUDGE
@@ -150,7 +168,7 @@ int main(){
     int t = 1;
     cout << setprecision(15) << fixed;
     cerr << setprecision(2) << fixed;
-    // cin >> t;
+    cin >> t;
     // read(t);
     while(t--) {
         solve();
