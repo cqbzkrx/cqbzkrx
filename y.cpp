@@ -120,38 +120,7 @@ void init(){
 }
 
 void solve(){
-    int n; ll m; cin >> n >> m;
-    vector a(n, 0ll);
-    for (auto &v : a) cin >> v, v %= m;
-    // for (auto &v : a) cerr << v << ' '; cerr << '\n';
-
-    ll cnt1 = 0, cnt2 = 0;
-    for (int i = 0; i < n; i++) {
-        if (a[i] < m - a[i]) cnt1++;
-        else if (a[i] > m - a[i]) cnt2++;
-    }
-
-    if (cnt1 > cnt2) {
-        for (auto &v : a) if (v > m - v) v = v - m;
-    }
-    else {
-        for (auto &v : a) if (v < m - v) v = m + v;
-    }
-
-    // for (auto &v : a) cerr << v << ' '; cerr << '\n';
     
-    nth_element (a.begin(), a.begin() + (n - 1) / 2, a.end());
-    auto u = a[(n - 1) / 2];
-    // cerr << u << '\n';
-
-    for (auto &v : a) v -= u;
-
-    // for (auto &v : a) cerr << v << ' '; cerr << '\n';
-    // cerr << cnt << '\n';
-
-    ll ans = 0;
-    for (auto &v : a) ans += abs(v);
-    cout << ans << '\n';
 }
 
 signed main(){

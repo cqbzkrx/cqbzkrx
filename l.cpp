@@ -118,22 +118,7 @@ void init(){
 }
 
 void solve(){
-    int n; cin >> n;
-    vector a(n + 1, 0ll), b(n + 1, 0ll);
-    for (int i = 1; i <= n; i++) cin >> a[i];
-    for (int i = 1; i <= n; i++) cin >> b[i];
-
-    vector e(n + 1, vector (0, 0));
-    for (int i = 1; i <= n; i++) e[b[i]].push_back(i);
-
-    ll ans = 0;
-    for (int i = 1; i <= n; i++) for (auto &v : e[a[i]]) {
-        if (i >= v) ans += min(n - i + 1, v);
-        else ans += min(n - v + 1, i);
-
-        if (i == v) ans += 1ll * (n - i + 1) * (n - i) / 2 + 1ll * i * (i - 1) / 2;
-    }
-    cout << ans << '\n';
+    
 }
 
 int main(){
