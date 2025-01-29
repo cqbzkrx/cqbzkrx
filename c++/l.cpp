@@ -135,7 +135,7 @@ int main(){
     int t = 1;
     cout << setprecision(15) << fixed;
     cerr << setprecision(2) << fixed;
-    // cin >> t;
+    cin >> t;
     // read(t);
     while(t--) {
         solve();
