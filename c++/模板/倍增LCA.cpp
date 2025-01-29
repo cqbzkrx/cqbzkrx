@@ -1,7 +1,17 @@
 class LCA {
+    protected:
+
+    void dfs (int v, int fa) {
+        dep[v] = dep[fa] + 1;
+        f[0][v] = fa;
+
+        for (auto &u : e[v]) if (u != fa)
+            dfs (u, v);
+    }
+
     public:
 
-    static constexpr int N = 5e5 + 5;
+    static constexpr int N = 4e5 + 5;
     vector <vector <int>> f, e;
     vector <int> dep;
     int n, lim;
@@ -13,19 +23,14 @@ class LCA {
 
         for (int i = lim; i >= 0; i--) if (dep[u] - (1 << i) >= dep[v])
             u = f[i][u];
+        
         if (v == u) return v;
-
         for (int i = lim; i >= 0; i--) {
             if (f[i][u] == 0) continue;
             if (f[i][v] != f[i][u]) v = f[i][v], u = f[i][u];
         }
+        
         return f[0][u];
-    }
-
-    void dfs (int v, int fa) {
-        dep[v] = dep[fa] + 1; f[0][v] = fa;
-        for (auto &u : e[v]) if (u != fa)
-            dfs (u, v);
     }
 
     void init (int sz, int rt) {
