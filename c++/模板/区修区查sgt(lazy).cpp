@@ -28,7 +28,7 @@ class sgt_lazy {
         build(a, rt, 0, n - 1);
     }
 
-    void merge (Node &s, const T &x, int len) {
+    void merge (Node &s, const T &x, int len = 1) {
         s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
         s.ans += len * x;
     }

@@ -25,7 +25,11 @@ auto spfa = [&](int x) -> void {
 };
 
 // dijkstra
-struct Node {int v, w;};
+struct Node {
+	int v, w;
+	Node () : v(0), w(0) {}
+	Node (int x, int y) {v = x, w = y;}
+};
 vector e(n + 1, vector (0, Node (0, 0)));
 vector dis(n + 1, 0), vis(n + 1, 0);
 
