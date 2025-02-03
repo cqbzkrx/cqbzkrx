@@ -144,6 +144,49 @@ namespace K {
                 // for (int i = 1; i <= n; i++) e[i].clear(), e[i].push_back(i);
             }
         };
+
+        class LCA {
+            protected:
+
+            void dfs (int v, int fa) {
+                dep[v] = dep[fa] + 1;
+                f[0][v] = fa;
+
+                for (auto &u : e[v]) if (u != fa)
+                    dfs (u, v);
+            }
+
+            public:
+
+            static constexpr int N = 4e5 + 5;
+            vector <vector <int>> f, e;
+            vector <int> dep;
+            int n, lim;
+            LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))), e(vector (N, vector (0, 0))), dep(N, 0) {}
+            LCA (int sz, int rt) {init (sz, rt);}
+            
+            int lca (int v, int u) {
+                if (dep[v] > dep[u]) swap (v, u);
+
+                for (int i = lim; i >= 0; i--) if (dep[u] - (1 << i) >= dep[v])
+                    u = f[i][u];
+                
+                if (v == u) return v;
+                for (int i = lim; i >= 0; i--) {
+                    if (f[i][u] == 0) continue;
+                    if (f[i][v] != f[i][u]) v = f[i][v], u = f[i][u];
+                }
+                
+                return f[0][u];
+            }
+
+            void init (int sz, int rt) {
+                n = sz, lim = __lg(sz);
+                dep[rt] = 1; dfs (rt, 0);
+                for (int i = 1; i <= lim; i++) for (int j = 1; j <= n; j++)
+                    f[i][j] = f[i - 1][f[i - 1][j]];
+            }
+        };
     }
 }
 
@@ -153,6 +196,14 @@ void init () {
 }
 
 void solve () {
+    int n; cin >> n;
+    vector a(n + 1, vector (n + 1, 0));
+    for (int i = 1; i <= n; i++) for (int j = 1; j <= n; j++)
+        cin >> a[i][j];
+    
+    for (int i = 1; i <= n; i++) for (int j = n - 1; j >= 1; j--)
+        a[i][j] += a[i][j + 1];
+
     
 }
 
@@ -171,6 +222,6 @@ int main () {
     cerr << setprecision(2) << fixed;
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve ();
 }
