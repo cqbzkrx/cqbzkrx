@@ -187,6 +187,200 @@ namespace K {
                     f[i][j] = f[i - 1][f[i - 1][j]];
             }
         };
+
+        template <typename T>
+        class st {
+            protected:
+
+            static constexpr int N = 2e5 + 7;
+            vector <vector <T>> f;
+            int n, lim;
+
+            public:
+
+            void init (const vector <T> &a) {
+                n = a.size(), lim = __lg(n) + 1;
+                for (int i = 0; i < n; i++) f[0][i] = a[i];
+                for (int i = 1; i < lim; i++) for (int j = 0; j < n; j++) {
+                    if (j + (1 << i) > n) break;
+                    f[i][j] = max (f[i - 1][j], f[i - 1][j + (1 << (i - 1))]);
+                }
+            }
+
+            st () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))) {}
+            st (const vector <T> &a) {init (a);}
+
+            T qry (int l, int r) {
+                int lg = __lg (r - l + 1);
+                return max(f[lg][l], f[lg][r - (1 << lg) + 1]);
+            }
+        };
+
+        class KMP {
+            public:
+
+            vector <int> nxt;
+            int n;
+
+            KMP () : n(0), nxt(vector (0, 0)) {}
+            KMP (const string &s) {get_nxt (s);}
+
+            bool kmp (const string &a, const string &b, const vector <int> &nxt) {
+                int i = 0, j = 0;
+                while (i < a.size()) {
+                    if (j == -1 || a[i] == b[i]) {
+                        i++, j++;
+                        if (j == b.size()) return 1;
+                    }
+                    else j = nxt[j];
+                }
+                return 0;
+            }
+
+            void get_nxt (const string &s) {
+                n = s.size();
+                nxt.resize(n + 1);
+
+                nxt[0] = -1;
+                int i = 0, j = -1;
+                while (i < n) {
+                    if (j == -1 || s[i] == s[j]) nxt[++i] = ++j;
+                    else j = nxt[j];
+                }
+            }
+        };
+
+        class LCA_tarjan {
+            class DSU_LCA_tarjan {
+                public:
+
+                vector <int> fa;
+
+                void init (int n) {
+                    fa.resize(n + 1);
+                    iota (all(fa), 0);
+                }
+
+                int find (int x) {
+                    return fa[x] == x ? x : fa[x] = find(fa[x]);
+                }
+
+                void merge (int v, int u) {
+                    auto fv = find(v), fu = find(u);
+                    if (fv == fu) return ;
+                    fa[fv] = fu;
+                }
+
+                DSU_LCA_tarjan () : fa(vector (0, 0)) {}
+                DSU_LCA_tarjan (int n) {init (n);}
+            };
+
+            public:
+
+            vector <vector <int>> e;
+            vector <vector <pair <int, int>>> eq;
+            vector <int> vis, ans;
+            int n, q;
+            DSU_LCA_tarjan dsu;
+            
+            LCA_tarjan () : n(0), q(0) {}
+            LCA_tarjan (int sz, int k) {init (sz, k);}
+
+            void dfs (int v, int fa) {
+                for (auto &u : e[v]) if (u != fa) {
+                    dfs (u, v);
+                    dsu.merge (u, v);
+                }
+
+                vis[v] = 1;
+
+                for (auto &[u, idx] : eq[v]) if (vis[u])
+                    ans[idx] = dsu.find (u);
+            }
+
+            void init (int sz, int k) {
+                n = sz, q = k;
+                dsu.init (sz);
+                vis.resize(sz + 1);
+                ans.resize(k);
+                eq.resize(sz + 1);
+                e.resize(sz + 1);
+            }
+        };
+
+        template <typename T>
+        class sgt_lazy {
+            protected:
+
+            int n;
+            static constexpr int rt = 1;
+            static constexpr T INVALID = -INF;
+            
+            struct Node {
+                T ans, lazy;
+
+                Node () : ans(0), lazy(INVALID) {}
+                Node (T x, T inv = INVALID) {ans = x, lazy = inv;}
+                Node operator + (const Node &a) const {return Node (a.ans + ans);}
+            };
+            vector<Node> t;
+
+            void build (const vector <T> &a, int p, int cl, int cr) {
+                if (cl == cr) {t[p] = Node (a[cl]); return ;}
+                auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
+                build (a, lc, cl, mid); build (a, rc, mid + 1, cr);
+                t[p] = t[lc] + t[rc];
+            }
+
+            void init(const vector<T>& a) {
+                n = a.size();
+                t.resize(n << 2);
+                build(a, rt, 0, n - 1);
+            }
+
+            void merge (Node &s, const T &x, int len = 1) {
+                s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
+                s.ans += len * x;
+            }
+
+            void push_down (int p, int cl, int cr) {
+                if (cl == cr || t[p].lazy == INVALID) return ;
+                auto lazy = t[p].lazy; t[p].lazy = INVALID;
+
+                auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
+                merge (t[lc], lazy, mid - cl + 1);
+                merge (t[rc], lazy, cr - mid);
+            }
+
+            void modify (int l, int r, T x, int p, int cl, int cr) {
+                if (cl > r || cr < l) return ;
+                if (cl >= l && cr <= r) {
+                    merge (t[p], x, cr - cl + 1);
+                    return ;
+                }
+                push_down (p, cl, cr);
+                auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
+                modify (l, r, x, lc, cl, mid);
+                modify (l, r, x, rc, mid + 1, cr);
+                t[p] = t[lc] + t[rc];
+            }
+
+            Node qry (int l, int r, int p, int cl, int cr) {
+                if (cl > r || cr < l) return Node (0);
+                if (cl >= l && cr <= r) return t[p];
+                push_down (p, cl, cr);
+                auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
+                return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
+            }
+
+            public:
+
+            sgt_lazy () : n(0) {}
+            sgt_lazy (const vector <T> &a) {init (a);}
+
+            void modify(int l, int r, T x) {modify(l, r, x, rt, 0, n - 1);}
+            Node qry(int l, int r) {return qry(l, r, rt, 0, n - 1);}
+        };
     }
 }
 
