@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#pragma GCC optimeze(3)
-#pragma GCC optimeze(2)
 #define all(x) x.begin(), x.end()
 using namespace std;
 using ll = long long;
