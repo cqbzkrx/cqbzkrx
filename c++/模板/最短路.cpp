@@ -7,43 +7,57 @@ void Floyd (int n) {
 }
 
 // SPFA
-vector e(n + 1, vector (pair (0, 0)));
-vector dis(n + 1, 0), inq(n + 1, 0);
+class SPFA {
+    public:
+    vector <vector <pair <int, int>>> e;
+    vector <int> dis, inq;
 
-auto spfa = [&](int x) -> void {
-	fill (all(dis), inf); dis[x] = 0;
-	queue <int> q; q.push(x);
+    void spfa (int x) {
+        fill (all(dis), inf); dis[x] = 0;
+        queue <int> q; q.push(x);
 
-	while (q.size()) {
-		inq[q.front()] = 0;
-		auto u = q.front(); q.pop();
-		for (auto &i : e[u]) if (dis[u] + i.second < dis[i.first]) {
-			dis[i.first] = dis[u] + i.second;
-			if (inq[i.first] == 0) inq[i.first] = 1, q.push(i.first);
-		}
-	}
+        while (q.size()) {
+            inq[q.front()] = 0;
+            auto u = q.front(); q.pop();
+            for (auto &i : e[u]) if (dis[u] + i.second < dis[i.first]) {
+                dis[i.first] = dis[u] + i.second;
+                if (inq[i.first] == 0) inq[i.first] = 1, q.push(i.first);
+            }
+        }
+    }
+
+    SPFA () : e(vector (0, vector (0, pair (0, 0)))), dis(vector (0, 0)), inq(vector (0, 0)) {}
+    SPFA (int n, const vector <vector <pair <int, int>>> &a) {e = a, dis = vector (n + 1, 0), inq = vector (n + 1, 0);}
 };
 
 // dijkstra
-struct Node {
-	int v, w;
-	Node () : v(0), w(0) {}
-	Node (int x, int y) {v = x, w = y;}
-};
-vector e(n + 1, vector (0, Node (0, 0)));
-vector dis(n + 1, 0), vis(n + 1, 0);
+template <class info>
+class dijkstra {
+    public:
+    vector <vector <info>> e;
+    vector <int> dis, vis;
 
-auto dij = [&](int s) -> void {
-	fill(all(dis), inf); dis[s] = 0;
-	fill(all(vis), 0);
-	priority_queue <pair <int, int>, vector <pair <int, int>>, greater <pair <int, int>>> pq;
-	pq.push({0, s});
-	while(pq.size()) {
-		auto u = pq.top().second; pq.pop();
-		if (vis[u]) continue; vis[u] = 1;
-		for (auto &i : e[u]) if (dis[u] + i.w < dis[i.v]) {
-			dis[i.v] = dis[u] + i.w;
-			pq.push({dis[i.v], i.v});
-		}
-	}
+    void dij (int s) {
+        fill(all(dis), inf); dis[s] = 0;
+        fill(all(vis), 0);
+        priority_queue <pair <int, int>, vector <pair <int, int>>, greater <pair <int, int>>> pq;
+        pq.push({0, s});
+        while(pq.size()) {
+            auto u = pq.top().second; pq.pop();
+            if (vis[u]) continue; vis[u] = 1;
+            for (auto &i : e[u]) if (dis[u] + i.w < dis[i.v]) {
+                dis[i.v] = dis[u] + i.w;
+                pq.push({dis[i.v], i.v});
+            }
+        }
+    }
+
+    dijkstra () : dis(vector (0, 0)), vis(vector (0, 0)) {}
+    dijkstra (int n, const vector <vector <info>> &a) {dis = vector (n + 1, 0), vis = vector (n + 1, 0), e = a;}
+};
+
+struct Node {
+    int v, w;
+    Node () : v(0), w(0) {}
+    Node (int x, int y) {v = x, w = y;}
 };
