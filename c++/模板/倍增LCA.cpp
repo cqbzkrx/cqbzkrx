@@ -1,6 +1,4 @@
 class LCA {
-    protected:
-
     void dfs (int v, int fa) {
         dep[v] = dep[fa] + 1;
         f[0][v] = fa;
@@ -12,9 +10,10 @@ class LCA {
     public:
 
     static constexpr int N = 4e5 + 5;
+    int n, lim;
     vector <vector <int>> f, e;
     vector <int> dep;
-    int n, lim;
+    
     LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))), e(vector (N, vector (0, 0))), dep(N, 0) {}
     LCA (int sz, int rt) {init (sz, rt);}
     
