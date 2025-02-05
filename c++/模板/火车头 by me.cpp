@@ -386,9 +386,14 @@ namespace K {
     }
 }
 
+// using namespace K;
+// using namespace Hash;
+// using namespace math;
+// using namespace exstd;
+
 void init () {
-    // K :: math :: init_fac ();
-    // K :: math :: init_prime ();
+    // init_fac ();
+    // init_prime ();
 }
 
 void solve () {
