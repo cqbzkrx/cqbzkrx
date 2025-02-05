@@ -1,18 +1,18 @@
 class KMP {
     public:
 
-    vector <int> nxt;
     int n;
+    vector <int> nxt;
 
     KMP () : n(0), nxt(vector (0, 0)) {}
     KMP (const string &s) {get_nxt (s);}
 
     bool kmp (const string &a, const string &b, const vector <int> &nxt) {
         int i = 0, j = 0;
-        while (i < a.size()) {
+        while (i < (int) a.size()) {
             if (j == -1 || a[i] == b[i]) {
                 i++, j++;
-                if (j == b.size()) return 1;
+                if (j == (int) b.size()) return 1;
             }
             else j = nxt[j];
         }
