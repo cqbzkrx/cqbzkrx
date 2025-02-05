@@ -1,4 +1,4 @@
-auto topoSort = [&](const vector <vector <int>> &e, vector <int> &in, vector <int> &ans) {
+auto toposort = [&](const vector <vector <int>> &e, vector <int> &in, vector <int> &ans) {
     priority_queue <int, vector <int>, greater<int>> q;
     for (int i = 1; i <= n; i++) if (!in[i])
         q.push(i);
