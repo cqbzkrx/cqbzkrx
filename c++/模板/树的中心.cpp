@@ -33,3 +33,5 @@ ans.push_back (maxi);
 
 ll minans = INF;
 for (auto &v : ans) minans = min(minans, max(s[v] - s[maxi], s[maxj] - s[v]));
+
+cout << minans << '\n';
