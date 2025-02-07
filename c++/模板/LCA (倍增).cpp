@@ -43,4 +43,8 @@ class LCA {
         for (int i = 1; i <= lim; i++) for (int j = 1; j <= n; j++)
             f[i][j] = f[i - 1][f[i - 1][j]];
     }
+
+    ll len (int v, int u) {
+        return dep[v] + dep[u] - 2 * dep[lca(v, u)];
+    }
 };
