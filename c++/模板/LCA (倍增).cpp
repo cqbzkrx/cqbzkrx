@@ -13,7 +13,6 @@ class LCA {
     vector <vector <int>> f;
     vector <vector <pair <int, ll>>> e;
     vector <int> dep;
-    vector <ll> s;
     
     LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))),
             e(vector (N, vector (0, pair (0, 0ll)))), dep(N, 0) {}
