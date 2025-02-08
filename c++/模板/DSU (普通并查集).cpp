@@ -11,6 +11,11 @@ class DSU {
         return fa[x] == x ? x : fa[x] = find(fa[x]);
     }
 
+    bool same (int v, int u) {
+        auto fv = find(v), fu = find(u);
+        return fv == fu;
+    }
+
     bool merge (int v, int u) {
         auto fv = find(v), fu = find(u);
         if (fv == fu) return 0;
