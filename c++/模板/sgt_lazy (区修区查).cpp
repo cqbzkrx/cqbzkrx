@@ -67,8 +67,7 @@ class sgt_lazy {
         merge (t[rc], lazy, cr - mid);
     }
     
-    public:
-
+public:
     sgt_lazy () : n(0), t(vector (0, Node (0, INVALID))) {}
     sgt_lazy (const vector <T> &a) {init (a);}
     void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
