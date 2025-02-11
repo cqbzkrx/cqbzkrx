@@ -43,8 +43,7 @@ class sgt {
         return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
     }
 
-    public:
-
+public:
     sgt () : n(0) {}
     sgt (const vector <T> &a) {init (a);}
     void modify (int i, T x) {modify (i, x, rt, 0, n - 1);}
