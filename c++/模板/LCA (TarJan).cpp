@@ -1,7 +1,6 @@
 class LCA_tarjan {
     class DSU_LCA_tarjan {
-        public:
-
+    public:
         vector <int> fa;
 
         void init (int n) {
@@ -23,8 +22,7 @@ class LCA_tarjan {
         DSU_LCA_tarjan (int n) {init (n);}
     };
 
-    public:
-
+public:
     vector <vector <int>> e;
     vector <vector <pair <int, int>>> eq;
     vector <int> vis, ans;
