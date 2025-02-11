@@ -22,12 +22,6 @@ class sgt {
         t[p] = t[lc] + t[rc];
     }
 
-    void init (const vector <T> &a) {
-        n = a.size();
-        t.resize(n << 2);
-        build (a, rt, 0, n - 1);
-    }
-
     void modify (int i, int x, int p, int cl, int cr) {
         if (cl > i || cr < i) return ;
         if (cl == cr) {t[p] = Node (x); return ;}
@@ -48,4 +42,10 @@ public:
     sgt (const vector <T> &a) {init (a);}
     void modify (int i, T x) {modify (i, x, rt, 0, n - 1);}
     Node qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
+
+    void init (const vector <T> &a) {
+        n = a.size();
+        t.resize(n << 2);
+        build (a, rt, 0, n - 1);
+    }
 };
