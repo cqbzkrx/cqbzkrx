@@ -8,8 +8,7 @@ class LCA {
         }
     }
 
-    public:
-
+public:
     static constexpr int N = 1e4 + 5;
     int n, lim;
     vector <vector <int>> f;
