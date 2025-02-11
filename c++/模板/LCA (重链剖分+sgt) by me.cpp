@@ -2,13 +2,13 @@ template <typename T>
 class LCA {
 public:
     int cnt, n;
-    vector <int> son, siz, f, top, dep, rnk, dfn, out;
+    vector <int> son, siz, f, top, dep, dfn, out;
     vector <vector <int>> e;
     vector <T> s;
     sgt_lazy <T> sgt;
     
     LCA () : cnt(0), n(0), son(vector (0, 0)), siz(vector (0, 0)), f(vector (0, 0)), top(vector (0, 0)), dep(vector (0, 0)),
-            rnk(vector (0, 0)), dfn(vector (0, 0)), e(vector (0, vector (0, 0))), s(vector (0, T(0))) {}
+            dfn(vector (0, 0)), e(vector (0, vector (0, 0))), s(vector (0, T(0))) {}
     LCA (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) {init (sz, rt, a, c);}
 
     void dfs1 (int v, int fa) {
@@ -28,7 +28,6 @@ public:
     void dfs2 (int v, int head) {
         top[v] = head;
         dfn[v] = ++cnt;
-        rnk[cnt] = v;
         if (son[v] == -1) {out[v] = cnt; return ;}
         dfs2 (son[v], head);
         for (auto &u : e[v]) if (u != son[v] && u != f[v])
@@ -38,14 +37,14 @@ public:
 
     void init (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) {
         n = sz, e = a, cnt = 0;
-        son = siz = f = top = dep = rnk = dfn = out = vector (n + 1, 0);
+        son = siz = f = top = dep = = dfn = out = vector (n + 1, 0);
         s.resize(n + 1);
 
         dep[rt] = 1;
         dfs1 (rt, 0);
         dfs2 (rt, rt);
 
-        for (int i = 1; i <= n; i++) s[i] = c[rnk[i]];
+        for (int i = 1; i <= n; i++) s[dfn[i]] = c[i];
         sgt.init (s);
     }
 
