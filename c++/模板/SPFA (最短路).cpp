@@ -1,5 +1,5 @@
 class SPFA {
-    public:
+public:
     vector <vector <pair <int, int>>> e;
     vector <int> dis, inq;
 
