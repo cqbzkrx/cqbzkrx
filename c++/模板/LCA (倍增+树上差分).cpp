@@ -6,8 +6,7 @@ class LCA {
             dfs (u, v);
     }
 
-    public:
-
+public:
     static constexpr int N = 5e4 + 5;
     int n, lim;
     vector <vector <int>> f;
