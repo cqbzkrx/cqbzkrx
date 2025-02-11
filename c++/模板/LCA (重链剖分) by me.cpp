@@ -12,9 +12,7 @@ public:
         f[v] = fa;
         dep[v] = dep[fa] + 1;
         siz[v] = 1, son[v] = -1;
-        dfn[v] = ++cnt;
-        rnk[cnt] = v;
-
+        
         int maxn = 0;
         for (auto &u : e[v]) if (u != fa) {
             dfs1 (u, v);
@@ -26,6 +24,8 @@ public:
 
     void dfs2 (int v, int head) {
         top[v] = head;
+        dfn[v] = ++cnt;
+        rnk[cnt] = v;
         if (son[v] == -1) return ;
         dfs2 (son[v], head);
         for (auto &u : e[v]) if (u != son[v] && u != f[v])
