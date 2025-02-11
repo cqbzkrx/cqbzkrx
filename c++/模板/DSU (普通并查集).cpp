@@ -1,6 +1,5 @@
 class DSU {
-    public:
-    
+public:
     vector <int> fa, siz;
     vector <vector <int>> e;
 
@@ -26,8 +25,7 @@ class DSU {
         return 1;
     }
 
-    protected:
-
+protected:
     void init (int n) {
         fa.clear(), fa.resize (n + 1);
         iota (all(fa), 0);
