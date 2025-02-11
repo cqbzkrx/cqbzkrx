@@ -1,13 +1,11 @@
 template <typename T>
 class st {
-    protected:
-
+protected:
     static constexpr int N = 1e5 + 7;
     T f[__lg(N) + 1][N];
     int n, lim;
 
-    public:
-
+public:
     void init (const vector <T> &a) {
         n = a.size(), lim = __lg(n) + 1;
         for (int i = 0; i < n; i++) f[0][i] = a[i];
