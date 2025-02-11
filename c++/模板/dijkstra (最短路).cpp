@@ -1,6 +1,6 @@
 template <class info>
 class dijkstra {
-    public:
+public:
     vector <vector <info>> e;
     vector <int> dis, vis;
 
