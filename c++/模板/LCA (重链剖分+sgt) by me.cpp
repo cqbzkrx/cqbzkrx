@@ -37,7 +37,7 @@ public:
 
     void init (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) {
         n = sz, e = a, cnt = 0;
-        son = siz = f = top = dep = = dfn = out = vector (n + 1, 0);
+        son = siz = f = top = dep = dfn = out = vector (n + 1, 0);
         s.resize(n + 1);
 
         dep[rt] = 1;
