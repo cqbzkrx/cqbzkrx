@@ -1,6 +1,5 @@
 class tarjan {
-    public:
-
+public:
     static const int N = 5e4 + 7;
     vector <int> dfn, low, vis;
     vector <vector <int>> e, scc;
