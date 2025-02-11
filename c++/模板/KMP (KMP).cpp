@@ -1,6 +1,5 @@
 class KMP {
-    public:
-
+public:
     int n;
     vector <int> nxt;
 
