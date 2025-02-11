@@ -1,4 +1,3 @@
-// 二、树形DP
 vector dp(n + 1, pair(pair(0, 0ll), pair(0, 0ll)));
 auto dfs2 = [&](auto &&self, int v, int fa) -> pair<int, ll> {
     pair<int, ll> maxfi = { v, 0ll }, maxse = { v, 0ll };
