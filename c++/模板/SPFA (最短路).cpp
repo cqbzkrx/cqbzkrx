@@ -1,22 +1,15 @@
-class SPFA {
-public:
-    vector <vector <pair <int, int>>> e;
-    vector <int> dis, inq;
+vector dis(n + 1, 0ll), inq (n + 1, 0);
 
-    void spfa (int x) {
-        fill (all(dis), inf); dis[x] = 0;
-        queue <int> q; q.push(x);
+void spfa (int x) {
+    fill (all(dis), INF); dis[x] = 0ll;
+    queue <int> q; q.push(x);
 
-        while (q.size()) {
-            inq[q.front()] = 0;
-            auto u = q.front(); q.pop();
-            for (auto &i : e[u]) if (dis[u] + i.second < dis[i.first]) {
-                dis[i.first] = dis[u] + i.second;
-                if (inq[i.first] == 0) inq[i.first] = 1, q.push(i.first);
-            }
+    while (q.size()) {
+        inq[q.front()] = 0;
+        auto u = q.front(); q.pop();
+        for (auto &[v, w] : e[u]) if (dis[u] + w < dis[v]) {
+            dis[v] = dis[u] + w;
+            if (inq[v] == 0) inq[v] = 1, q.push(v);
         }
     }
-
-    SPFA () : e(vector (0, vector (0, pair (0, 0)))), dis(vector (0, 0)), inq(vector (0, 0)) {}
-    SPFA (int n, const vector <vector <pair <int, int>>> &a) {e = a, dis = vector (n + 1, 0), inq = vector (n + 1, 0);}
-};
+}
