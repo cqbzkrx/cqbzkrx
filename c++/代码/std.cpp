@@ -120,7 +120,7 @@ namespace K {
             Node operator + (const Node &a) const {
                 Node ret;
                 ret.ans = a.ans + ans - (a.r == l);
-                ret.l = a.l; ret.r = r;
+                ret.l = (a.l == INVALID ? l : a.l); ret.r = (r == INVALID ? a.r : r);
                 return ret;
             }
         };
@@ -231,13 +231,13 @@ namespace K {
                 dfs2(rt, rt);
 
                 for (int i = 1; i <= n; i++) s[dfn[i]] = c[i];
-                for (int i = 1; i <= n; i++) cerr << dfn[i] << ' ' << f[i] << ' ' << top[i] << ' ' << siz[i] << '\n';
+                // for (int i = 1; i <= n; i++) cerr << dfn[i] << ' ' << f[i] << ' ' << top[i] << ' ' << siz[i] << '\n';
                 sgt.init (s);
             }
 
             void modify (int v, int u, T x) {
                 while (top[v] != top[u]) {
-                    if (dep[top[v]] > dep[top[u]]) sgt.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
+                    if (dep[top[v]] < dep[top[u]]) sgt.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
                     else sgt.modify (dfn[top[v]], dfn[v], x), v = f[top[v]];
                 }
 
@@ -246,15 +246,37 @@ namespace K {
             }
 
             T qry (int v, int u) {
-                Node <T> ans;
+                Node <T> ans1, ans2;
+                // cerr << "Join in qry: \n";
                 while (top[v] != top[u]) {
-                    if (dep[top[v]] > dep[top[u]]) ans = ans + sgt.qry (dfn[top[u]], dfn[u]), u = f[top[u]];
-                    else ans = ans + sgt.qry (dfn[top[v]], dfn[v]), v = f[top[v]];
+                    if (dep[top[v]] < dep[top[u]]) {
+                        auto x = sgt.qry (dfn[top[u]], dfn[u]);
+                        // cerr << top[u] << ' ' << u << '\n';
+                        // cerr << "u: " << u << ' ' << x.l << ' ' << x.r << ' ' << x.ans << '\n';
+                        ans1 = x + ans1, u = f[top[u]];
+                        // cerr << "ans: " << ans1.ans << ' ' << ans1.l << ' ' << ans1.r << '\n';
+                    }
+                    else {
+                        auto x = sgt.qry (dfn[top[v]], dfn[v]);
+                        // cerr << top[v] << ' ' << v << '\n';
+                        // cerr << "v: " << v << ' ' << x.l << ' ' << x.r << ' ' << x.ans << '\n';
+                        ans2 = x + ans2, v = f[top[v]];
+                        // cerr << "ans: " << ans2.ans << ' ' << ans2.l << ' ' << ans2.r << '\n';
+                    }
                 }
 
-                if (dep[v] > dep[u]) swap (v, u);
-                ans = ans + sgt.qry (dfn[v], dfn[u]);
-                return ans.ans;
+                if (dep[v] > dep[u]) swap (v, u), swap (ans1, ans2);
+                auto x = sgt.qry (dfn[v], dfn[u]);
+                // cerr << v << ' ' << u << ' ' << x.l << ' ' << x.r << ' ' << x.ans << '\n';
+                // auto ans = (ans1 + x) + ans2;
+                
+                T ans = 0;
+                ans += ans1.ans + ans2.ans + x.ans;
+                if (ans2.l == sgt.qry (v, v).l) ans--;
+                if (ans1.l == sgt.qry (u, u).l) ans--;
+
+                // cerr << "ans: " << ans.ans << ' ' << ans.l << ' ' << ans.r << '\n';
+                return ans;
             }
         };
     }
