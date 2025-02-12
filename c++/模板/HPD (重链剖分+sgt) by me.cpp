@@ -28,8 +28,7 @@ public:
     void dfs2 (int v, int head) {
         top[v] = head;
         dfn[v] = ++cnt;
-        if (son[v] == -1) {out[v] = cnt; return ;}
-        dfs2 (son[v], head);
+        if (son[v] != -1) dfs2 (son[v], head);
         for (auto &u : e[v]) if (u != son[v] && u != f[v])
             dfs2 (u, u);
         out[v] = cnt;
