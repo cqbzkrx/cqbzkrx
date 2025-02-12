@@ -1,24 +1,27 @@
 template <typename T>
+struct Node {
+    static constexpr T INVALID = -INF;
+    T ans, lazy;
+    Node () : ans(0), lazy(INVALID) {}
+    Node (T as, T lzy = INVALID) {ans = as, lazy = lzy;}
+
+    Node operator + (const Node &a) const {
+        Node res;
+        res.ans = a.ans + ans;
+        return res;
+    }
+};
+
+template <typename T, class info = Node <T>>
 class sgt_lazy {
     static constexpr int rt = 1;
     static constexpr T INVALID = -INF;
+    
     int n;
-
-    struct Node {
-        T ans, lazy;
-        Node () : ans(0), lazy(INVALID) {}
-        Node (T as, T inv = INVALID) {ans = as, lazy = inv;}
-
-        Node operator + (const Node &a) const {
-            Node res;
-            res.ans = a.ans + ans;
-            return res;
-        }
-    };
-    vector <Node> t;
+    vector <info> t;
 
     void build (const vector <T> &a, int p, int cl, int cr) {
-        if (cl == cr) {t[p] = Node (a[cl]); return ;}
+        if (cl == cr) {t[p] = info (a[cl]); return ;}
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
         build (a, lc, cl, mid); build (a, rc, mid + 1, cr);
         t[p] = t[lc] + t[rc];
@@ -39,15 +42,15 @@ class sgt_lazy {
         t[p] = t[lc] + t[rc];
     }
 
-    Node qry (int l, int r, int p, int cl, int cr) {
-        if (cl > r || cr < l) return Node (0);
+    info qry (int l, int r, int p, int cl, int cr) {
+        if (cl > r || cr < l) return info (0);
         if (cl >= l && cr <= r) return t[p];
         push_down (p, cl, cr);
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
         return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
     }
 
-    void merge (Node &s, T x, int len = 1) {
+    void merge (info &s, T x, int len = 1) {
         s.ans += x * len;
         s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
     }
@@ -62,10 +65,10 @@ class sgt_lazy {
     }
     
 public:
-    sgt_lazy () : n(0), t(vector (0, Node (0, INVALID))) {}
+    sgt_lazy () : n(0), t(vector (0, info (0, INVALID))) {}
     sgt_lazy (const vector <T> &a) {init (a);}
     void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
-    Node qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
+    info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
 
     void init (const vector <T> &a) {
         n = a.size();
