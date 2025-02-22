@@ -15,6 +15,7 @@ struct Node {
 
 template <typename T, class info = Node <T>>
 class segtree_lazy {
+protected:
     static constexpr int rt = 1;
     
     int n;
