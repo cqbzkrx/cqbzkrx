@@ -39,7 +39,7 @@ public:
         dfs2 (rt, rt);
     }
 
-    int HPD (int v, int u) {
+    int lca (int v, int u) {
         while (top[v] != top[u])
             if (dep[top[v]] < dep[top[u]]) u = f[top[u]];
             else v = f[top[v]];
