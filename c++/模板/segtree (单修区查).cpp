@@ -12,6 +12,7 @@ struct Node {
 
 template <typename T, class info = Node <T>>
 class segtree {
+protected:
     static constexpr int rt = 1;
 
     int n;
