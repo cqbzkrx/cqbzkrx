@@ -11,7 +11,7 @@ struct Node {
 };
 
 template <typename T, class info = Node <T>>
-class sgt {
+class segtree {
     static constexpr int rt = 1;
 
     int n;
@@ -40,8 +40,8 @@ class sgt {
     }
 
 public:
-    sgt () : n(0) {}
-    sgt (const vector <T> &a) {init (a);}
+    segtree () : n(0) {}
+    segtree (const vector <T> &a) {init (a);}
     void modify (int i, T x) {modify (i, x, rt, 0, n - 1);}
     info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
 
