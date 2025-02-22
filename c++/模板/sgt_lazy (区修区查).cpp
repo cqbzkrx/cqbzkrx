@@ -14,7 +14,7 @@ struct Node {
 };
 
 template <typename T, class info = Node <T>>
-class sgt_lazy {
+class segtree_lazy {
     static constexpr int rt = 1;
     
     int n;
@@ -65,8 +65,8 @@ class sgt_lazy {
     }
     
 public:
-    sgt_lazy () : n(0), t(vector (0, info (0, INVALID))) {}
-    sgt_lazy (const vector <T> &a) {init (a);}
+    segtree_lazy () : n(0), t(vector (0, info (0, INVALID))) {}
+    segtree_lazy (const vector <T> &a) {init (a);}
     void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
     info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
 
