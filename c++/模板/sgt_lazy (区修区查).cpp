@@ -1,6 +1,7 @@
+static constexpr ll INVALID = -INF;
+
 template <typename T>
 struct Node {
-    static constexpr T INVALID = -INF;
     T ans, lazy;
     Node () : ans(0), lazy(INVALID) {}
     Node (T as, T lzy = INVALID) {ans = as, lazy = lzy;}
@@ -15,7 +16,6 @@ struct Node {
 template <typename T, class info = Node <T>>
 class sgt_lazy {
     static constexpr int rt = 1;
-    static constexpr T INVALID = -INF;
     
     int n;
     vector <info> t;
