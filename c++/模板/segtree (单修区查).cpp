@@ -27,7 +27,7 @@ protected:
 
     void modify (int i, int x, int p, int cl, int cr) {
         if (cl > i || cr < i) return ;
-        if (cl == cr) {t[p] = info (x); return ;}
+        if (cl == cr) {t[p] += info (x); return ;}
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
         modify (i, x, lc, cl, mid); modify (i, x, rc, mid + 1, cr);
         t[p] = t[lc] + t[rc];
