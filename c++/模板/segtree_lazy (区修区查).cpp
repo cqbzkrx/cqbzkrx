@@ -30,12 +30,7 @@ protected:
 
     void modify (int l, int r, T x, int p, int cl, int cr) {
         if (cl > r || cr < l) return ;
-
-        if (cl >= l && cr <= r) {
-            downdate (t[p], x, cr - cl + 1);
-            return ;
-        }
-
+        if (cl >= l && cr <= r) {downdate (t[p], x, cr - cl + 1); return ;}
         push_down (p, cl, cr);
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
         modify (l, r, x, lc, cl, mid);
