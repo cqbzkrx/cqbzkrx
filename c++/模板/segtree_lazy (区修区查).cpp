@@ -32,7 +32,7 @@ protected:
         if (cl > r || cr < l) return ;
 
         if (cl >= l && cr <= r) {
-            merge (t[p], x, cr - cl + 1);
+            downdate (t[p], x, cr - cl + 1);
             return ;
         }
 
@@ -51,7 +51,7 @@ protected:
         return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
     }
 
-    void merge (info &s, T x, int len = 1) {
+    void downdate (info &s, T x, int len = 1) {
         s.ans += x * len;
         s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
     }
@@ -61,8 +61,8 @@ protected:
         auto lazy = t[p].lazy; t[p].lazy = INVALID;
 
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
-        merge (t[lc], lazy, mid - cl + 1);
-        merge (t[rc], lazy, cr - mid);
+        downdate (t[lc], lazy, mid - cl + 1);
+        downdate (t[rc], lazy, cr - mid);
     }
     
 public:
