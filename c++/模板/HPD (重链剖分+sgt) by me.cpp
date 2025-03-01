@@ -5,7 +5,7 @@ public:
     vector <int> son, siz, f, top, dep, dfn, out;
     vector <vector <int>> e;
     vector <T> s;
-    sgt_lazy <T> sgt;
+    segtree_lazy <T> sgt;
     
     HPD () : cnt(0), n(0), son(vector (0, 0)), siz(vector (0, 0)), f(vector (0, 0)), top(vector (0, 0)), dep(vector (0, 0)),
             dfn(vector (0, 0)), e(vector (0, vector (0, 0))), s(vector (0, T(0))), out(vector (0, 0)) {}
