@@ -2,10 +2,9 @@ class Gauss_Elimination {
 public:
     static constexpr int maxn = 400 + 7;
     vector <vector <db>> a;
-    int n;
 
-    Gauss_Elimination () : n(0), a(vector (maxn, vector (maxn, 0.0))) {}
-    Gauss_Elimination (int sz, const vector <vector <db>> &_a) : n(sz), a(_a) {}
+    Gauss_Elimination () : a(vector (maxn, vector (maxn, 0.0))) {}
+    Gauss_Elimination (int n, const vector <vector <db>> &_a) : a(_a) {gauss (n);}
 
     void gauss (int n) {
         for (int i = 0; i < n; i++) {
