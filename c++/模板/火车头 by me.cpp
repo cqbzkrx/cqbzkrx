@@ -28,7 +28,7 @@ namespace K {
         };
     }
 
-    namespace print {
+    namespace input {
         inline char get(void){
             static char buf[1 << 20], *p1 = buf, *p2 = buf;
             if (p1 == p2){
@@ -116,6 +116,7 @@ namespace K {
 
 // using namespace K;
 // using namespace Hash;
+// using namespace input;
 // using namespace math;
 // using namespace exstd;
 
