@@ -10,13 +10,12 @@ class LCA {
 public:
     static constexpr int N = 5e4 + 5;
     int n, lim;
-    vector <vector <int>> f;
-    vector <vector <int>> e;
+    vector <vector <int>> f, e;
     vector <int> dep;
     vector <T> s;
     
     LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))),
-            e(vector (N, vector (0, 0ll))), dep(N, 0), s(vector (N, 0ll)) {}
+            e(vector (N, vector (0, 0))), dep(N, 0), s(vector (N, 0ll)) {}
     LCA (int sz, int rt, const vector <vector <int>> &a) {clear(), init (sz, rt, a);}
     
     int lca (int v, int u) {
