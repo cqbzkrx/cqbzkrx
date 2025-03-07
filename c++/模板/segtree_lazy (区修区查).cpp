@@ -30,7 +30,7 @@ protected:
 
     void modify (int l, int r, T x, int p, int cl, int cr) {
         if (cl > r || cr < l) return ;
-        if (cl >= l && cr <= r) {downdate (t[p], x, cr - cl + 1); return ;}
+        if (cl >= l && cr <= r) {get (t[p], x, cr - cl + 1); return ;}
         push_down (p, cl, cr);
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
         modify (l, r, x, lc, cl, mid);
@@ -46,7 +46,7 @@ protected:
         return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
     }
 
-    void downdate (info &s, T x, int len = 1) {
+    void get (info &s, T x, int len = 1) {
         s.ans += x * len;
         s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
     }
@@ -56,8 +56,8 @@ protected:
         auto lazy = t[p].lazy; t[p].lazy = INVALID;
 
         auto lc = p << 1, rc = lc | 1, mid = (cl + cr) >> 1;
-        downdate (t[lc], lazy, mid - cl + 1);
-        downdate (t[rc], lazy, cr - mid);
+        get (t[lc], lazy, mid - cl + 1);
+        get (t[rc], lazy, cr - mid);
     }
     
 public:
