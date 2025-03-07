@@ -2,13 +2,12 @@ static constexpr ll INVALID = -INF;
 
 template <typename T>
 struct Node {
-    T ans, lazy;
-    Node () : ans(0), lazy(INVALID) {}
-    Node (T as, T lzy = INVALID) {ans = as, lazy = lzy;}
+    T sum, lazy;
+    Node (T _sum = 0, T _lazy = INVALID) : sum (_sum), lazy (_lazy) {}
 
     Node operator + (const Node &a) const {
         Node res;
-        res.ans = a.ans + ans;
+        res.sum = a.sum + sum;
         return res;
     }
 };
@@ -47,7 +46,7 @@ protected:
     }
 
     void get (info &s, T x, int len = 1) {
-        s.ans += x * len;
+        s.sum += x * len;
         s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
     }
 
