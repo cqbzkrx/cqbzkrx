@@ -1,3 +1,4 @@
+template <typename T = ll>
 class LCA {
     void dfs (int v, int fa) {
         dep[v] = dep[fa] + 1;
@@ -10,13 +11,13 @@ public:
     static constexpr int N = 5e4 + 5;
     int n, lim;
     vector <vector <int>> f;
-    vector <vector <ll>> e;
+    vector <vector <int>> e;
     vector <int> dep;
-    vector <ll> s;
+    vector <T> s;
     
     LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))),
             e(vector (N, vector (0, 0ll))), dep(N, 0), s(vector (N, 0ll)) {}
-    LCA (int sz, int rt, const vector <vector <ll>> &a) {clear(), init (sz, rt, a);}
+    LCA (int sz, int rt, const vector <vector <int>> &a) {clear(), init (sz, rt, a);}
     
     int lca (int v, int u) {
         if (dep[v] > dep[u]) swap (v, u);
@@ -39,7 +40,7 @@ public:
         s = vector (N, 0ll);
     }
 
-    void init (int sz, int rt, const vector <vector <ll>> &a) {
+    void init (int sz, int rt, const vector <vector <int>> &a) {
         e = a;
         n = sz, lim = __lg(sz);
 
