@@ -10,12 +10,12 @@ public:
     static constexpr int N = 1e4 + 5;
     int n, lim;
     vector <vector <int>> f;
-    vector <vector <pair <int, ll>>> e;
+    vector <vector <int>> e;
     vector <int> dep;
     
     LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))),
-            e(vector (N, vector (0, pair (0, 0ll)))), dep(N, 0) {}
-    LCA (int sz, int rt, const vector <vector <pair <int, ll>>> &a) {clear (), init (sz, rt, a);}
+            e(vector (N, vector (0, 0))), dep(N, 0) {}
+    LCA (int sz, int rt, const vector <vector <int>> &a) {clear (), init (sz, rt, a);}
     
     int lca (int v, int u) {
         if (dep[v] > dep[u]) swap (v, u);
@@ -32,7 +32,7 @@ public:
         return f[0][u];
     }
 
-    void init (int sz, int rt, const vector <vector <pair <int, ll>>> &a) {
+    void init (int sz, int rt, const vector <vector <int>> &a) {
         e = a;
         n = sz, lim = __lg(sz);
 
@@ -47,7 +47,7 @@ public:
         dep = vector (N, 0);
     }
 
-    ll len (int v, int u) {
+    int len (int v, int u) {
         return dep[v] + dep[u] - 2 * dep[lca(v, u)];
     }
 };
