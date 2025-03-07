@@ -1,12 +1,12 @@
 template <typename T>
 struct Node {
-    T ans;
-
-    Node () : ans(0) {}
-    Node (T x) {ans = x;}
+    T sum;
+    Node (T _sum = 0) : sum (_sum) {}
 
     Node operator + (const Node &a) const {
-        return Node (a.ans + ans);
+        Node ret;
+        ret.sum = sum + a.sum;
+        return ret;
     }
 };
 
