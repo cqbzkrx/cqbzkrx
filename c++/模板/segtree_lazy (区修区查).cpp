@@ -60,7 +60,7 @@ protected:
     }
     
 public:
-    segtree_lazy () : n(0), t(vector (0, info (0, INVALID))) {}
+    segtree_lazy () : n(0) {}
     segtree_lazy (const vector <T> &a) {init (a);}
     void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
     info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
