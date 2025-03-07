@@ -34,9 +34,9 @@ public:
     }
 
     void clear () {
-        f.clear(), f = vector (__lg(N) + 1, vector (N, 0));
-        dep.clear(), dep = vector (N, 0);
-        s.clear(), s = vector (N, 0ll);
+        f = vector (__lg(N) + 1, vector (N, 0));
+        dep = vector (N, 0);
+        s = vector (N, 0ll);
     }
 
     void init (int sz, int rt, const vector <vector <ll>> &a) {
