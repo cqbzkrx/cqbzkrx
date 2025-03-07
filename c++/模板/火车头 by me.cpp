@@ -51,8 +51,6 @@ namespace K {
     }
 
     namespace math {
-        static constexpr int N = 6e3 + 7;
-
         ll qpow(ll x, ll a, int k = mod){
             ll base = x, rt = 1;
             while (a){
