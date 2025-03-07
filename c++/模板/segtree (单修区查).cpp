@@ -1,4 +1,4 @@
-template <typename T>
+template <typename T = ll>
 struct Node {
     T sum;
     Node (T _sum = 0) : sum (_sum) {}
