@@ -43,8 +43,8 @@ public:
 
 
     void clear () {
-        f.clear(), f = vector (__lg(N) + 1, vector (N, 0));
-        dep.clear(), dep = vector (N, 0);
+        f = vector (__lg(N) + 1, vector (N, 0));
+        dep = vector (N, 0);
     }
 
     ll len (int v, int u) {
