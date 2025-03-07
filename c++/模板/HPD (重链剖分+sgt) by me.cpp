@@ -1,4 +1,4 @@
-template <typename T>
+template <typename T = ll>
 class HPD {
 public:
     int cnt, n;
