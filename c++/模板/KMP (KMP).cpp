@@ -1,30 +1,34 @@
 class KMP {
 public:
     vector <int> nxt;
+    string s;
 
     KMP () {}
-    KMP (const string &s) {get_nxt (s);}
+    KMP (const string &c) : s(c) {get_nxt (c);}
 
-    bool kmp (const string &a, const string &b, const vector <int> &nxt) {
-        int i = 0, j = 0;
-        while (i < (int) a.size()) {
-            if (j == -1 || a[i] == b[i]) {
+    void get_nxt (const string &c) {
+        nxt.resize (c.size() + 1);
+        nxt[0] = -1;
+
+        int i = 0, j = -1;
+        while (i < (int) c.size()) {
+            if (j == -1 || c[i] == c[j]) {
                 i++, j++;
-                if (j == (int) b.size()) return 1;
+                nxt[i] = j;
             }
             else j = nxt[j];
         }
-        return 0;
     }
 
-    void get_nxt (const string &s) {
-        nxt.resize(s.size() + 1);
-
-        nxt[0] = -1;
-        int i = 0, j = -1;
-        while (i < n) {
-            if (j == -1 || s[i] == s[j]) nxt[++i] = ++j;
+    pair <int, int> kmp (const string &c) { // c中找s; first -> T/F, second -> idx
+        int i = 0, j = 0;
+        while (i < (int) c.size()) {
+            if (j == -1 || c[i] == s[j]) {
+                i++, j++;
+                if (j == (int) s.size()) return {1, i - s.size()};
+            }
             else j = nxt[j];
         }
+        return {-1, -1};
     }
 };
