@@ -1,9 +1,8 @@
 class KMP {
 public:
-    int n;
     vector <int> nxt;
 
-    KMP () : n(0), nxt(vector (0, 0)) {}
+    KMP () {}
     KMP (const string &s) {get_nxt (s);}
 
     bool kmp (const string &a, const string &b, const vector <int> &nxt) {
@@ -19,8 +18,7 @@ public:
     }
 
     void get_nxt (const string &s) {
-        n = s.size();
-        nxt.resize(n + 1);
+        nxt.resize(s.size() + 1);
 
         nxt[0] = -1;
         int i = 0, j = -1;
