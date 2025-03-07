@@ -1,6 +1,6 @@
 static constexpr ll INVALID = -INF;
 
-template <typename T>
+template <typename T = ll>
 struct Node {
     T sum, lazy;
     Node (T _sum = 0, T _lazy = INVALID) : sum (_sum), lazy (_lazy) {}
