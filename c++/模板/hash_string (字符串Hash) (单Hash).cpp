@@ -1,7 +1,7 @@
 template <typename T = ll>
 class hash_string {
 public:
-    static constexpr T mod = 998244353;
+    static constexpr T mod = 1000001011;
     static constexpr T B = 131;
 
     string s;
