@@ -25,8 +25,4 @@ public:
     T qry (int l, int r) {
         return (h[r] - h[l - 1] * b[r - l + 1] % mod + mod) % mod;
     }
-
-    bool same (int l1, int r1, int l2, int r2) {
-        return qry (l1, r1) == qry (l2, r2);
-    }
 };
