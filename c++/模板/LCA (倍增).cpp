@@ -7,7 +7,7 @@ class LCA {
     }
 
 public:
-    static constexpr int N = 1e4 + 5;
+    static constexpr int N = 2e5 + 5;
     int n, lim;
     vector <vector <int>> f;
     vector <vector <int>> e;
