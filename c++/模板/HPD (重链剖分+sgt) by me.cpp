@@ -7,9 +7,8 @@ public:
     vector <T> s;
     segtree_lazy <T> sgt;
     
-    HPD () : cnt(0), n(0), son(vector (0, 0)), siz(vector (0, 0)), f(vector (0, 0)), top(vector (0, 0)), dep(vector (0, 0)),
-            dfn(vector (0, 0)), e(vector (0, vector (0, 0))), s(vector (0, T(0))), out(vector (0, 0)) {}
-    HPD (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) {init (sz, rt, a, c);}
+    HPD () : n(0), cnt(0), {}
+    HPD (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) : n(sz), e(a), {init (sz, rt, c);}
 
     void dfs1 (int v, int fa) {
         f[v] = fa;
@@ -34,8 +33,8 @@ public:
         out[v] = cnt;
     }
 
-    void init (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) {
-        n = sz, e = a, cnt = 0;
+    void init (int sz, int rt, const vector <T> &c) {
+        cnt = 0;
         son = siz = f = top = dep = dfn = out = vector (n + 1, 0);
         s.resize(n);
 
