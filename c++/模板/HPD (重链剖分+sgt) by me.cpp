@@ -27,7 +27,7 @@ public:
 
     void dfs2 (int v, int head) {
         top[v] = head;
-        dfn[v] = ++cnt;
+        dfn[v] = cnt++;
         if (son[v] != -1) dfs2 (son[v], head);
         for (auto &u : e[v]) if (u != son[v] && u != f[v])
             dfs2 (u, u);
@@ -37,7 +37,7 @@ public:
     void init (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) {
         n = sz, e = a, cnt = 0;
         son = siz = f = top = dep = dfn = out = vector (n + 1, 0);
-        s.resize(n + 1);
+        s.resize(n);
 
         dep[rt] = 1;
         dfs1 (rt, 0);
