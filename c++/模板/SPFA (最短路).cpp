@@ -1,15 +1,21 @@
-vector dis(n + 1, 0ll), inq (n + 1, 0);
-
-void spfa (int x) {
-    fill (all(dis), INF); dis[x] = 0ll;
-    queue <int> q; q.push(x);
-
-    while (q.size()) {
-        inq[q.front()] = 0;
-        auto u = q.front(); q.pop();
+vector dis (n + 1, INF);
+auto spfa = [&](int s) -> bool {
+    vector vis (n + 1, 0);
+    // vector cnt (n + 1, 0);
+    fill (all(dis), INF); dis[s] = 0;
+    deque <int> dq; dq.push_back (s);
+    while (dq.size()) {
+        auto u = dq.front(); dq.pop_front();
+        vis[u] = 0;
         for (auto &[v, w] : e[u]) if (dis[u] + w < dis[v]) {
             dis[v] = dis[u] + w;
-            if (inq[v] == 0) inq[v] = 1, q.push(v);
+            if (!vis[v]) {
+                vis[v] = 1;
+                dq.push_back (v);
+                // cnt[v]++;
+            }
+            // if (cnt[v] > n) return 0;
         }
     }
-}
+    return 1;
+};
