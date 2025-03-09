@@ -1,12 +1,11 @@
-template <typename T = ll>
 class hash_string {
 public:
-    static constexpr T mod1 = 1000001011;
-    static constexpr T mod2 = 1000000297;
-    static constexpr T B = 131;
+    static constexpr ll mod1 = 1000001011;
+    static constexpr ll mod2 = 1000000297;
+    static constexpr ll B = 131;
 
     string s;
-    vector <T> b1, b2, h1, h2;
+    vector <ll> b1, b2, h1, h2;
     int n;
 
     hash_string (const string &c) {init (c);}
@@ -29,8 +28,8 @@ public:
         for (int i = 1; i <= n; i++) h2[i] = (h2[i - 1] * B + s[i]) % mod2;
     }
     
-    pair <T, T> qry (int l, int r) {
-        pair <T, T> ans;
+    pair <ll, ll> qry (int l, int r) {
+        pair <ll, ll> ans;
         ans.first = (h1[r] - h1[l - 1] * b1[r - l + 1] % mod1 + mod1) % mod1;
         ans.second = (h2[r] - h2[l - 1] * b2[r - l + 1] % mod2 + mod2) % mod2;
         return ans;
