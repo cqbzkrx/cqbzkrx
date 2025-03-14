@@ -1,4 +1,4 @@
-auto toposort = [&](vector <int> &ans) -> bool {
+auto toposort = [&]() -> bool {
     priority_queue <int, vector <int>, greater<int>> q;
     for (int i = 1; i <= n; i++) if (!in[i])
         q.push(i);
