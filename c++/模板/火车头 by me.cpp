@@ -107,16 +107,13 @@ namespace K {
         }
     }
 
-    namespace exstd {
-        
-    }
+    
 }
 
 // using namespace K;
 // using namespace Hash;
 // using namespace input;
 // using namespace math;
-// using namespace exstd;
 
 void init () {
     // init_fac ();
