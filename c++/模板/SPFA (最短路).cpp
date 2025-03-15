@@ -10,8 +10,7 @@ auto spfa = [&](int s) -> bool {
         for (auto &[v, w] : e[u]) if (dis[u] + w < dis[v]) {
             dis[v] = dis[u] + w;
             if (!vis[v]) {
-                vis[v] = 1;
-                dq.push_back (v);
+                vis[v] = 1; dq.push_back (v);
                 // cnt[v]++;
             }
             // if (cnt[v] > n) return 0;
