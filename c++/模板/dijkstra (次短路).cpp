@@ -1,4 +1,4 @@
-// int
+// int (array)
 auto dijkstra = [&](int s) -> vector <array <int, 2>> {
     vector dis (n + 1, array <int, 2> ({INF, INF}));
     vector vis (n + 1, array <int, 2> ({0, 0}));
@@ -24,7 +24,7 @@ auto dijkstra = [&](int s) -> vector <array <int, 2>> {
     return dis;
 }; 
 
-// long long
+// long long (struct)
 struct Node {
     ll w, v, id;
     Node (ll _w = 0, ll _v = 0, ll _id = 0) : w (_w), v (_v), id (_id) {}
