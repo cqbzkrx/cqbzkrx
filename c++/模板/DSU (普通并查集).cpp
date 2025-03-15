@@ -25,7 +25,6 @@ public:
         return 1;
     }
 
-protected:
     void init (int n) {
         fa.clear(), fa.resize (n + 1);
         iota (all(fa), 0);
