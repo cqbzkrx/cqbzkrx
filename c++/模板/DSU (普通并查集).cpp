@@ -1,9 +1,9 @@
 class DSU {
 public:
     vector <int> fa, siz;
-    vector <vector <int>> e;
+    vector <vector <int>> son;
 
-    DSU () : fa(vector (0, 0)), siz(vector (0, 0)), e(vector (0, vector (0, 0))) {}
+    DSU () : fa(vector (0, 0)), siz(vector (0, 0)), son(vector (0, vector (0, 0))) {}
     DSU (int n) {init (n);}
 
     int find (int x) {
@@ -21,7 +21,7 @@ public:
         if (siz[fv] > siz[fu]) swap (fv, fu);
 
         fa[fv] = fu, siz[fu] += siz[fv];
-        // for (auto &x : e[fv]) e[fu].push_back(x);
+        // for (auto &x : son[fv]) son[fu].push_back(x);
         return 1;
     }
 
@@ -32,7 +32,7 @@ protected:
         siz.clear(), siz.resize(n + 1);
         fill (all(siz), 1);
 
-        // e.clear(), e.resize(n + 1);
-        // for (int i = 1; i <= n; i++) e[i].clear(), e[i].push_back(i);
+        // son.clear(), son.resize(n + 1);
+        // for (int i = 1; i <= n; i++) son[i].clear(), son[i].push_back(i);
     }
 };
