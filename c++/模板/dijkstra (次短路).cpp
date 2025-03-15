@@ -1,9 +1,9 @@
-auto dijkstra = [&](int s) -> vector <array <int, 2>> {
-    vector dis (n + 1, array <int, 2> ({inf, inf}));
-    vector vis (n + 1, array <int, 2> ({0, 0}));
-    dis[s][0] = 0;
-    priority_queue <array <int, 3>, vector <array <int, 3>>, greater <array <int, 3>>> pq;
-    pq.push ({0, s, 0});
+auto dijkstra = [&](int s) -> vector <array <ll, 2>> {
+    vector dis (n + 1, array <ll, 2> ({INF, INF}));
+    vector vis (n + 1, array <ll, 2> ({0, 0}));
+    dis[s][0] = 0ll;
+    priority_queue <array <ll, 3>, vector <array <ll, 3>>, greater <array <ll, 3>>> pq;
+    pq.push ({0ll, s, 0});
 
     while (pq.size ()) {
         auto [_w, u, id] = pq.top (); pq.pop ();
