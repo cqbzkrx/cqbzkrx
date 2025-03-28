@@ -5,7 +5,7 @@ auto dijkstra = [&](int s) -> vector <ll> {
     pq.push ({0ll, s});
 
     while (pq.size ()) {
-        auto u = pq.top().second; pq.pop();
+        auto u = pq.top().y; pq.pop();
         if (vis[u]) continue; vis[u] = 1;
         
         for (auto &[v, w] : e[u]) if (dis[u] + w < dis[v])
