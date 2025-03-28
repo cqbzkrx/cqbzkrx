@@ -30,8 +30,8 @@ public:
     
     pair <ll, ll> qry (int l, int r) {
         pair <ll, ll> ans;
-        ans.first = (h1[r] - h1[l - 1] * b1[r - l + 1] % mod1 + mod1) % mod1;
-        ans.second = (h2[r] - h2[l - 1] * b2[r - l + 1] % mod2 + mod2) % mod2;
+        ans.x = (h1[r] - h1[l - 1] * b1[r - l + 1] % mod1 + mod1) % mod1;
+        ans.y = (h2[r] - h2[l - 1] * b2[r - l + 1] % mod2 + mod2) % mod2;
         return ans;
     }
 };
