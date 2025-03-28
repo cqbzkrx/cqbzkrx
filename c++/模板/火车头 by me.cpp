@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 #define all(x) x.begin (), x.end ()
+#define x first
+#define y second
 using namespace std;
 using ll = long long;
 using db = double;
