@@ -1,16 +1,12 @@
-vector dfn (n + 1, 0), low (n + 1, 0), vis (n + 1, 0);
+vector dfn (n + 1, 0), low (n + 1, 0), vis (n + 1, 0), s (0, 0);
 vector scc (n + 1, vector (0, 0));
-deque <int> s;
 int num = 0, id = 0;
 
 auto tarjan = [&](auto &&self, int x) -> void {
     dfn[x] = low[x] = ++num;
     s.push_back (x); vis[x] = 1;
     for (auto &v : e[x]) {
-        if (!dfn[v]) {
-            self, (self, v);
-            low[x] = min (low[x], low[v]);
-        }
+        if (!dfn[v]) self, (self, v), low[x] = min (low[x], low[v]);
         else if (vis[v]) low[x] = min (low[x], dfn[v]);
     }
 
