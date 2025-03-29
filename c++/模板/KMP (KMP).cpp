@@ -7,7 +7,7 @@ auto get_nxt = [&](const string &c, vector <int> &nxt) -> void {
     }
 };
 
-pair <int, int> kmp (const string &c, const string &s, const vector <int> nxt) { // c中找s; first -> T/F, second -> idx
+auto kmp = [&](const string &c, const string &s, const vector <int> nxt) -> pair <int, int> { // c中找s; first -> T/F, second -> idx
     int i = 0, j = 0;
     while (i < (int) c.size()) {
         if (j == -1 || c[i] == s[j]) {
@@ -17,4 +17,4 @@ pair <int, int> kmp (const string &c, const string &s, const vector <int> nxt) {
         else j = nxt[j];
     }
     return {-1, -1};
-}
+};
