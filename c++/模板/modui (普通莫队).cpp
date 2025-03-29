@@ -3,6 +3,7 @@ vector <Node> s(q);
 
 sort (all(s), [&](auto a, auto b){
     if (a.l / sq != b.l / sq) return a.l < b.l;
+    // if (!(a.l / sq) & 1) return a.r > b.r;
     return a.r < b.r;
 });
 
