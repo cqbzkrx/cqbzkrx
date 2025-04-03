@@ -10,7 +10,6 @@ namespace segment_tree {
         Node operator + (const Node &b) const {
             Node ret;
             ret.sum = b.sum + sum;
-            ret.lc = key, ret.rc = b.key;
             return ret;
         }
     };
