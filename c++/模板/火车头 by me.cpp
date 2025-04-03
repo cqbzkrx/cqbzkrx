@@ -54,7 +54,7 @@ namespace K {
 
     namespace math {
         ll qpow (ll x, ll a, int k = mod){
-            ll base = x, rt = 1;
+            ll base = x % k, rt = 1;
             while (a){
                 if (a & 1) rt *= base, rt %= k;
                 base *= base, base %= k;
