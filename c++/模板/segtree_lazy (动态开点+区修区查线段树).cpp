@@ -10,6 +10,7 @@ namespace segment_tree {
         Node operator + (const Node &b) const {
             Node ret;
             ret.sum = b.sum + sum;
+            ret.lc = key, ret.rc = b.key;
             return ret;
         }
     };
@@ -35,8 +36,9 @@ namespace segment_tree {
         }
 
         void merge (info &s, const info &a, const info &b) {
-            s.sum = a.sum + b.sum;
-            s.lc = a.key, s.rc = b.key;
+            Node ret = a + b;
+            ret.key = s.key;
+            s = ret;
         }
 
         void downdate (info &s, T x, int len = 1) {
