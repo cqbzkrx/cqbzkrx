@@ -1,4 +1,5 @@
 class LCA {
+public:
     void dfs (int v, int fa) {
         dep[v] = dep[fa] + 1;
         f[0][v] = fa;
@@ -6,7 +7,6 @@ class LCA {
             dfs (u, v);
     }
 
-public:
     static constexpr int N = 2e5 + 5;
     int n, lim;
     vector <vector <int>> f;
