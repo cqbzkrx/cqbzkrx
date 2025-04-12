@@ -75,7 +75,7 @@ namespace segment_tree {
         }
 
         info qry (int l, int r, int p, int cl, int cr) {
-            if (cl > r || cr < l) return info ();
+            if (cl > r || cr < l) return info (-1, 0);
             if (cl >= l && cr <= r) return t[p];
             push_down (p, cl, cr);
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
