@@ -13,7 +13,7 @@ namespace segment_tree {
     
     template <typename T = ll, class info = Node <T>>
     class segtree {
-    protected:
+    public:
         static constexpr int rt = 1;
     
         int n;
@@ -41,7 +41,6 @@ namespace segment_tree {
             return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
         }
     
-    public:
         segtree () : n(0) {}
         segtree (const vector <T> &a) {init (a);}
         void modify (int i, T x) {modify (i, x, rt, 0, n - 1);}
