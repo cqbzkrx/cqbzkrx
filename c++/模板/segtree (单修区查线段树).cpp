@@ -1,12 +1,12 @@
 namespace segment_tree {
     template <typename T = ll>
     struct Node {
-        T sum;
-        Node (T _sum = 0) : sum (_sum) {}
+        T ans;
+        Node (T _ans = 0) : ans (_ans) {}
     
         Node operator + (const Node &a) const {
             Node ret;
-            ret.sum = sum + a.sum;
+            ret.ans = ans + a.ans;
             return ret;
         }
     };
