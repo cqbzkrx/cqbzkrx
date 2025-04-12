@@ -3,6 +3,7 @@
 #define x first
 #define y second
 using namespace std;
+using ll = long long;
 using db = double;
 using i64 = long long;
 using u64 = unsigned long long;
@@ -11,7 +12,7 @@ using u32 = unsigned int;
 using i128 = __int128;
 using u128 = unsigned __int128;
 const int inf = 1e9 + 7;
-const ll INF = 1e17 + 7;
+const i64 INF = 1e17 + 7;
 const db eps = 1e-6;
 const int mod = 1e9 + 7;
 const int N = 2e6 + 7;
