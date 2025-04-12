@@ -3,9 +3,7 @@
 #define x first
 #define y second
 using namespace std;
-using ll = long long;
 using db = double;
-using ull = unsigned long long;
 using i64 = long long;
 using u64 = unsigned long long;
 using i32 = int;
