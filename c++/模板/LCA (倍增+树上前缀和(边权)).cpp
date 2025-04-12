@@ -1,5 +1,6 @@
 template <typename T = ll>
 class LCA {
+public:
     void dfs (int v, int fa) {
         dep[v] = dep[fa] + 1;
         f[0][v] = fa;
@@ -9,7 +10,6 @@ class LCA {
         }
     }
 
-public:
     static constexpr int N = 1e4 + 5;
     int n, lim;
     vector <vector <int>> f;
