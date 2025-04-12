@@ -3,12 +3,12 @@ namespace segment_tree {
     
     template <typename T = ll>
     struct Node {
-        T sum, lazy;
-        Node (T _sum = 0, T _lazy = INVALID) : sum (_sum), lazy (_lazy) {}
+        T ans, lazy;
+        Node (T _ans = 0, T _lazy = INVALID) : ans (_ans), lazy (_lazy) {}
     
         Node operator + (const Node &a) const {
             Node res;
-            res.sum = a.sum + sum;
+            res.ans = a.ans + ans;
             return res;
         }
     };
@@ -47,7 +47,7 @@ namespace segment_tree {
         }
     
         void get (info &s, T x, int len = 1) {
-            s.sum += x * len;
+            s.ans += x * len;
             s.lazy = (s.lazy == INVALID ? x : s.lazy + x);
         }
     
