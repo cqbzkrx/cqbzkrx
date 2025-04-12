@@ -26,10 +26,15 @@ namespace segment_tree {
         segtree_lazy (int _n = 0) : n (_n), cnt (0), t (vector (1, info (0))) {}
         segtree_lazy (const vector <T> &a) : cnt (0), n (a.size ()), t (vector (1, info (0))) {build (a, rt, 0, n - 1);}
 
+        int insert () {
+            t.push_back (info (++cnt));
+            return cnt;
+        }
+
         void build (const vector <T> &a, int p, int cl, int cr) {
             if (cl == cr) {t[p].sum = a[cl]; return ;}
-            if (t[p].l == -1) t.push_back (info (++cnt)), t[p].l = cnt;
-            if (t[p].r == -1) t.push_back (info (++cnt)), t[p].r = cnt;
+            if (t[p].l == -1) t[p].l = insert ();
+            if (t[p].r == -1) t[p].r = insert ();
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
             build (a, lc, cl, mid), build (a, rc, mid + 1, cr);
             merge (t[p], t[lc], t[rc]);
@@ -50,8 +55,8 @@ namespace segment_tree {
             if (cl == cr) return ;
             auto lazy = t[p].lazy; t[p].lazy = INVALID;
 
-            if (t[p].l == -1) t.push_back (info (++cnt)), t[p].l = cnt;
-            if (t[p].r == -1) t.push_back (info (++cnt)), t[p].r = cnt;
+            if (t[p].l == -1) t[p].l = insert ();
+            if (t[p].r == -1) t[p].r = insert ();
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
 
             if (lazy == INVALID) return ;
@@ -78,6 +83,8 @@ namespace segment_tree {
         }
 
         void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
+        void modify (int i, T x) {modify (i, i, x, rt, 0, n - 1);}
         info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
+        info qry (int i) {return qry (i, i, rt, 0, n - 1);}
     };
 }
