@@ -3,14 +3,14 @@ namespace segment_tree {
 
     template <typename T = ll>
     struct Node {
-        int lc, rc, key;
+        int l, r, key;
         T sum, lazy;
-        Node (int _key = 0, T _sum = 0, int _lc = -1, int _rc = -1, T _lazy = INVALID) : sum (_sum), lc (_lc), rc (_rc), key (_key), lazy (_lazy) {}
+        Node (int _key = 0, T _sum = 0, int _l = -1, int _r = -1, T _lazy = INVALID) : sum (_sum), l (_l), r (_r), key (_key), lazy (_lazy) {}
         
         Node operator + (const Node &b) const {
             Node ret;
             ret.sum = b.sum + sum;
-            ret.lc = key, ret.rc = b.key;
+            ret.l = key, ret.r = b.key;
             return ret;
         }
     };
@@ -28,9 +28,9 @@ namespace segment_tree {
 
         void build (const vector <T> &a, int p, int cl, int cr) {
             if (cl == cr) {t[p].sum = a[cl]; return ;}
-            if (t[p].lc == -1) t.push_back (info (++cnt)), t[p].lc = cnt;
-            if (t[p].rc == -1) t.push_back (info (++cnt)), t[p].rc = cnt;
-            auto lc = t[p].lc, rc = t[p].rc, mid = (cl + cr) >> 1;
+            if (t[p].l == -1) t.push_back (info (++cnt)), t[p].l = cnt;
+            if (t[p].r == -1) t.push_back (info (++cnt)), t[p].r = cnt;
+            auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
             build (a, lc, cl, mid), build (a, rc, mid + 1, cr);
             merge (t[p], t[lc], t[rc]);
         }
@@ -50,9 +50,9 @@ namespace segment_tree {
             if (cl == cr) return ;
             auto lazy = t[p].lazy; t[p].lazy = INVALID;
 
-            if (t[p].lc == -1) t.push_back (info (++cnt)), t[p].lc = cnt;
-            if (t[p].rc == -1) t.push_back (info (++cnt)), t[p].rc = cnt;
-            auto lc = t[p].lc, rc = t[p].rc, mid = (cl + cr) >> 1;
+            if (t[p].l == -1) t.push_back (info (++cnt)), t[p].l = cnt;
+            if (t[p].r == -1) t.push_back (info (++cnt)), t[p].r = cnt;
+            auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
 
             if (lazy == INVALID) return ;
             downdate (t[lc], lazy, mid - cl + 1);
@@ -63,7 +63,7 @@ namespace segment_tree {
             if (cl > r || cr < l) return ;
             if (cl >= l && cr <= r) {downdate (t[p], x, cr - cl + 1); return ;}
             push_down (p, cl, cr);
-            auto lc = t[p].lc, rc = t[p].rc, mid = (cl + cr) >> 1;
+            auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
             modify (l, r, x, lc, cl, mid);
             modify (l, r, x, rc, mid + 1, cr);
             merge (t[p], t[lc], t[rc]);
@@ -73,7 +73,7 @@ namespace segment_tree {
             if (cl > r || cr < l) return info ();
             if (cl >= l && cr <= r) return t[p];
             push_down (p, cl, cr);
-            auto lc = t[p].lc, rc = t[p].rc, mid = (cl + cr) >> 1;
+            auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
             return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
         }
 
