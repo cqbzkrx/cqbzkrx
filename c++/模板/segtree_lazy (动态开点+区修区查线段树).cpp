@@ -4,12 +4,12 @@ namespace segment_tree {
     template <typename T = ll>
     struct Node {
         int l, r, key;
-        T sum, lazy;
-        Node (int _key = 0, T _sum = 0, int _l = -1, int _r = -1, T _lazy = INVALID) : sum (_sum), l (_l), r (_r), key (_key), lazy (_lazy) {}
+        T ans, lazy;
+        Node (int _key = 0, T _ans = 0, int _l = -1, int _r = -1, T _lazy = INVALID) : ans (_ans), l (_l), r (_r), key (_key), lazy (_lazy) {}
         
         Node operator + (const Node &b) const {
             Node ret;
-            ret.sum = b.sum + sum;
+            ret.ans = b.ans + ans;
             ret.l = key, ret.r = b.key;
             return ret;
         }
@@ -32,7 +32,7 @@ namespace segment_tree {
         }
 
         void build (const vector <T> &a, int p, int cl, int cr) {
-            if (cl == cr) {t[p].sum = a[cl]; return ;}
+            if (cl == cr) {t[p].ans = a[cl]; return ;}
             if (t[p].l == -1) t[p].l = insert ();
             if (t[p].r == -1) t[p].r = insert ();
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
@@ -47,7 +47,7 @@ namespace segment_tree {
         }
 
         void downdate (info &s, T x, int len = 1) {
-            s.sum += x * len;
+            s.ans += x * len;
             s.lazy = (s.lazy == INVALID ? 0 : s.lazy) + x;
         }
 
