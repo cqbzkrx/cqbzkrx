@@ -99,6 +99,7 @@ namespace K {
 
         void init_prime (int n = N - 1){
             // divi.resize (N);
+            np[1] = 1;
             for (int i = 2; i <= n; i++) {
                 if (!np[i]){
                     prime.push_back (i);
