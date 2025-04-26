@@ -14,4 +14,4 @@ auto calc = [&](int n) -> int {
     else if (n != 1) ans *= 4;
 
     return ans;
-};  // n ^ (1 / 3)
+};  // O (n ^ (1 / 3))
