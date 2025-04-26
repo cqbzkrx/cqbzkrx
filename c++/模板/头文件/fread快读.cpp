@@ -20,4 +20,6 @@ void func() {
     int64_t x; read(x);
     uint32_t tt; read(tt);
     uint64_t xx; read(xx);
+    __int128 ttt; read (ttt);
+    unsigned __int128 xxx; read (xxx);
 }
