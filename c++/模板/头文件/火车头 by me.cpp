@@ -4,11 +4,9 @@
 #define y second
 using namespace std;
 using ll = long long;
+using ull = unsigned long long;
+using uint = unsigned int;
 using db = double;
-using i64 = long long;
-using u64 = unsigned long long;
-using i32 = int;
-using u32 = unsigned int;
 using i128 = __int128;
 using u128 = unsigned __int128;
 const int inf = 1e9 + 7;
