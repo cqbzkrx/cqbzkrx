@@ -96,7 +96,7 @@ namespace K {
         bitset <N> np;
 
         void init_prime (int n = N - 1) {
-            // divi.resize (N);
+            // divi.resize (n + 1);
             np[1] = np[0] = 1;
             for (int i = 2; i <= n; i++) {
                 if (!np[i]) {
