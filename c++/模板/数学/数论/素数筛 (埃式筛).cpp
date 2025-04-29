@@ -1,7 +1,7 @@
 vector prime (0, 0);
 bitset <N> np;
 
-auto init_prime_Era = [&](int n = N - 1) {
+auto init_prime_Era = [&](int n = N - 1) -> void {
     np[0] = np[1] = 1;
     for (int i = 2; i * i <= n; i++) if (!np[i])
         for (int j = i * i; j <= n; j += i) np[j] = 1;
