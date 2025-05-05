@@ -9,6 +9,7 @@ using uint = unsigned int;
 using db = double;
 using i128 = __int128;
 using u128 = unsigned __int128;
+using i64 = long long;
 const int inf = 1e9 + 7;
 const ll INF = 1e17 + 7;
 const db eps = 1e-6;
