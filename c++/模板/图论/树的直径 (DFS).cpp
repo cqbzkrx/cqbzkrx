@@ -16,7 +16,7 @@ fill (all(s), 0);
 
 vector ans(0, 0), f(n + 1, 0);
 auto dfs2 = [&](auto &&self, int v, int fa) -> void {
-    ll maxn = 0; f[v] = fa;
+    f[v] = fa;
     for (auto &[u, w] : e[v]) if (u != fa) {
         s[u] = s[v] + w;
         self (self, u, v);
