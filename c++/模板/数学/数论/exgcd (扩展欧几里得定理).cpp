@@ -7,4 +7,4 @@ auto exgcd = [&](auto &&self, ll a, ll b) -> pair <ll, ll> {
     return {x, y};
 };
 
-// ax + by = 1 的整数解
+// ax + by = gcd (a, b) 的整数解
