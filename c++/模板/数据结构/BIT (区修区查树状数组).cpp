@@ -53,7 +53,7 @@ namespace BIT {
             return calc (r) - calc (l - 1);
         }
 
-        T qry (int l) {l++; return qry (l, l);}
-        void modify (int l, T x) {l++; modify (l, l, x);}
+        T qry (int l) {return qry (l, l);}
+        void modify (int l, T x) {modify (l, l, x);}
     };
 }
