@@ -5,10 +5,10 @@ public:
     vector <int> son, siz, f, top, dep, dfn, out;
     vector <vector <int>> e;
     vector <T> s;
-    segtree_lazy <T> sgt;
+    segment_tree :: segtree_lazy <T> sgt;
     
-    HPD () : n(0), cnt(0), {}
-    HPD (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) : n(sz), e(a), {init (sz, rt, c);}
+    HPD () : n(0), cnt(0) {}
+    HPD (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) : n(sz), e(a) {init (sz, rt, c);}
 
     void dfs1 (int v, int fa) {
         f[v] = fa;
@@ -35,7 +35,7 @@ public:
 
     void init (int sz, int rt, const vector <T> &c) {
         cnt = 0;
-        son = siz = f = top = dep = dfn = out = vector (n + 1, 0);
+        son = siz = f = top = dep = dfn = out = vector <int> (n + 1, 0);
         s.resize(n);
 
         dep[rt] = 1;
@@ -66,6 +66,10 @@ public:
         return ans;
     }
 
+    T qry2 (int v) {
+        return sgt.qry (dfn[v], out[v] - 1).ans;
+    }
+
     void modify (int v, int u, T x) {
         while (top[v] != top[u]) {
             if (dep[top[v]] < dep[top[u]]) sgt.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
@@ -74,5 +78,9 @@ public:
         
         if (dep[v] > dep[u]) swap (v, u);
         sgt.modify (dfn[v], dfn[u], x);
+    }
+
+    void modify2 (int v, T x) {
+        sgt.modify (dfn[v], out[v] - 1, x);
     }
 };
