@@ -1,5 +1,5 @@
 namespace segment_tree {
-    static constexpr ll INVALID = -INF;
+    static constexpr ll INVALID = -1;
 
     template <typename T = ll>
     struct Node {
