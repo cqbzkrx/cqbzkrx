@@ -24,7 +24,7 @@ public:
 
     void dfs2 (int v, int head) {
         top[v] = head;
-        dfn[v] = ++cnt;
+        dfn[v] = cnt++;
         rnk[cnt] = v;
         if (son[v] != -1) dfs2 (son[v], head);
         for (auto &u : e[v]) if (u != son[v] && u != f[v])
