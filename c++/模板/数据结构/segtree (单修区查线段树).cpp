@@ -41,7 +41,7 @@ namespace segment_tree {
             return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
         }
     
-        segtree () : n(0) {}
+        segtree_lazy (int _n = 0) : n (_n) {t.resize (_n << 2);}
         segtree (const vector <T> &a) {init (a);}
         void modify (int i, T x) {modify (i, x, rt, 0, n - 1);}
         info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
