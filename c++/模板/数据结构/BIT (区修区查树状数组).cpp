@@ -33,7 +33,7 @@ namespace BIT {
         _BIT <T> bit0, bit1;
         vector <T> sum;
     
-        BIT (int sz = 0) : bit0 (sz + 1), bit1 (sz + 1) {}
+        BIT (int sz = 0) : bit0 (sz + 1), bit1 (sz + 1), sum (sz + 1) {}
         BIT (const vector <T> &a) : sum (a.size () + 1), bit0 ((int) a.size () + 1), bit1 ((int) a.size () + 1) {
             for (int i = 1; i <= (int) a.size (); i++) sum[i] = sum[i - 1] + a[i - 1];
         }
