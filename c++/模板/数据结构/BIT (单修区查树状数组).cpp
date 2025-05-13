@@ -1,6 +1,8 @@
 template <typename T = ll>
 class BIT {
 public:
+    int lowbit (int i) {return (i & -i);}
+
     int n;
     vector <T> t;
     
@@ -10,12 +12,12 @@ public:
     }
 
     void modify (int i, T x) {
-        for (; i <= n; i += math :: lowbit (i)) t[i] += x;
+        for (; i <= n; i += lowbit (i)) t[i] += x;
     }
 
     T qry (int r) {
         T ans = 0;
-        for (; r > 0; r -= math :: lowbit (r)) ans += t[r];
+        for (; r > 0; r -= lowbit (r)) ans += t[r];
         return ans;
     }
     
