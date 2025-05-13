@@ -59,4 +59,3 @@ public:
     T qry (int l) {return qry (l, l);}
     void modify (int l, T x) {modify (l, l, x);}
 };
-}
