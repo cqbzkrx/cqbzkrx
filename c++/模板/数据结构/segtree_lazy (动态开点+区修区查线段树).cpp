@@ -23,8 +23,21 @@ namespace segment_tree {
         vector <info> t;
         int n, cnt;
 
-        segtree_lazy (int _n = 0) : n (_n), cnt (0), t (vector (1, info (0))) {}
-        segtree_lazy (const vector <T> &a) : cnt (0), n (a.size ()), t (vector (1, info (0))) {build (a, rt, 0, n - 1);}
+        segtree_lazy (int _n = 0) : cnt (0) {init (_n)}
+        segtree_lazy (const vector <T> &a) : cnt (0) {init (a)}
+
+        void init (int _n = 0) {
+            n = _n;
+            t.reserve (n << 2);
+            t.push_back (info (0));
+        }
+
+        void init (const vector <T> &a) {
+            n = a.size ();
+            t.reserve (n << 2);
+            t.push_back (info (0));
+            build (a, rt, 0, n - 1);
+        }
 
         int insert () {
             t.push_back (info (++cnt));
