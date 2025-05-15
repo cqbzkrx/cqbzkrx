@@ -169,5 +169,9 @@ int main () {
     int t = 1;
     // cin >> t;
     // read (t);
-    while (t--) solve ();
+    for (int i = 1; i <= t; i++) {
+        // cout << "Case "<< i << ": ";
+        solve ();
+        // assert(a == b);
+    }
 }
