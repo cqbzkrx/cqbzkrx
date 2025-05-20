@@ -28,7 +28,6 @@ namespace segment_tree {
 
         void init (int _n = 0) {
             n = _n;
-            t.reserve (n << 2);
             t.push_back (info (0));
         }
 
