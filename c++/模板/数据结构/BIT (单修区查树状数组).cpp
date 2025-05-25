@@ -3,22 +3,29 @@ class BIT {
 public:
     int lowbit (int i) {return (i & -i);}
 
-    int n;
     vector <T> t;
     
-    BIT (int sz = 0) : n (sz), t (sz + 1) {}
+    BIT (int sz = 0) : t (sz + 10) {}
     BIT (const vector <T> &a) : BIT ((int) a.size ()) {
-        for (int i = 1; i <= n; i++) modify (i, a[i - 1]);
+        for (int i = 0; i < a.size (); i++) modify (i, a[i]);
     }
 
-    void modify (int i, T x) {
-        for (; i <= n; i += lowbit (i)) t[i] += x;
+    void modify (int x, T v) {
+        x++;
+        while (x < a.size ()) {
+            t[x] += v;
+            x += lowbit(x);
+        }
     }
 
-    T qry (int r) {
+    T qry (int x) {
+        x++;
         T ans = 0;
-        for (; r > 0; r -= lowbit (r)) ans += t[r];
-        return ans;
+        while (x > 0) {
+            ans += t[x];
+            x -= lowbit(x);
+        }
+        return ans + t[0];
     }
     
     T qry (int l, int r) {
