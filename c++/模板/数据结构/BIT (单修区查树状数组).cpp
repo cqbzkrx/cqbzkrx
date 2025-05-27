@@ -12,7 +12,7 @@ public:
 
     void modify (int x, T v) {
         x++;
-        while (x < a.size ()) {
+        while (x < t.size ()) {
             t[x] += v;
             x += lowbit(x);
         }
