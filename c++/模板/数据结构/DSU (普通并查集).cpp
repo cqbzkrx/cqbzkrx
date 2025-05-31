@@ -3,8 +3,7 @@ public:
     vector <int> fa, siz;
     vector <vector <int>> son;
 
-    DSU () : fa(vector (0, 0)), siz(vector (0, 0)), son(vector (0, vector (0, 0))) {}
-    DSU (int n) {init (n);}
+    DSU (int n = 0) {init (n);}
 
     int find (int x) {
         return fa[x] == x ? x : fa[x] = find(fa[x]);
