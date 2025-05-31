@@ -1,7 +1,7 @@
 class DSU {
 public:
     vector <int> fa, siz;
-    vector <vector <int>> son;
+    // vector <vector <int>> son;
 
     DSU (int n = 0) {init (n);}
 
