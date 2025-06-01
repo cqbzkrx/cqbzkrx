@@ -55,6 +55,15 @@ i128 gcd(i128 a, i128 b) {
     return a;
 }
 
+template<typename T>
+void add (T &x, const T &y) {if ((x += y) >= mod) x -= mod;}
+template<typename T>
+void dec (T &x, const T &y) {if ((x -= y) < 0) x += mod;}
+template<typename T>
+void cmax (T &x, const T &y) {if (y > x) x = y;}
+template<typename T>
+void cmin (T &x, const T &y) {if (y < x) x = y;}
+
 struct custom_hash {
     static uint64_t splitmix64 (uint64_t x) {
         x += 0x9e3779b97f4a7c15;
