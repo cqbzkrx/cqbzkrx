@@ -1,4 +1,4 @@
-auto bfs = [&](int s) -> vector<int> {
+auto bfs = [&](int s) -> vector <int> {
     vector dis (n + 1, inf), vis (n + 1, 0);
     dis[s] = 0;
     deque <int> q = {s};
