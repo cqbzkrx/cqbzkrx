@@ -1,4 +1,4 @@
-auto bfs = [&](int s) -> vector <pair <int, int>> {
+auto bfs = [&](int s) -> pair <vector <int>, vector <int>> {
     vector dis (n + 1, inf), vis (n + 1, 0);
     vector fa (n + 1, 0);
     dis[s] = 0;
