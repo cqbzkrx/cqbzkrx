@@ -3,7 +3,7 @@ public:
     void dfs (int v, int fa) {
         dep[v] = dep[fa] + 1;
         f[0][v] = fa;
-        for (auto &[u, w] : e[v]) if (u != fa)
+        for (auto &u : e[v]) if (u != fa)
             dfs (u, v);
     }
 
