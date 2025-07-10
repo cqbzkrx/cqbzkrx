@@ -26,6 +26,7 @@ auto dfs = [&](auto &&self, int u, int fa, int idx, int &cnt, vector <int> &q) -
             vec.push_back (q.back ());
             q.pop_back ();
         }
+        q.pop_back ();
         ans.push_back (vec);
     }
 };
