@@ -1,5 +1,5 @@
 vector dfn (n + 1, 0), low (n + 1, 0), blo (n + 1, 0);
-int cnt2 = 0;
+vector ans (0, vector (0, 0));
 
 auto dfs = [&](auto &&self, int u, int fa, int &cnt, vector <int> &q) -> void {
     low[u] = dfn[u] = ++cnt;
@@ -13,13 +13,15 @@ auto dfs = [&](auto &&self, int u, int fa, int &cnt, vector <int> &q) -> void {
     }
 
     if (low[u] == dfn[u]) {
-        cnt2++;
+        vector vec (0, 0)
         auto v = q.back (); q.pop_back ();
-        blo[v] = cnt2;
+        vec.push_back (v);
         while (v != u && q.size ()) {
             v = q.back (); q.pop_back ();
-            blo[v] = cnt2;
+            vec.push_back (v);
         }
+
+        ans.push_back (vec);
     }
 };
 
@@ -31,13 +33,3 @@ auto calc = [&](int u) -> void {
 
 for (int i = 1; i <= n; i++) if (!dfn[i])
     calc (i);
-
-vector ans (cnt2 + 1, vector (0, 0));
-for (int i = 1; i <= n; i++) ans[blo[i]].push_back (i);
-
-cout << cnt2 << '\n';
-for (int i = 1; i <= cnt2; i++) {
-    cout << ans[i].size () << ' ';
-    for (auto v : ans[i]) cout << v << ' ';
-    cout << '\n';
-}
