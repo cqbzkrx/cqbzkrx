@@ -34,7 +34,7 @@ namespace Trie {
         void insert (const string &str) {
             int p = rt;
             for (auto ch : str) {
-                auto v = ch - 'a';
+                auto v = get (ch);
                 if (t[p].son[v]) p = t[p].son[v];
                 else t.push_back (Node ()), p = t[p].son[v] = ++cnt;
             }
@@ -44,7 +44,7 @@ namespace Trie {
         int qry (const string &str) {
             int p = rt;
             for (auto ch : str) {
-                auto v = ch - 'a';
+                auto v = get (ch);
                 if (!t[p].son[v]) return 0;
                 p = t[p].son[v];
             }
