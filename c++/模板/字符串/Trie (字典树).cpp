@@ -26,7 +26,6 @@ namespace Trie {
             int p = rt;
             for (auto ch : str) {
                 auto v = ch - 'a';
-                t[p].cnt[v]++;
                 if (t[p].son[v]) p = t[p].son[v];
                 else t.push_back (Node ()), p = t[p].son[v] = ++cnt;
             }
@@ -36,7 +35,6 @@ namespace Trie {
             int p = rt;
             for (auto ch : str) {
                 auto v = ch - 'a';
-                if (!t[p].cnt[v]) return 0;
                 if (!t[p].son[v]) return 0;
                 p = t[p].son[v];
             }
