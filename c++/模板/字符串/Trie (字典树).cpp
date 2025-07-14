@@ -26,32 +26,28 @@ namespace Trie {
             return c - 'a';
         }
 
-        char end (const string &str) {
-            int len = str.size ();
-            return str[len - 1];
-        }
-
         void insert (const string &str) {
-            int p = rt;
-            for (auto ch : str) {
-                auto v = get (ch);
+            int p = rt, len = str.size ();
+            for (int i = 0; i < len; i++) {
+                auto v = get (str[i]);
                 if (t[p].son[v]) p = t[p].son[v];
-                else t.push_back (Node ()), p = t[p].son[v] = ++cnt;
+                else {
+                    t.push_back (Node ()), t[p].son[v] = ++cnt;
+                    if (i != len - 1) p = cnt;
+                }
             }
-            t[p].cnt[get (end (str))] = 0;
+            t[p].cnt[get (str[len - 1])] = 1;
         }
 
         int qry (const string &str) {
-            int p = rt;
-            for (auto ch : str) {
-                auto v = get (ch);
+            int p = rt, len = str.size ();
+            for (int i = 0; i < len; i++) {
+                auto v = get (str[i]);
                 if (!t[p].son[v]) return 0;
-                p = t[p].son[v];
+                if (i != len - 1) p = t[p].son[v];
             }
-            if (t[p].cnt[get (end (str))] == -1) return 0;
-            t[p].cnt[get (end (str))]++;
-            if (t[p].cnt[get (end (str))] == 1) return 1;
-            return 2;
+            if (t[p].cnt[get (str[len - 1])] == -1) return 0;
+            return 1;
         }
     };
 }
