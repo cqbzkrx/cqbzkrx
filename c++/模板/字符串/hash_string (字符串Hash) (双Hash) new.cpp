@@ -11,7 +11,6 @@ namespace Hash {
             b1.push_back ((b1[i - 1] * B) % mod1);
             b2.push_back ((b2[i - 1] * B) % mod2);
         }
-
         maxn = n;
     };
     
