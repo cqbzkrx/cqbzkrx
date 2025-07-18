@@ -10,13 +10,13 @@ struct Node {
 vector e (0, Node ());
 sort (all(e));
 
-auto kruskal = [&](const vector <Node> &e, DSU dsu) -> ll {
+auto kruskal = [&](const vector <Node> &e, DSU dsu) -> pair <ll, int> {
     ll ans = 0;
-    int s = n - 1;
+    int s = 0;
     for (auto [v, u, w] : e) if (dsu.merge (v, u)) {
-        ans += w, s--;
-        if (s == 0) break;
+        ans += w, s++;
+        if (s == n - 1) break;
     }
 
-    return ans;
+    return {ans, s};
 };
