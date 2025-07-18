@@ -7,7 +7,9 @@ struct Node {
         return w < b.w;
     }
 };
+
 vector e (0, Node ());
+
 sort (all(e));
 
 auto kruskal = [&](const vector <Node> &e, DSU dsu) -> pair <ll, int> {
