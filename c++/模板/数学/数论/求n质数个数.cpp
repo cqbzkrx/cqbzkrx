@@ -1,4 +1,4 @@
-auto calc = [&](int n) -> int {
+auto get_tactor = [&](int n) -> int {
     int ans = 1;
     for (auto p : prime) {
         if (p * p * p > n) break;
