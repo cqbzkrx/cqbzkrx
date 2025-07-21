@@ -14,4 +14,4 @@ auto get_tactor = [&](int n) -> int {
     else if (n != 1) ans *= 4;
 
     return ans;
-};  // O (n ^ (1 / 3))
+};
