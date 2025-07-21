@@ -6,4 +6,4 @@ auto get_euler_phi = [&](int n) -> int {
     }
     if (n > 1) ans = ans / n * (n - 1);
     return ans;
-}; // O (sqrt (n))
+};
