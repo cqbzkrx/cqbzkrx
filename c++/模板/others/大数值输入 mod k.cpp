@@ -5,11 +5,11 @@ auto read = [&](int k = mod) -> ll {
         if (ch == '-') f = -1;
         ch = getchar ();
     }
-
-    while (ch >= '0' && ch <= '9') {
+    
+    while (ch >= '0' && ch <= '9') { 
         x = x * 10 + ch - '0';
         x %= k;
         ch = getchar ();
     }
-    return x;
+    return x * f;
 };
