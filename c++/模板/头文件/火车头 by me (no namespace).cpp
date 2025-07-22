@@ -99,6 +99,7 @@ inline void read (T &x) {
 }
 
 ll qpow (ll x, ll a, int k = mod) {
+    a %= k;
     ll base = x % k, rt = 1;
     while (a) {
         if (a & 1) rt *= base, rt %= k;
