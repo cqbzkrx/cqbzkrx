@@ -1,4 +1,4 @@
-// 埃氏筛 O (nloglogn);
+// 1 : 埃氏筛 O (nloglogn);
 vector phi (N, 0), prime (N, 1);
 fill (all(prime), 1);
 iota (all(phi), 0);
@@ -11,7 +11,7 @@ for (int i = 2; i <= n; i++) if (np[i] == 0) {
     for (int j = i; j <= n; j += i) phi[j] -= phi[j] / i, np[j] = (j != i);
 }
 
-//线性筛 O (n)
+// 2 : 线性筛 O (n)
 vector phi (n + 1, 0), np (n + 1, 0), prime (0, 0);
 np[0] = np[1] = phi[1] = 1;
 for (int i = 2; i <= n; i++) {
