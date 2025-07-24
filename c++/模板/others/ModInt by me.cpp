@@ -21,7 +21,7 @@ namespace ModInt {
         return res;
     }
 
-    constexpr safe_mod (ll x, ll m) {
+    constexpr ll safe_mod (ll x, ll m) {
         x %= m;
         if (x < 0) x += m;
         return x;
