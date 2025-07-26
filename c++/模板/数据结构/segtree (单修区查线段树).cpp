@@ -1,5 +1,5 @@
 namespace segment_tree {
-    template <typename T = ll>
+    template <class T = ll>
     struct Node {
         T ans;
         Node (T _ans = 0) : ans (_ans) {}
@@ -11,7 +11,7 @@ namespace segment_tree {
         }
     };
     
-    template <typename T = ll, class info = Node <T>>
+    template <class T = ll, class info = Node <T>>
     class segtree {
     public:
         static constexpr int rt = 1;
@@ -41,7 +41,7 @@ namespace segment_tree {
             return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
         }
     
-        segtree_lazy (int _n = 0) : n (_n) {t.resize (_n << 2);}
+        segtree (int _n = 0) : n (_n) {t.resize (_n << 2);}
         segtree (const vector <T> &a) {init (a);}
         void modify (int i, T x) {modify (i, x, rt, 0, n - 1);}
         info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
