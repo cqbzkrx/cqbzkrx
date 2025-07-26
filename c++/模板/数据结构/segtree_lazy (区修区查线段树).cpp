@@ -1,7 +1,7 @@
 namespace segment_tree {
     static constexpr ll INVALID = -1;
     
-    template <typename T = ll>
+    template <class T = ll>
     struct Node {
         T ans, lazy;
         Node (T _ans = 0, T _lazy = INVALID) : ans (_ans), lazy (_lazy) {}
@@ -13,7 +13,7 @@ namespace segment_tree {
         }
     };
     
-    template <typename T = ll, class info = Node <T>>
+    template <class T = ll, class info = Node <T>>
     class segtree_lazy {
     public:
         static constexpr int rt = 1;
