@@ -7,8 +7,8 @@
 #define y second
 using namespace std;
 using ll = long long;
-using ull = unsigned long long;
-using uint = unsigned int;
+using u64 = unsigned long long;
+using u32 = unsigned int;
 using db = double;
 using i128 = __int128;
 using u128 = unsigned __int128;
