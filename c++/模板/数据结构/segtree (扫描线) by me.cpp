@@ -20,9 +20,9 @@ namespace segment_tree {
         vector <info> t;
         int n;
 
-        segtree (int _n = 0) : n (_n) {
-            t.resize (_n << 2);
-            pool.resize (_n + 1); iota (all(pool), 0);
+        segtree (int _n = 0) : n (_n + 1) {
+            t.resize (_n + 1 << 2);
+            pool.resize (_n + 2); iota (all(pool), 0);
         }
 
         segtree (const vector <int> &_pool) {
