@@ -67,13 +67,13 @@ constexpr vector <T> operator + (vector <T> lhs, const vector <T> &rhs) {
     return lhs;
 }
 
-template<typename T>
+template<class T>
 void add (T &x, const T &y) {if ((x += y) >= mod) x -= mod;}
-template<typename T>
+template<class T>
 void dec (T &x, const T &y) {if ((x -= y) < 0) x += mod;}
-template<typename T>
+template<class T>
 void cmax (T &x, const T &y) {if (y > x) x = y;}
-template<typename T>
+template<class T>
 void cmin (T &x, const T &y) {if (y < x) x = y;}
 
 struct custom_hash {
@@ -99,7 +99,7 @@ inline char get (void) {
     return *p1++;
 }
 
-template <typename T>
+template <class T>
 inline void read (T &x) {
     x = 0;
     static char c;
