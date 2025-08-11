@@ -14,7 +14,7 @@ namespace segment_tree {
     };
     
     template <class T = ll, class info = Node <T>>
-    class segtree_lazy {
+    class segtree {
     public:
         static constexpr int rt = 1;
         
@@ -60,8 +60,8 @@ namespace segment_tree {
             get (t[rc], lazy, cr - mid);
         }
         
-        segtree_lazy (int _n = 0) : n (_n) {t.resize (_n << 2);}
-        segtree_lazy (const vector <T> &a) {init (a);}
+        segtree (int _n = 0) : n (_n) {t.resize (_n << 2);}
+        segtree (const vector <T> &a) {init (a);}
         void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
         void modify (int i, T x) {modify (i, i, x, rt, 0, n - 1);}
         info qry (int l, int r) {return qry (l, r, rt, 0, n - 1);}
