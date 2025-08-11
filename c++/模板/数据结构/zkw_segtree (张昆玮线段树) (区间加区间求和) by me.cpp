@@ -51,5 +51,8 @@ namespace zkw_segment_tree {
             for (lc += rc, l >>= 1; l; l >>= 1) ans += t[l].lazy * lc;
             return ans;
         }
+
+        void modify (int l, T v) {modify (l, l, v);}
+        T qry (int l) {return qry (l, l);}
     };
 }
