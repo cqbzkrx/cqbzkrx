@@ -16,15 +16,15 @@ namespace segment_tree {
     };
 
     template <typename T = ll, class info = Node <T>>
-    class segtree_lazy {
+    class segtree {
     public:
         static constexpr int rt = 0;
 
         vector <info> t;
         int n, cnt;
 
-        segtree_lazy (int _n = 0) : cnt (0) {init (_n)}
-        segtree_lazy (const vector <T> &a) : cnt (0) {init (a)}
+        segtree (int _n = 0) : cnt (0) {init (_n)}
+        segtree (const vector <T> &a) : cnt (0) {init (a)}
 
         void init (int _n = 0) {
             n = _n;
