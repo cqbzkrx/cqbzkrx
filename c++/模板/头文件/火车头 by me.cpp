@@ -143,6 +143,7 @@ void init_fac (ll k = mod, int n = N - 1) {
 }
 
 ll C (int n, int m) {
+    if (n < m) return 0;
     return fac[n] * ifac[m] % mod * ifac[n - m] % mod;
 }
 
