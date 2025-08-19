@@ -113,24 +113,8 @@ namespace ModInt {
             return os << a.val ();
         }
 
-        friend constexpr bool operator == (const mod_int &lhs, const mod_int &rhs) {
-            return lhs.val () == rhs.val ();
-        }
-
-        friend constexpr bool operator < (const mod_int &lhs, const mod_int &rhs) {
-            return lhs.val () < rhs.val ();
-        }
-
-        friend constexpr bool operator <= (const mod_int &lhs, const mod_int &rhs) {
-            return lhs.val () <= rhs.val ();
-        }
-
-        friend constexpr bool operator > (const mod_int &lhs, const mod_int &rhs) {
-            return lhs.val () > rhs.val ();
-        }
-
-        friend constexpr bool operator >= (const mod_int &lhs, const mod_int &rhs) {
-            return lhs.val () >= rhs.val ();
+        friend constexpr bool operator <=> (const mod_int &lhs, const mod_int &rhs) {
+            return lhs.val () <=> rhs.val ();
         }
     };
 
