@@ -5,6 +5,17 @@ namespace zkw_segment_tree {
     struct Node {
         T sum, lazy;
         Node (T _sum = 0, T _lazy = INVALID) : sum (_sum), lazy (_lazy) {}
+
+        Node operator += (const Node &rhs) & {
+            sum += rhs.sum;
+            return *this;
+        }
+
+        Node operator + (const Node &rhs) const {
+            Node lhs = *this;
+            lhs += rhs;
+            return lhs;
+        }
     };
 
     template <class T, class info = Node <T>>
@@ -24,7 +35,7 @@ namespace zkw_segment_tree {
             for (int i = 1; i <= n; i++) t[i + m] = info (a[i - 1]);
             for (int p = m - 1; p >= 1; p--) {
                 auto lc = p << 1, rc = lc | 1;
-                t[p].sum = t[lc].sum + t[rc].sum;
+                t[p] = t[lc] + t[rc];
             }
         }
 
@@ -39,20 +50,20 @@ namespace zkw_segment_tree {
             for (lc += rc; l > 1; l >>= 1) t[l >> 1].sum += v * lc;
         }
 
-        T qry (int l, int r) {
+        info qry (int l, int r) {
             l++, r++;
-            T ans = 0;
+            info ans;
             int lc = 0, rc = 0, len = 1;
             for (l += m - 1, r += m + 1; l ^ r ^ 1; l >>= 1, r >>= 1, len <<= 1) {
-                if (l & 1 ^ 1) ans += t[l ^ 1].sum + t[l ^ 1].lazy * len, lc += len;
-                if (r & 1) ans += t[r ^ 1].sum + t[r ^ 1].lazy * len, rc += len;
-                ans += t[l >> 1].lazy * lc + t[r >> 1].lazy * rc;
+                if (l & 1 ^ 1) ans += info (t[l ^ 1].sum + t[l ^ 1].lazy * len), lc += len;
+                if (r & 1) ans += info (t[r ^ 1].sum + t[r ^ 1].lazy * len), rc += len;
+                ans += info (t[l >> 1].lazy * lc + t[r >> 1].lazy * rc);
             }
-            for (lc += rc, l >>= 1; l; l >>= 1) ans += t[l].lazy * lc;
+            for (lc += rc, l >>= 1; l; l >>= 1) ans += info (t[l].lazy * lc);
             return ans;
         }
 
         void modify (int l, T v) {modify (l, l, v);}
-        T qry (int l) {return qry (l, l);}
+        info qry (int l) {return qry (l, l);}
     };
 }
