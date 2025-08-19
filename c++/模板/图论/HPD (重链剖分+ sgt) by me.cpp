@@ -5,8 +5,7 @@ public:
     vector <int> son, siz, f, top, dep, dfn, out;
     vector <vector <int>> e;
     vector <T> s;
-    // segment_tree :: segtree_lazy <T> sgt;
-    BIT :: BIT <T> bit;
+    zkw_segment_tree :: segtree <T> sgt;
     
     HPD () : n(0), cnt(0) {}
     HPD (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) : n(sz), e(a) {init (sz, rt, c);}
@@ -44,7 +43,7 @@ public:
         dfs2 (rt, rt);
 
         for (int i = 1; i <= n; i++) s[dfn[i]] = c[i];
-        bit = BIT :: BIT <T> (s);
+        sgt = zkw_segment_tree :: segtree <T> (s);
     }
 
     int lca (int v, int u) {
@@ -58,38 +57,30 @@ public:
     T qry (int v, int u) {
         T ans = 0;
         while (top[v] != top[u]) {
-            // if (dep[top[v]] < dep[top[u]]) ans += sgt.qry (dfn[top[u]], dfn[u]).ans, u = f[top[u]];
-            // else ans += sgt.qry (dfn[top[v]], dfn[v]).ans, v = f[top[v]];
-            if (dep[top[v]] < dep[top[u]]) ans += bit.qry (dfn[top[u]], dfn[u]), u = f[top[u]];
-            else ans += bit.qry (dfn[top[v]], dfn[v]), v = f[top[v]];
+            if (dep[top[v]] < dep[top[u]]) ans += sgt.qry (dfn[top[u]], dfn[u]), u = f[top[u]];
+            else ans += sgt.qry (dfn[top[v]], dfn[v]), v = f[top[v]];
         }
         
         if (dep[v] > dep[u]) swap (v, u);
-        // ans += sgt.qry (dfn[v], dfn[u]).ans;
-        ans += bit.qry (dfn[v], dfn[u]);
+        ans += sgt.qry (dfn[v], dfn[u]);
         return ans;
     }
 
     T qry2 (int v) {
-        // return sgt.qry (dfn[v], out[v] - 1).ans;
-        return bit.qry (dfn[v], out[v] - 1);
+        return sgt.qry (dfn[v], out[v] - 1);
     }
 
     void modify (int v, int u, T x) {
         while (top[v] != top[u]) {
-            // if (dep[top[v]] < dep[top[u]]) sgt.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
-            // else sgt.modify (dfn[top[v]], dfn[v], x), v = f[top[v]];
-            if (dep[top[v]] < dep[top[u]]) bit.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
-            else bit.modify (dfn[top[v]], dfn[v], x), v = f[top[v]];
+            if (dep[top[v]] < dep[top[u]]) sgt.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
+            else sgt.modify (dfn[top[v]], dfn[v], x), v = f[top[v]];
         }
         
         if (dep[v] > dep[u]) swap (v, u);
-        // sgt.modify (dfn[v], dfn[u], x);
-        bit.modify (dfn[v], dfn[u], x);
+        sgt.modify (dfn[v], dfn[u], x);
     }
 
     void modify2 (int v, T x) {
-        // sgt.modify (dfn[v], out[v] - 1, x);
-        bit.modify (dfn[v], out[v] - 1, x);
+        sgt.modify (dfn[v], out[v] - 1, x);
     }
 };
