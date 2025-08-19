@@ -16,9 +16,14 @@ using i64 = long long;
 const int inf = 1e9 + 7;
 const ll INF = 1e18 + 7;
 const db eps = 1e-6;
-const int mod = 998244353;
-const int N = 100 + 7;
+const int mod = 1e9 + 7;
+const int N = 2e5 + 7;
 const int M = 2e3 + 7;
+
+template <class T>
+void cmax (T &a, const T &b) {if (a < b) a = b;}
+template <class T>
+void cmin (T &a, const T &b) {if (a > b) a = b;}
 
 void init () {
     
