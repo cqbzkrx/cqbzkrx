@@ -98,6 +98,10 @@ namespace FHQ_Treap {
             return qry_kth (t[p].rc, k - (siz + 1));
         }
 
+        int qry_size () {
+            return t[rt].siz;
+        }
+
         T qry_kth (int k) {return qry_kth (rt, k);}
 
         T qry_lst (T val) {
