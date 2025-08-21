@@ -1,5 +1,5 @@
 namespace FHQ_Treap {
-    constexpr int MAXN = 2e5 + 7;
+    constexpr int MAXN = 3e5 + 7;
     mt19937 rd (time(0));
 
     template <class T>
@@ -63,12 +63,24 @@ namespace FHQ_Treap {
             rt = merge (merge (x, z), y);
         }
 
-        void erase (T val) {
+        void erase_one (T val) {
             int x, y, z;
             split (rt, val, x, z);
             split (x, val - 1, x, y);
             y = merge (t[y].lc, t[y].rc);
             rt = merge (merge (x, y), z);
+        }
+
+        void erase_num (T val) {
+            int x, y, z;
+            split (rt, val, x, z);
+            split (x, val - 1, x, y);
+            rt = merge (x, z);
+        }
+
+        void erase_kth (int k) {
+            T val = qry_kth (k);
+            erase_one (val);
         }
 
         int qry_rank (T val) {
