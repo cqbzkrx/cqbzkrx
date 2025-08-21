@@ -1,5 +1,5 @@
 namespace FHQ_Treap {
-    constexpr int MAXN = 1e5 + 7;
+    constexpr int MAXN = 2e5 + 7;
     mt19937 rd (time(0));
 
     template <class T>
