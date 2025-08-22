@@ -54,7 +54,7 @@ void solve () {
     sort (all(t));
 
     int len = pool_y.size ();
-    zkw_segment_tree :: segtree <int> sgt (len + 1);
+    zkw_segment_tree :: segtree <int> sgt (len + 1);     // 可以换成单修区查BIT
 
     vector ans (m, 0);
     for (auto &[type, x, y, id] : t) {
