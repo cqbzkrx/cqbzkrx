@@ -3,16 +3,10 @@ namespace segment_tree {
 
     template <typename T = ll>
     struct Node {
-        int l, r, key;
-        T ans, lazy;
-        Node (int _key = 0, T _ans = 0, int _l = -1, int _r = -1, T _lazy = INVALID) : ans (_ans), l (_l), r (_r), key (_key), lazy (_lazy) {}
-        
-        Node operator + (const Node &b) const {
-            Node ret;
-            ret.ans = b.ans + ans;
-            ret.l = key, ret.r = b.key;
-            return ret;
-        }
+        int l, r;
+        T val, lazy;
+        Node (T _val = 0, int _l = -1, int _r = -1, T _lazy = INVALID) : 
+            val (_val), l (_l), r (_r), lazy (_lazy) {}
     };
 
     template <typename T = ll, class info = Node <T>>
@@ -23,43 +17,48 @@ namespace segment_tree {
         vector <info> t;
         int n, cnt;
 
-        segtree (int _n = 0) : cnt (0) {init (_n)}
-        segtree (const vector <T> &a) : cnt (0) {init (a)}
+        segtree (int _n = 0) : cnt (0) {init (_n);}
+        segtree (const vector <T> &a) : cnt (0) {init (a);}
 
         void init (int _n = 0) {
             n = _n;
-            t.push_back (info (0));
+            t.push_back (info ());
         }
 
         void init (const vector <T> &a) {
             n = a.size ();
-            t.reserve (n << 2);
-            t.push_back (info (0));
+            t.reserve (n + 1 << 2);
+            t.push_back (info ());
             build (a, rt, 0, n - 1);
         }
 
         int insert () {
-            t.push_back (info (++cnt));
+            cnt++;
+            t.push_back (info ());
             return cnt;
         }
 
         void build (const vector <T> &a, int p, int cl, int cr) {
-            if (cl == cr) {t[p].ans = a[cl]; return ;}
+            if (cl == cr) {t[p].val = a[cl]; return ;}
             if (t[p].l == -1) t[p].l = insert ();
             if (t[p].r == -1) t[p].r = insert ();
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
             build (a, lc, cl, mid), build (a, rc, mid + 1, cr);
-            merge (t[p], t[lc], t[rc]);
+            merge (p, lc, rc);
         }
 
-        void merge (info &s, const info &a, const info &b) {
-            Node ret = a + b;
-            ret.key = s.key;
-            s = ret;
+        void merge (int p, int lc, int rc) {
+            t[p].val = t[lc].val + t[rc].val;
+        }
+
+        info merge (const info &a, const info &b) {
+            info res;
+            res.val = a.val + b.val;
+            return res;
         }
 
         void get (info &s, T x, int len = 1) {
-            s.ans += x * len;
+            s.val += x * len;
             s.lazy = (s.lazy == INVALID ? 0 : s.lazy) + x;
         }
 
@@ -83,15 +82,15 @@ namespace segment_tree {
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
             modify (l, r, x, lc, cl, mid);
             modify (l, r, x, rc, mid + 1, cr);
-            merge (t[p], t[lc], t[rc]);
+            merge (p, lc, rc);
         }
 
         info qry (int l, int r, int p, int cl, int cr) {
-            if (cl > r || cr < l) return info (-1, 0);
+            if (cl > r || cr < l) return info ();
             if (cl >= l && cr <= r) return t[p];
             push_down (p, cl, cr);
             auto lc = t[p].l, rc = t[p].r, mid = (cl + cr) >> 1;
-            return qry (l, r, lc, cl, mid) + qry (l, r, rc, mid + 1, cr);
+            return merge (qry (l, r, lc, cl, mid), qry (l, r, rc, mid + 1, cr));
         }
 
         void modify (int l, int r, T x) {modify (l, r, x, rt, 0, n - 1);}
