@@ -10,7 +10,7 @@ void solve () {
 
     struct Q {int a, b, c, d;};
     vector <Q> s (m);
-    for (auto &[a, b, c, d] : s) {
+    for (auto &[a, b, c, d] : s) {        // (a, b) 左下角 ,   (c, d) 右下角
         cin >> a >> b >> c >> d;
         pool_x.push_back (a);
         pool_y.push_back (b);
@@ -21,7 +21,7 @@ void solve () {
     sort (all(pool_x)); pool_x.erase (unique (all(pool_x)), pool_x.end ());
     sort (all(pool_y)); pool_y.erase (unique (all(pool_y)), pool_y.end ());
 
-    struct Node { // type = ( 0 : 加点   1 : 加权   2 : 减权 )
+    struct Node {       // type = ( 0 : 加点   1 : 加权   2 : 减权 )
         int type, x, y, id;
         Node (int _type = 0, int _x = 0, int _y = 0, int _id = 0) : 
             type (_type), x (_x), y (_y), id (_id) {}
