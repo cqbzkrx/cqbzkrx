@@ -172,6 +172,12 @@ void init () {
     // init_prime ();
 }
 
+template <typename T>
+void debug (T &a) {
+    for (auto &v : a) cerr << v << ' ';
+    cerr << endl;
+}
+
 void solve () {
     
 }
