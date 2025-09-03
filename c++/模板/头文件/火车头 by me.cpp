@@ -67,6 +67,17 @@ constexpr vector <T> operator + (vector <T> lhs, const vector <T> &rhs) {
     return lhs;
 }
 
+template <class T>
+constexpr ostream & operator << (ostream &out, const pair <T, T> &p) {
+    return out << "(" << p.x << ", " << p.y << ")";
+}
+
+template <class T>
+constexpr ostream & operator << (ostream &out, const vector <T> &a) {
+    for (auto &v : a) out << v << " ";
+    return out;
+}
+
 template<class T>
 void add (T &x, const T &y) {if ((x += y) >= mod) x -= mod;}
 template<class T>
