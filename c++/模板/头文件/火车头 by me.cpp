@@ -158,10 +158,10 @@ ll C (int n, int m) {
     return fac[n] * ifac[m] % mod * ifac[n - m] % mod;
 }
 
-vector <int> prime, divi;
-bitset <N> np;
+vector <int> prime, divi, np;
 
 void init_prime (int n = N - 1) {
+    np.resize (n + 1);
     // divi.resize (n + 1);
     np[1] = np[0] = 1;
     for (int i = 2; i <= n; i++) {
