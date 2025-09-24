@@ -216,6 +216,11 @@ namespace ModInt {
         friend constexpr strong_ordering operator <=> (const mod_int &lhs, const mod_int &rhs) {
             return lhs.val () <=> rhs.val ();
         }
+
+        friend constexpr bool operator == (const mod_int &lhs, const U &rhs) {
+            if (rhs < 0) return lhs.val () == (rhs % mod () + mod ()) % mod ();
+            return lhs.val () == rhs % mod ();
+        }
     };
 }
 
@@ -265,7 +270,7 @@ void init () {
 }
 
 void solve () {
-    
+
 }
 
 int main () {
