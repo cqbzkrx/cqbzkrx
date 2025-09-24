@@ -111,10 +111,10 @@ namespace ModInt {
         friend constexpr strong_ordering operator <=> (const mod_int &lhs, const mod_int &rhs) {
             return lhs.val () <=> rhs.val ();
         }
+
+        friend constexpr bool operator == (const mod_int &lhs, const U &rhs) {
+            if (rhs < 0) return lhs.val () == (rhs % mod () + mod ()) % mod ();
+            return lhs.val () == rhs % mod ();
+        }
     };
 }
-
-template <u32 P>
-using m32 = ModInt :: mod_int <u32, P>;
-template <u64 P>
-using m64 = ModInt :: mod_int <u64, P>;
