@@ -6,7 +6,7 @@ auto tarjan = [&](auto &&self, int x) -> void {
     dfn[x] = low[x] = ++num;
     s.push_back (x); vis[x] = 1;
     for (auto &v : e[x]) {
-        if (!dfn[v]) self, (self, v), low[x] = min (low[x], low[v]);
+        if (!dfn[v]) self (self, v), low[x] = min (low[x], low[v]);
         else if (vis[v]) low[x] = min (low[x], dfn[v]);
     }
 
