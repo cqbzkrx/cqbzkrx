@@ -3,12 +3,12 @@ namespace ST {
 
     template <class T>
     struct Node {
-        T ans;
-        Node () : ans (-INVALID) {}
-        Node (T v) : ans (v) {}
+        T maxn;
+        Node () : maxn (-INVALID) {}
+        Node (T v) : maxn (v) {}
         Node operator + (const Node &rhs) const {
             Node ret;
-            ret.ans = max (rhs.ans, ans);   // max
+            ret.maxn = max (rhs.maxn, maxn);
             return ret;
         }
     };
