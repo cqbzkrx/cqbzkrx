@@ -16,7 +16,7 @@ using i64 = long long;
 const int inf = 1e9 + 7;
 const ll INF = 1e18 + 7;
 const db eps = 1e-6;
-const int mod = 998244353;
+const int mod = 1e9 + 7;
 const int N = 2e5 + 7;
 const int M = 2e3 + 7;
 
@@ -82,14 +82,6 @@ template <class T>
 constexpr vector <T> operator + (vector <T> lhs, const vector <T> &rhs) {
     lhs += rhs;
     return lhs;
-}
-
-template <class T>
-constexpr strong_ordering operator <=> (const vector <T> &lhs, const vector <T> &rhs) {
-    int len = min (lhs.size (), rhs.size ());
-    for (int i = 0; i < len; i++) if (lhs[i] != rhs[i])
-        return lhs[i] <=> rhs[i];
-    return lhs.size () < rhs.size ();
 }
 
 template <class T>
@@ -224,6 +216,10 @@ namespace ModInt {
     };
 }
 
+ll lcm (ll a, ll b) {
+    return a / gcd (a, b) * b;
+}
+
 template <u32 P>
 using m32 = ModInt :: mod_int <u32, P>;
 template <u64 P>
@@ -270,7 +266,7 @@ void init () {
 }
 
 void solve () {
-
+    
 }
 
 int main () {
@@ -295,4 +291,6 @@ int main () {
         // cout << "Case "<< i << ": ";
         solve ();
     }
+
+    // assert (a == b);
 }
