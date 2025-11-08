@@ -16,7 +16,7 @@ namespace ACAM {
     
     public:
         trie () : n (0), t (1, info ()), num (0) {}
-        trie (const vector <string> &a) : num (0) {init (a);};
+        trie (const vector <string> &a) : n (0), num (0) {init (a);};
 
         void get_fail () {
             queue <int> q;
@@ -39,7 +39,7 @@ namespace ACAM {
         }
 
         void init (const vector <string> &a) {
-            int len = 0; n = a.size ();
+            int len = 0;
             for (const string &str : a) len += str.size ();
             t.reserve (len + 1); t.push_back (info ());
             for (int i = 0; i < n; i++) insert (a[i], i);
@@ -62,6 +62,7 @@ namespace ACAM {
             }
             t[p].cnt++;
             t[p].id = id;
+            n++;
         }
 
         int qry_tot (const string &str) {      // 总共包含多少模式串
