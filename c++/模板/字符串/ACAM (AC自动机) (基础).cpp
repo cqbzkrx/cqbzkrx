@@ -4,9 +4,9 @@ namespace ACAM {
 
     struct Node {
         array <int, MAXN> son;
-        int cnt, fail, vis, id;
-        Node () : cnt (0), fail (0), vis (0), id (-1) {fill (all(son), 0);}
-        Node (int _id) : cnt (0), fail (0), vis (0), id (_id) {fill (all(son), 0);}
+        int cnt, fail, vis, id = -1;
+        Node () : cnt (0), fail (-1), vis (0), id (-1) {fill (all(son), 0);}
+        Node (int _id) : cnt (0), fail (-1), vis (0), id (_id) {fill (all(son), 0);}
     };
 
     template <class info = Node>
@@ -20,6 +20,7 @@ namespace ACAM {
 
         void get_fail () {
             queue <int> q;
+            t[0].fail = 0;
             for (int i = 0; i < MAXN; i++) if (t[0].son[i]) {
                 t[t[0].son[i]].fail = 0;
                 q.push (t[0].son[i]);
