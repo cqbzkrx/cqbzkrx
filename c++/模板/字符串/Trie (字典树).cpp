@@ -1,26 +1,21 @@
 namespace Trie {
+    constexpr int rt = 0;
+
     struct Node {
         array <int, 26> son;
-        array <int, 26> cnt;
-        Node () {
-            fill (all(son), 0);
-            fill (all(cnt), -1);
-        }
+        int cnt = -1;
+        Node () : cnt (-1) {fill (all(son), -1);}
     };
+
+    template <class info = Node>
+    class trie {
+        vector <info> t;
+        int num = 0;
     
-    class Trie {
     public:
-        static constexpr int rt = 0;
-
-        vector <Node> t;
-        int cnt = 0;
-
-        Trie () : t (1, Node ()) {}
-        Trie (const vector <string> &a)  : t (1, Node ()) {init (a);}
-
-        void init (const vector <string> &a) {
-            for (const string &str : a) insert (str);
-        }
+        trie () : t (1, info ()), num (0) {}
+        trie (const vector <string> &a) : trie () {for (const string &str : a) insert (str);};
+        trie (const int n) {t.reserve ((n + 1) * 26 + 1); t.push_back (info ());}
 
         int get (char c) {
             return c - 'a';
@@ -30,24 +25,24 @@ namespace Trie {
             int p = rt, len = str.size ();
             for (int i = 0; i < len; i++) {
                 auto v = get (str[i]);
-                if (t[p].son[v]) p = t[p].son[v];
+                if (t[p].son[v] != -1) p = t[p].son[v];
                 else {
-                    t.push_back (Node ()), t[p].son[v] = ++cnt;
-                    if (i != len - 1) p = cnt;
-                }
+                    t.push_back (info ()), t[p].son[v] = ++num;
+                    p = num;
+                } 
             }
-            t[p].cnt[get (str[len - 1])] = 1;
+            cmax (t[p].cnt, 0); t[p].cnt++;
         }
 
         int qry (const string &str) {
             int p = rt, len = str.size ();
             for (int i = 0; i < len; i++) {
                 auto v = get (str[i]);
-                if (!t[p].son[v]) return 0;
-                if (i != len - 1) p = t[p].son[v];
+                if (t[p].son[v] == -1) return -1;
+                p = t[p].son[v];
             }
-            if (t[p].cnt[get (str[len - 1])] == -1) return 0;
-            return 1;
+            if (t[p].cnt == -1) return -1;
+            return t[p].cnt;
         }
     };
 }
