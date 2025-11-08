@@ -12,7 +12,7 @@ namespace ACAM {
     template <class info = Node>
     class trie {
         vector <info> t;
-        int num = 0, n;
+        int num = 0, n = 0;
     
     public:
         trie () : n (0), t (1, info ()), num (0) {}
