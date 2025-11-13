@@ -1,4 +1,4 @@
-struct Node {int l, r, id;}
+struct Node {int l, r, id;};
 vector <Node> s(q);
 
 sort (all(s), [&](auto a, auto b){
