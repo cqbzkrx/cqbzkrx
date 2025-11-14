@@ -4,17 +4,22 @@ namespace ACAM {
 
     struct Node {
         array <int, MAXN> son;
-        int cnt, fail, vis, id = -1;
-        Node () : cnt (0), fail (-1), vis (0), id (-1) {fill (all(son), 0);}
-        Node (int _id) : cnt (0), fail (-1), vis (0), id (_id) {fill (all(son), 0);}
+        int cnt, fail;
+        int vis;   // qry_tot
+        int id = -1;   // qry_cnt
+        Node (int _id = -1) : cnt (0), fail (-1) {
+            fill (all(son), 0);
+            vis = 0;
+            id = _id;
+        }
     };
 
     template <class info = Node>
     class trie {
+    public:
         vector <info> t;
         int num = 0, n = 0;
     
-    public:
         trie () : n (0), t (1, info ()), num (0) {}
         trie (const vector <string> &a) : n (0), num (0) {init (a);};
 
@@ -29,9 +34,10 @@ namespace ACAM {
             while (q.size ()) {
                 auto u = q.front (); q.pop ();
                 for (int i = 0; i < MAXN; i++) {
-                    if (t[u].son[i]) {
-                        t[t[u].son[i]].fail = t[t[u].fail].son[i];
-                        q.push (t[u].son[i]);
+                    auto v = t[u].son[i];
+                    if (v) {
+                        t[v].fail = t[t[u].fail].son[i];
+                        q.push (v);
                     }
                     else t[u].son[i] = t[t[u].fail].son[i];
                 }
@@ -42,7 +48,7 @@ namespace ACAM {
             int len = 0;
             for (const string &str : a) len += str.size ();
             t.reserve (len + 1); t.push_back (info ());
-            for (int i = 0; i < n; i++) insert (a[i], i);
+            for (int i = 0; i < (int) a.size (); i++) insert (a[i], i);
             get_fail ();
         }
 
@@ -51,6 +57,7 @@ namespace ACAM {
         }
 
         void insert (const string &str, int id) {
+            n++;
             int p = rt;
             for (auto c : str) {
                 auto v = get (c);
@@ -62,7 +69,6 @@ namespace ACAM {
             }
             t[p].cnt++;
             t[p].id = id;
-            n++;
         }
 
         int qry_tot (const string &str) {      // 总共包含多少模式串
@@ -79,6 +85,7 @@ namespace ACAM {
             vector <int> cnt (n, 0);
             for (auto c : str) {
                 p = t[p].son[get (c)];
+                if (p == -1) break;
                 for (int i = p; i; i = t[i].fail) if (t[i].id != -1)
                     cnt[t[i].id]++;
             }
