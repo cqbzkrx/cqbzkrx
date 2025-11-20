@@ -4,6 +4,20 @@ namespace isap {
     vector <int> dis, gap;
     int n, s, t;
 
+    void bfs () {
+        dis.assign (n + 1, -1); dis[t] = 0;
+        gap.assign (n + 1, 0); gap[0] = 1;
+        queue <int> q; q.push (t);
+        while (q.size ()) {
+            auto u = q.front (); q.pop ();
+            for (int v = 1; v <= n; v++) if (dis[v] == -1) {
+                q.push (v);
+                dis[v] = dis[u] + 1;
+                gap[dis[v]]++;
+            }
+        }
+    }
+
     ll dfs (int u, ll flow) {
         ll sum = 0; int minn = n - 1;
         if (u == t) return flow;
@@ -29,8 +43,7 @@ namespace isap {
     }
 
     ll isap () {
-        dis.assign (n + 1, 0);
-        gap.assign (n + 1, 0); gap[0] = n;
+        bfs ();
         ll ans = 0;
         while (dis[s] < n) ans += dfs (s, INF);
         return ans;
