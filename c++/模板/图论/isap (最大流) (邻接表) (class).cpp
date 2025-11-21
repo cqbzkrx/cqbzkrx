@@ -1,6 +1,7 @@
 template <typename T>
 class isap {
 public:
+    static constexpr ll MAXX = INF;
     vector <vector <tuple <int, T, int>>> e;
     vector <int> dis, gap;
     int n, s, t;
@@ -26,8 +27,8 @@ public:
         }
     }
 
-    ll dfs (int u, ll flow) {
-        ll sum = 0; int minn = n - 1;
+    T dfs (int u, T flow) {
+        T sum = 0; int minn = n - 1;
         if (u == t) return flow;
         for (auto &[v, w, id] : e[u]) if (w > 0) {
             if (dis[u] == dis[v] + 1) {
@@ -60,7 +61,7 @@ public:
         bfs ();
         if (dis[s] == -1) return 0;
         T ans = 0;
-        while (dis[s] < n) ans += dfs (s, INF);
+        while (dis[s] < n) ans += dfs (s, MAXX);
         return ans;
     }
 };
