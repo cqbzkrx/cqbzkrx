@@ -7,6 +7,7 @@
 #include <string_view>
 #include <queue>
 #include <math.h>
+#include <numeric>
 #define all(x) x.begin (), x.end ()
 #define x first
 #define y second
@@ -275,7 +276,7 @@ void init () {
 }
 
 void solve () {
-
+    
 }
 
 int main () {
