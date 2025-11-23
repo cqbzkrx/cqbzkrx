@@ -1,13 +1,13 @@
 template <typename T>
-class isap {
+class maxflow {
 public:
     static constexpr ll MAXX = INF;
     vector <vector <tuple <int, T, int>>> e;
     vector <int> dis, gap;
     int n, s, t;
 
-    isap () : n (0), s (0), t (0) {}
-    isap (int _n, int _s, int _t) {
+    maxflow () : n (0), s (0), t (0) {}
+    maxflow (int _n, int _s, int _t) {
         n = _n;
         e.assign (n + 1, vector (0, tuple (0, T (0), 0)));
         s = _s; t = _t;
@@ -57,11 +57,27 @@ public:
         e[u].emplace_back (v, 0, idv);
     }
 
-    T qry () {
+    T flow () {
         bfs ();
         if (dis[s] == -1) return 0;
         T ans = 0;
         while (dis[s] < n) ans += dfs (s, MAXX);
+        return ans;
+    }
+
+    vector <pair <int, int>> mincut () {
+        vector vis (n + 1, 0), c (0, 0); c.reserve (n);
+        auto dfs = [&](auto &&self, int u) -> void {
+            if (vis[u]) return ;
+            vis[u] = 1; c.push_back (u);
+            for (auto [v, w, id] : e[u]) if (!vis[v] && w > 0)
+                self (self, v);
+        };
+
+        vector ans (0, pair (0, 0));
+        dfs (dfs, s);
+        for (auto u : c) for (auto [v, w, id] : e[u]) if (!vis[v])
+            ans.emplace_back (u, v);
         return ans;
     }
 };
