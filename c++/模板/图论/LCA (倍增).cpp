@@ -1,53 +1,45 @@
 class LCA {
 public:
-    void dfs (int v, int fa) {
-        dep[v] = dep[fa] + 1;
-        f[0][v] = fa;
-        for (auto &u : e[v]) if (u != fa)
-            dfs (u, v);
-    }
-
-    static constexpr int N = 2e5 + 5;
-    int n, lim;
-    vector <vector <int>> f;
-    vector <vector <int>> e;
+    vector <vector <int>> f, e;
     vector <int> dep;
-    
-    LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))),
-            e(vector (N, vector (0, 0))), dep(N, 0) {}
-    LCA (int sz, int rt, const vector <vector <int>> &a) {clear (), init (sz, rt, a);}
-    
-    int lca (int v, int u) {
-        if (dep[v] > dep[u]) swap (v, u);
+    int n, lim;
 
-        for (int i = lim; i >= 0; i--) if (dep[u] - (1 << i) >= dep[v])
-            u = f[i][u];
-        
-        if (v == u) return v;
-        for (int i = lim; i >= 0; i--) {
-            if (f[i][u] == 0) continue;
-            if (f[i][v] != f[i][u]) v = f[i][v], u = f[i][u];
-        }
-        
-        return f[0][u];
-    }
+    LCA (vector <vector <int>> &a, int n, int rt) {init (a, n, rt);}
+    void init (vector <vector <int>> &a, int n, int rt) {
+        e = move (a);
+        this -> n = n;
+        lim = __lg (n) + 1;
 
-    void init (int sz, int rt, const vector <vector <int>> &a) {
-        e = a;
-        n = sz, lim = __lg(sz);
+        f.assign (lim + 1, vector (n + 1, 0));
+        dep.assign (n + 1, 0);
 
-        dep[rt] = 1; dfs (rt, 0);
+        auto dfs = [&](auto &&self, int u, int fa) -> void {
+            dep[u] = dep[fa] + 1;
+            f[0][u] = fa;
+            for (auto v : e[u]) if (v != fa)
+                self (self, v, u);
+        };
+
+        dfs (dfs, rt, 0);
         for (int i = 1; i <= lim; i++) for (int j = 1; j <= n; j++)
             f[i][j] = f[i - 1][f[i - 1][j]];
     }
 
+    int lca (int v, int u) {
+        if (dep[v] > dep[u]) swap (v, u);
+        for (int i = lim; i >= 0; i--) if (dep[u] - (1 << i) >= dep[v])
+            u = f[i][u];
 
-    void clear () {
-        f = vector (__lg(N) + 1, vector (N, 0));
-        dep = vector (N, 0);
+        if (v == u) return u;
+        for (int i = lim; i >= 0; i--) {
+            if (f[i][u] == 0) continue;
+            if (f[i][u] != f[i][v]) v = f[i][v], u = f[i][u];
+        }
+
+        return f[0][u];
     }
 
     int len (int v, int u) {
-        return dep[v] + dep[u] - 2 * dep[lca(v, u)];
+        return dep[v] + dep[u] - 2 * dep[lca (v, u)];
     }
 };
