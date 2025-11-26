@@ -31,7 +31,6 @@ namespace sgt {
                 self (self, lc, cl, mid); self (self, rc, mid + 1, cr);
                 t[p] = t[lc] + t[rc];
             };
-
             build (build, rt, 0, n - 1);
         }
 
