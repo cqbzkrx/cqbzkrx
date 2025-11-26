@@ -19,7 +19,7 @@ namespace sgt {
         vector <info> t;
         int n;
 
-        segtree (int n = 0, T x = 0) {init (vector (n, x));}
+        segtree (int n = 0, T x = 0) {init (vector <T> (n, x));}
         segtree (const vector <T> &a) {init (a);}
         void init (const vector <T> &a) {
             n = a.size ();
