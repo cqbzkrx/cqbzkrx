@@ -1,86 +1,82 @@
-template <typename T = ll>
+template <typename T, class info = sgt :: Node <T>>
 class HPD {
 public:
-    int cnt, n;
-    vector <int> son, siz, f, top, dep, dfn, out;
     vector <vector <int>> e;
+    vector <int> f, dep, dfn, son, top, out;
     vector <T> s;
-    zkw_segment_tree :: segtree <T> sgt;
-    
-    HPD () : n(0), cnt(0) {}
-    HPD (int sz, int rt, const vector <vector <int>> &a, const vector <T> &c) : n(sz), e(a) {init (sz, rt, c);}
+    sgt :: segtree <T> sgt;
+    int n, num;
+    HPD () {}
+    HPD (int n, int rt, vector <vector <int>> &a) {init (n, rt, a, vector <T> (n + 1, 0));}
+    HPD (int n, int rt, vector <vector <int>> &a, T x) {init (n, rt, a, vector <T> (n + 1, x));}
+    HPD (int n, int rt, vector <vector <int>> &a, const vector <T> &c) {init (n, rt, a, c);}
+    void init (int n, int rt, vector <vector <int>> &a, const vector <T> &c) {
+        e = move (a);
+        this -> n = n; num = 0;
+        top.assign (n + 1, 0);
+        dep.assign (n + 1, 0);
+        f.assign (n + 1, 0);
+        dfn.assign (n + 1, 0);
+        son.assign (n + 1, -1);
+        out.assign (n + 1, 0);
 
-    void dfs1 (int v, int fa) {
-        f[v] = fa;
-        dep[v] = dep[fa] + 1;
-        siz[v] = 1, son[v] = -1;
-        
-        int maxn = 0;
-        for (auto &u : e[v]) if (u != fa) {
-            dfs1 (u, v);
-            siz[v] += siz[u];
+        auto dfs = [&](auto &&self, int u, int fa) -> int {
+            dep[u] = dep[fa] + 1; f[u] = fa;
+            int maxn = 0, siz = 1;
+            for (auto v : e[u]) if (v != fa) {
+                auto csiz = self (self, v, u);
+                if (csiz > maxn) maxn = csiz, son[u] = v;
+                siz += csiz;
+            }
+            return siz;
+        };
 
-            if (siz[u] > maxn) maxn = siz[u], son[v] = u;
-        }
-    }
+        auto dfs2 = [&](auto &&self, int u, int head) -> void {
+            dfn[u] = num++; top[u] = head;
+            if (son[u] != -1) self (self, son[u], head);
+            for (auto v : e[u]) if (v != f[u] && v != son[u])
+                self (self, v, v);
+            out[u] = num - 1;
+        };
 
-    void dfs2 (int v, int head) {
-        top[v] = head;
-        dfn[v] = cnt++;
-        if (son[v] != -1) dfs2 (son[v], head);
-        for (auto &u : e[v]) if (u != son[v] && u != f[v])
-            dfs2 (u, u);
-        out[v] = cnt;
-    }
+        dfs (dfs, rt, 0);
+        dfs2 (dfs2, rt, rt);
 
-    void init (int sz, int rt, const vector <T> &c) {
-        cnt = 0;
-        son = siz = f = top = dep = dfn = out = vector <int> (n + 1, 0);
-        s.resize(n);
-
-        dep[rt] = 1;
-        dfs1 (rt, 0);
-        dfs2 (rt, rt);
-
+        s.resize (n);
         for (int i = 1; i <= n; i++) s[dfn[i]] = c[i];
-        sgt = zkw_segment_tree :: segtree <T> (s);
+        sgt.init (s);
     }
 
     int lca (int v, int u) {
         while (top[v] != top[u]) {
-            if (dep[top[v]] < dep[top[u]]) u = f[top[u]];
-            else v = f[top[v]];
+            if (dep[top[v]] > dep[top[u]]) swap (v, u);
+            u = f[top[u]];
         }
         return (dep[u] > dep[v] ? v : u);
     }
 
-    T qry (int v, int u) {
-        T ans = 0;
-        while (top[v] != top[u]) {
-            if (dep[top[v]] < dep[top[u]]) ans += sgt.qry (dfn[top[u]], dfn[u]), u = f[top[u]];
-            else ans += sgt.qry (dfn[top[v]], dfn[v]), v = f[top[v]];
-        }
-        
-        if (dep[v] > dep[u]) swap (v, u);
-        ans += sgt.qry (dfn[v], dfn[u]);
-        return ans;
-    }
-
-    T qry2 (int v) {
-        return sgt.qry (dfn[v], out[v] - 1);
-    }
-
     void modify (int v, int u, T x) {
         while (top[v] != top[u]) {
-            if (dep[top[v]] < dep[top[u]]) sgt.modify (dfn[top[u]], dfn[u], x), u = f[top[u]];
-            else sgt.modify (dfn[top[v]], dfn[v], x), v = f[top[v]];
+            if (dep[top[v]] > dep[top[u]]) swap (v, u);
+            sgt.modify (dfn[top[u]], dfn[u], x);
+            u = f[top[u]];
         }
-        
         if (dep[v] > dep[u]) swap (v, u);
         sgt.modify (dfn[v], dfn[u], x);
     }
 
-    void modify2 (int v, T x) {
-        sgt.modify (dfn[v], out[v] - 1, x);
+    info qry (int v, int u) {
+        info ans;
+        while (top[v] != top[u]) {
+            if (dep[top[v]] > dep[top[u]]) swap (v, u);
+            ans = ans + sgt.qry (dfn[top[u]], dfn[u]);
+            u = f[top[u]];
+        }
+        if (dep[v] > dep[u]) swap (v, u);
+        ans = ans + sgt.qry (dfn[v], dfn[u]);
+        return ans;
     }
+
+    void modify2 (int v, T x) {sgt.modify (dfn[v], out[v], x);}
+    info qry2 (int v) {return sgt.qry (dfn[v], out[v]);}
 };
