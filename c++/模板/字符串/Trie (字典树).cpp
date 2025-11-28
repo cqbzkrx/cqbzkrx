@@ -22,16 +22,14 @@ namespace Trie {
         trie (const vector <string> &a) : n (0), num (0), t (1, info ()) {init (a);}
         void init (const vector <string> &a) {for (auto &str : a) insert (str);}
 
-        int new_node () {
-            t.push_back (info ());
-            return ++num;
-        }
-
         void insert (const string &str) {
             int p = rt;
             for (auto c : str) {
                 auto v = get (c);
-                if (!t[p].son[v]) p = new_node (); 
+                if (!t[p].son[v]) {
+                    t[p].son[v] = ++num;
+                    t.emplace_back (info ());
+                }
                 p = t[p].son[v];
             }
             t[p].cnt++;
