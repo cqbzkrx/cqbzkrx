@@ -118,3 +118,8 @@ namespace ModInt {
         }
     };
 }
+
+template <u32 P>
+using m32 = ModInt :: mod_int <u32, P>;
+template <u64 P>
+using m64 = ModInt :: mod_int <u64, P>;
