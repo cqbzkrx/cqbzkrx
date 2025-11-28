@@ -1,47 +1,49 @@
 namespace Trie {
-    constexpr int rt = 0;
+    static constexpr int rt = 0;
+    static constexpr int MAXN = 26;
+
+    int get (char c) {
+        return c - 'a';
+    }
 
     struct Node {
-        array <int, 26> son;
-        int cnt = -1;
-        Node () : cnt (-1) {fill (all(son), -1);}
+        array <int, MAXN> son;
+        int cnt;
+        Node () : cnt (0) {fill (all(son), 0);}
     };
 
     template <class info = Node>
     class trie {
-        vector <info> t;
-        int num = 0;
-    
     public:
-        trie () : t (1, info ()), num (0) {}
-        trie (const vector <string> &a) : trie () {for (const string &str : a) insert (str);};
-        trie (const int n) {t.reserve ((n + 1) * 26 + 1); t.push_back (info ());}
+        vector <info> t;
+        int num = 0, n = 0;
 
-        int get (char c) {
-            return c - 'a';
+        trie () : n (0), num (0), t (1, info ()) {}
+        trie (const vector <string> &a) : n (0), num (0), t (1, info ()) {init (a);}
+        void init (const vector <string> &a) {for (auto &str : a) insert (str);}
+
+        int new_node () {
+            t.push_back (info ());
+            return ++num;
         }
 
         void insert (const string &str) {
-            int p = rt, len = str.size ();
-            for (int i = 0; i < len; i++) {
-                auto v = get (str[i]);
-                if (t[p].son[v] != -1) p = t[p].son[v];
-                else {
-                    t.push_back (info ()), t[p].son[v] = ++num;
-                    p = num;
-                } 
+            int p = rt;
+            for (auto c : str) {
+                auto v = get (c);
+                if (t[p].son[v]) p = t[p].son[v];
+                else p = new_node ();
             }
-            cmax (t[p].cnt, 0); t[p].cnt++;
+            t[p].cnt++;
         }
 
         int qry (const string &str) {
-            int p = rt, len = str.size ();
-            for (int i = 0; i < len; i++) {
-                auto v = get (str[i]);
-                if (t[p].son[v] == -1) return -1;
-                p = t[p].son[v];
+            int p = rt;
+            for (auto c : str) {
+                auto v = get (c);
+                if (t[p].son[v]) p = t[p].son[v];
+                else return 0;
             }
-            if (t[p].cnt == -1) return -1;
             return t[p].cnt;
         }
     };
