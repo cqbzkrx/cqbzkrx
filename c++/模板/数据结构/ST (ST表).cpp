@@ -1,27 +1,27 @@
 namespace ST {
-    static constexpr ll INVALID = INF;
+    const ll INVALID = -INF;
 
-    template <class T>
+    template <typename T>
     struct Node {
-        T maxn;
-        Node () : maxn (-INVALID) {}
-        Node (T v) : maxn (v) {}
+        T val;
+        Node () : val (INVALID) {}
+        Node (T x) : val (x) {}
         Node operator + (const Node &rhs) const {
             Node ret;
-            ret.maxn = max (rhs.maxn, maxn);
+            ret.val = max (val, rhs.val);
             return ret;
         }
     };
 
-    template <class T, class info = Node <T>>
+    template <typename T, class info = Node <T>>
     class ST {
     public:
-        static constexpr int N = 2e5 + 7;
         vector <vector <info>> f;
-        int n, lim;
-
+        ST () {}
+        ST (const vector <T> &a) {init (a);}
         void init (const vector <T> &a) {
-            n = a.size(), lim = __lg(n) + 1;
+            int n = a.size (), lim = __lg (n) + 1;
+            f.assign (lim, vector <info> (n, info ()));
             for (int i = 0; i < n; i++) f[0][i] = info (a[i]);
             for (int i = 1; i < lim; i++) for (int j = 0; j < n; j++) {
                 if (j + (1 << i) > n) break;
@@ -29,16 +29,9 @@ namespace ST {
             }
         }
 
-        ST () : n(0), lim(0) {clear ();}
-        ST (const vector <T> &a) {clear (); init (a);}
-
         info qry (int l, int r) {
             int lg = __lg (r - l + 1);
             return f[lg][l] + f[lg][r - (1 << lg) + 1];
-        }
-
-        void clear () {
-            f = vector <vector <info>> (__lg (N) + 1, vector <info> (N));
         }
     };
 }
