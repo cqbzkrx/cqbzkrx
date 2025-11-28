@@ -31,8 +31,8 @@ namespace Trie {
             int p = rt;
             for (auto c : str) {
                 auto v = get (c);
-                if (t[p].son[v]) p = t[p].son[v];
-                else p = new_node ();
+                if (!t[p].son[v]) p = new_node (); 
+                p = t[p].son[v];
             }
             t[p].cnt++;
         }
