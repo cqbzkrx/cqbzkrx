@@ -24,8 +24,7 @@ namespace sgt {
         segtree () {}
         segtree (int n, T x = 0) {init (n, x);}
         void init (int n, T x) {
-            this -> n = n;
-            num = 0;
+            this -> n = n; num = 0;
             // t.reserve (MAXN << 1);
             t.assign (1, info (x * n, -1, -1, x));
         }
