@@ -1,5 +1,6 @@
 namespace sgt {
     static constexpr ll INVALID = -1;
+    static constexpr int MAXN = 2e5 + 7;
 
     template <typename T>
     struct Node {
@@ -25,6 +26,7 @@ namespace sgt {
         void init (int n, T x) {
             this -> n = n;
             num = 0;
+            // t.reserve (MAXN << 1);
             t.assign (1, info (x * n, -1, -1, x));
         }
 
