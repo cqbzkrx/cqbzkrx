@@ -20,7 +20,8 @@ namespace sgt {
         vector <info> t;
         int n, num;
 
-        segtree (int n = 0, T x = 0) {init (n, x);}
+        segtree () {}
+        segtree (int n, T x = 0) {init (n, x);}
         void init (int n, T x) {
             this -> n = n;
             num = 0;
