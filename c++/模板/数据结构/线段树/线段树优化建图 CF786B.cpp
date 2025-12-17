@@ -34,10 +34,6 @@ void solve () {
     int rt1 = build (build, 1, n, 0);    // in
     int rt2 = build (build, 1, n, 1);    // out
 
-    // cerr << num << '\n';
-    // for (int i = 1; i <= n; i++) cerr << id[i] << " \n"[i == n];
-    // for (int i = 0; i < num; i++) cerr << e[i] << '\n';
-
     auto modify = [&](int v, int u, ll w) -> void {e[id[v]].emplace_back (id[u], w);};    // v -> u (w)
 
     auto modify2 = [&](auto &&self, int v, int l, int r, ll w, int p, int cl, int cr) -> void {    // v -> [l, r] (w)
@@ -70,10 +66,6 @@ void solve () {
             int l, r, u; ll w; cin >> u >> l >> r >> w;
             modify3 (modify3, l, r, u, w, rt2, 1, n);
         }
-
-        // cerr << "---------------------------------\n";
-        // for (int i = 0; i < num; i++) cerr << e[i] << '\n';
-        // cerr << "---------------------------------\n";
     }
 
     auto dij = [&](int s) -> vector <ll> {
