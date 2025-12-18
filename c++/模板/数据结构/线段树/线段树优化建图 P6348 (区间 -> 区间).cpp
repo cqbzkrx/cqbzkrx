@@ -69,16 +69,12 @@ void solve () {
         int p = new_node ();
         modify3 (modify3, l1, r1, p, w, rt2, 1, n);
         modify2 (modify2, p, l2, r2, 0, rt1, 1, n);
-
-        //无向图
-        int p2 = new_node ();
-        modify3 (modify3, l2, r2, p2, w, rt2, 1, n);
-        modify2 (modify2, p2, l1, r1, 0, rt1, 1, n);
     };
 
     for (int i = 0; i < q; i++) {
         int l1, r1, l2, r2; cin >> l1 >> r1 >> l2 >> r2;
         modify (l1, r1, l2, r2, 1);
+        modify (l2, r2, l1, r1, 1);     // 无向图
     }
 
     num = e.size ();
