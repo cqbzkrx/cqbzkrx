@@ -40,10 +40,10 @@ void solve () {
     int rt1 = build (build, 1, n, 0);    // in
     int rt2 = build (build, 1, n, 1);    // out
 
-    cerr << num << '\n';
-    for (int i = 1; i <= n; i++) cerr << id[i] << " \n"[i == n];
-    for (int i = 0; i < num; i++) cerr << e[i] << '\n';
-    cerr << '\n';
+    // cerr << num << '\n';
+    // for (int i = 1; i <= n; i++) cerr << id[i] << " \n"[i == n];
+    // for (int i = 0; i < num; i++) cerr << e[i] << '\n';
+    // cerr << '\n';
 
     auto modify4 = [&](int v, int u, ll w) -> void {    // v -> u (w)
         e[id[v]].emplace_back (id[u], w);
@@ -69,6 +69,9 @@ void solve () {
         int p = new_node ();
         modify3 (modify3, l1, r1, p, w, rt2, 1, n);
         modify2 (modify2, p, l2, r2, 0, rt1, 1, n);
+        // int p2 = new_node ();                                      // 无向图
+        // modify3 (modify3, l2, r2, p2, w, rt2, 1, n);
+        // modify2 (modify2, p2, l1, r1, 0, rt1, 1, n);
     };
 
     for (int i = 0; i < q; i++) {
@@ -78,8 +81,8 @@ void solve () {
 
     num = e.size ();
 
-    cerr << num << '\n';
-    for (int i = 0; i < num; i++) cerr << e[i] << '\n';
+    // cerr << num << '\n';
+    // for (int i = 0; i < num; i++) cerr << e[i] << '\n';
 
     auto dij = [&](int s) -> vector <ll> {
         vector dis (num, INF); dis[s] = 0;
