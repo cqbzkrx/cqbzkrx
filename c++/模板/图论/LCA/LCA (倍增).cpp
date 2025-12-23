@@ -1,12 +1,11 @@
 class LCA {
 public:
-    vector <vector <int>> f, e;
+    vector <vector <int>> f;
     vector <int> dep;
     int n, lim;
 
-    LCA (vector <vector <int>> &a, int n, int rt) {init (a, n, rt);}
-    void init (vector <vector <int>> &a, int n, int rt) {
-        e = move (a);
+    LCA (const vector <vector <int>> &e, int n, int rt) {init (e, n, rt);}
+    void init (const vector <vector <int>> &e, int n, int rt) {
         this -> n = n;
         lim = __lg (n) + 1;
 
