@@ -1,55 +1,66 @@
-template <typename T = ll>
+template <typename T>
 class LCA {
 public:
-    void dfs (int v, int fa) {
-        dep[v] = dep[fa] + 1;
-        f[0][v] = fa;
-        for (auto &u : e[v]) if (u != fa)
-            dfs (u, v);
-    }
-
-    static constexpr int N = 5e4 + 5;
-    int n, lim;
     vector <vector <int>> f, e;
-    vector <int> dep;
     vector <T> s;
-    
-    LCA () : n(0), lim(0), f(vector (__lg(N) + 1, vector (N, 0))),
-            e(vector (N, vector (0, 0))), dep(N, 0), s(vector (N, 0ll)) {}
-    LCA (int sz, int rt, const vector <vector <int>> &a) {clear(), init (sz, rt, a);}
-    
-    int lca (int v, int u) {
-        if (dep[v] > dep[u]) swap (v, u);
+    vector <int> dep;
+    int n, lim, rt;
 
-        for (int i = lim; i >= 0; i--) if (dep[u] - (1 << i) >= dep[v])
-            u = f[i][u];
-        
-        if (v == u) return v;
-        for (int i = lim; i >= 0; i--) {
-            if (f[i][u] == 0) continue;
-            if (f[i][v] != f[i][u]) v = f[i][v], u = f[i][u];
-        }
-        
-        return f[0][u];
-    }
+    LCA (const vector <vector <int>> &e, int n, int rt) {init (e, n, rt, vector <T> (n + 1, T ()));}
+    LCA (const vector <vector <int>> &e, int n, int rt, const vector <T> &s) {init (e, n, rt, s);}
+    void init (const vector <vector <int>> &e, int n, int rt, const vector <T> &s) {
+        this -> e = e;
+        this -> s = s;
+        this -> rt = rt;
+        this -> n = n;
+        lim = __lg (n) + 1;
 
-    void clear () {
-        f = vector (__lg(N) + 1, vector (N, 0));
-        dep = vector (N, 0);
-        s = vector (N, 0ll);
-    }
+        f.assign (lim + 1, vector (n + 1, 0));
+        dep.assign (n + 1, 0);
 
-    void init (int sz, int rt, const vector <vector <int>> &a) {
-        e = a;
-        n = sz, lim = __lg(sz);
+        auto dfs = [&](auto &&self, int u, int fa) -> void {
+            dep[u] = dep[fa] + 1;
+            f[0][u] = fa;
+            for (auto v : e[u]) if (v != fa)
+                self (self, v, u);
+        };
 
-        dep[rt] = 1; dfs (rt, 0);
+        dfs (dfs, rt, 0);
         for (int i = 1; i <= lim; i++) for (int j = 1; j <= n; j++)
             f[i][j] = f[i - 1][f[i - 1][j]];
     }
 
-    void dfs2 (int v, int fa) {
-        for (auto &u : e[v]) if (u != fa)
-            dfs2 (u, v), s[v] += s[u];
+    int lca (int v, int u) {
+        if (dep[v] > dep[u]) swap (v, u);
+        for (int i = lim; i >= 0; i--) if (dep[u] - (1 << i) >= dep[v])
+            u = f[i][u];
+
+        if (v == u) return u;
+        for (int i = lim; i >= 0; i--) {
+            if (f[i][u] == 0) continue;
+            if (f[i][u] != f[i][v]) v = f[i][v], u = f[i][u];
+        }
+
+        return f[0][u];
+    }
+
+    int len (int v, int u) {
+        return dep[v] + dep[u] - 2 * dep[lca (v, u)];
+    }
+
+    void modify (int v, int u, T w) {
+        auto LCA = lca (v, u);
+        s[v] += w;
+        s[u] += w;
+        s[LCA] -= w;
+        s[f[0][LCA]] -= w;
+    }
+
+    void dfs () {dfs (rt, 0);}
+    void dfs (int u, int fa) {
+        for (auto v : e[u]) if (v != fa) {
+            dfs (v, u);
+            s[v] += s[u];
+        }
     }
 };
