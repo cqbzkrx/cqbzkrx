@@ -2,10 +2,11 @@ class LCA {
 public:
     vector <vector <int>> f;
     vector <int> dep;
-    int n, lim;
+    int n, lim, rt;
 
     LCA (const vector <vector <int>> &e, int n, int rt) {init (e, n, rt);}
     void init (const vector <vector <int>> &e, int n, int rt) {
+        this -> rt = rt;
         this -> n = n;
         lim = __lg (n) + 1;
 
