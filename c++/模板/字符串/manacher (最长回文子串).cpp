@@ -13,6 +13,6 @@ auto manacher = [&](const string &s) -> int {
     }
 
     int ans = 0;
-    for (int i = 0; i < siz; i++) cmax (ans, p[i - 1]);
+    for (int i = 0; i < siz; i++) cmax (ans, p[i] - 1);
     return ans;
 };
