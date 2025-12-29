@@ -24,9 +24,9 @@ public:
 
     void init (int n) {
         num = n;
-        fa.resize ((n << 1)); iota (all(fa), 0);
-        siz.assign ((n << 1), 1);
-        a.assign ((n << 1), 0);
+        fa.resize (n << 1); iota (all(fa), 0);
+        siz.assign (n << 1, 1);
+        a.resize (n << 1); iota (all(a), 0);
     }
 };
 
