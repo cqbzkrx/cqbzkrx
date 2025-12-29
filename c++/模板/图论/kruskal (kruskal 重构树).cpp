@@ -36,7 +36,7 @@ sort (all(eq), [&](auto &lhs, auto &rhs) {return get <2> (lhs) < get <2> (rhs);}
 DSU dsu (n);
 vector s ((n << 1), INF);
 // vector e ((n << 1), vector (0, 0));
-vector lc (n << 1, 0), rc (n << 1, 0);
+vector lc (n << 1, -1), rc (n << 1, -1);
 for (auto &[v, u, w] : eq) {
     if (dsu.same (v, u)) continue;
     
