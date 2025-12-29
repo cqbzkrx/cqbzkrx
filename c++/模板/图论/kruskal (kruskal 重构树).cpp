@@ -35,7 +35,8 @@ sort (all(eq), [&](auto &lhs, auto &rhs) {return get <2> (lhs) < get <2> (rhs);}
 
 DSU dsu (n);
 vector s ((n << 1), INF);
-vector e ((n << 1), vector (0, 0));
+// vector e ((n << 1), vector (0, 0));
+vector lc (n << 1, 0), rc (n << 1, 0);
 for (auto &[v, u, w] : eq) {
     if (dsu.same (v, u)) {
         auto fa = dsu.a[dsu.find (v)];
@@ -45,7 +46,8 @@ for (auto &[v, u, w] : eq) {
     
     auto fv = dsu.a[dsu.find (v)], fu = dsu.a[dsu.find (u)];
     auto fa = dsu.merge (v, u);
-    e[fa].push_back (fv); e[fv].push_back (fa);
-    e[fa].push_back (fu); e[fu].push_back (fa);
+    // e[fa].push_back (fv); e[fv].push_back (fa);
+    // e[fa].push_back (fu); e[fu].push_back (fa);
+    lc[fa] = fv, rc[fa] = fu;
     s[fa] = w;
 }
