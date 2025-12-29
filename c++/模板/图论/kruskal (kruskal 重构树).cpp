@@ -38,11 +38,7 @@ vector s ((n << 1), INF);
 // vector e ((n << 1), vector (0, 0));
 vector lc (n << 1, 0), rc (n << 1, 0);
 for (auto &[v, u, w] : eq) {
-    if (dsu.same (v, u)) {
-        auto fa = dsu.a[dsu.find (v)];
-        cmin (s[fa], w);
-        continue;
-    }
+    if (dsu.same (v, u)) continue;
     
     auto fv = dsu.a[dsu.find (v)], fu = dsu.a[dsu.find (u)];
     auto fa = dsu.merge (v, u);
