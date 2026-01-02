@@ -7,11 +7,11 @@ public:
     sgt :: segtree <T> sgt;
     int n, num;
     HPD () {}
-    HPD (int n, int rt, vector <vector <int>> &a) {init (n, rt, a, vector <T> (n + 1, 0));}
-    HPD (int n, int rt, vector <vector <int>> &a, T x) {init (n, rt, a, vector <T> (n + 1, x));}
-    HPD (int n, int rt, vector <vector <int>> &a, const vector <T> &c) {init (n, rt, a, c);}
-    void init (int n, int rt, vector <vector <int>> &a, const vector <T> &c) {
-        e = move (a);
+    HPD (int n, int rt, const vector <vector <int>> &e) {init (n, rt, e, vector <T> (n + 1, 0));}
+    HPD (int n, int rt, const vector <vector <int>> &e, T x) {init (n, rt, e, vector <T> (n + 1, x));}
+    HPD (int n, int rt, const vector <vector <int>> &e, const vector <T> &c) {init (n, rt, e, c);}
+    void init (int n, int rt, const vector <vector <int>> &e, const vector <T> &c) {
+        this -> e = e;
         this -> n = n; num = 0;
         top.assign (n + 1, 0);
         dep.assign (n + 1, 0);
