@@ -4,9 +4,9 @@ public:
     vector <int> f, dep, dfn, son, top;
     int n, num;
     HPD () {}
-    HPD (int n, int rt, vector <vector <int>> &a) {init (n, rt, a);}
-    void init (int n, int rt, vector <vector <int>> &a) {
-        e = move (a);
+    HPD (int n, int rt, const vector <vector <int>> &e) {init (n, rt, e);}
+    void init (int n, int rt, const vector <vector <int>> &e) {
+        this -> e = e;
         this -> n = n; num = 0;
         top.assign (n + 1, 0);
         dep.assign (n + 1, 0);
