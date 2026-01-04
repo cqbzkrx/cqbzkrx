@@ -1,5 +1,5 @@
 namespace sgt {
-    const int MAXN = 2e5 + 7;
+    const int MAXN = 3e5 + 7;
 
     template <typename T>
     struct Node {
@@ -104,6 +104,19 @@ namespace sgt {
             auto mid = (cl + cr) >> 1, val = t[t[p2].lc].val - t[t[p].lc].val;
             if (val >= k) return qry_min_kth (k, t[p].lc, t[p2].lc, cl, mid);
             else return qry_min_kth (k - val, t[p].rc, t[p2].rc, mid + 1, cr);
+        }
+
+        T qry_max_kth (int l, int r, int k) {
+            if (l > r) return -1;
+            l++, r++;
+            return qry_max_kth (k, rt[l - 1], rt[r], 0, n - 1);
+        }
+
+        T qry_max_kth (int k, int p, int p2, int cl, int cr) {
+            if (cl == cr) return cl;
+            auto mid = (cl + cr) >> 1, val = t[t[p2].rc].val - t[t[p].rc].val;
+            if (val >= k) return qry_max_kth (k, t[p].rc, t[p2].rc, mid + 1, cr);
+            else return qry_max_kth (k - val, t[p].lc, t[p2].lc, cl, mid);
         }
     };
 }
