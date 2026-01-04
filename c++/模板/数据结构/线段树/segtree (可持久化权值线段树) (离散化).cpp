@@ -1,5 +1,5 @@
 namespace sgt {
-    const int MAXN = 3e5 + 7;
+    const int MAXN = 4e5 + 7;
 
     template <typename T>
     struct Node {
