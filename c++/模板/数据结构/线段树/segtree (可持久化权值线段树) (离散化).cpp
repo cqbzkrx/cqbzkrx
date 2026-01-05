@@ -120,3 +120,21 @@ namespace sgt {
         }
     };
 }
+
+void solve () {
+    int n, q; cin >> n >> q;
+    vector a (n, 0);
+    for (auto &v : a) cin >> v;
+
+    vector pool = a;
+    sort (all(pool)); pool.erase (unique (all(pool)), pool.end ());
+    for (auto &v : a) v = lower_bound (all(pool), v) - pool.begin ();
+
+    sgt :: segtree <int> sgt (n);
+    for (auto &v : a) sgt.modify (v, 1);
+
+    while (q--) {
+        int l, r, k; cin >> l >> r >> k;
+        cout << pool[sgt.qry_min_kth (l - 1, r - 1, k)] << '\n';
+    }
+}
