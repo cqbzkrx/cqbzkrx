@@ -1,7 +1,4 @@
 #include <bits/stdc++.h>
-// #include <bits/extc++.h>
-// using namespace __gnu_cxx;
-// using namespace __gnu_pbds;
 #define all(x) x.begin (), x.end ()
 #define x first
 #define y second
