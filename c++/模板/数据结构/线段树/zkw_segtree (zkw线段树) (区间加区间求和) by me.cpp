@@ -24,12 +24,12 @@ namespace zkw_sgt {
             for (int p = m - 1; p >= 0; p--) t[p].sum = t[p << 1].sum + t[p << 1 | 1].sum;
         }
 
-        void modify (int p, T x) {
+        void add (int p, T x) {
             p = p + m + 1;
             for (; p > 1; p >>= 1) t[p].sum += x;
         }
 
-        void modify (int l, int r, T x) {
+        void add (int l, int r, T x) {
             T lc = 0, rc = 0, len = 1;
             l = l + m, r = r + m + 2;
             for (; l ^ r ^ 1; l >>= 1, r >>= 1, len <<= 1) {
