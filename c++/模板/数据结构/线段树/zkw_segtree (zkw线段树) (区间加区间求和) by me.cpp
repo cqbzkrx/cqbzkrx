@@ -1,58 +1,62 @@
-namespace zkw_segment_tree {
-    static constexpr ll INVALID = 0;
-
-    template <class T>
+namespace zkw_sgt {
+    template <typename T>
     struct Node {
-        T sum, lazy;
-        Node (T _sum = 0, T _lazy = INVALID) : sum (_sum), lazy (_lazy) {}
+        T sum, add;
+        Node () : sum (0), add (0) {}
+        Node (T x, T _add = 0) : sum (x), add (_add) {}
     };
 
-    template <class T, class info = Node <T>>
+    template <typename T, class info = Node <T>>
     class segtree {
     public:
-        int n, m;
         vector <info> t;
+        int n, m;
+        
+        segtree () {}
+        segtree (int n, T x = 0) {init (vector <T> (n, x));}
+        segtree (const vector <T> &a) {init (a);}
 
-        segtree (int _n = 0) {build (vector <T> (_n, 0));}
-        segtree (const vector <T> &a) {build (a);}
-
-        void build (const vector <T> &a) {
+        void init (const vector <T> &a) {
             n = a.size ();
-            t.resize (n << 2);
-            for (m = 1; m <= n; m <<= 1);
-
-            for (int i = 1; i <= n; i++) t[i + m] = info (a[i - 1]);
-            for (int p = m - 1; p >= 1; p--) {
-                auto lc = p << 1, rc = lc | 1;
-                t[p].sum = t[lc].sum + t[rc].sum;
-            }
+            for (m = 1; m <= n + 1; m <<= 1);
+            t.resize ((m << 1) + 1);
+            for (int i = 0; i < n; i++) t[i + m + 1] = info (a[i]);
+            for (int p = m - 1; p >= 0; p--) t[p].sum = t[p << 1].sum + t[p << 1 | 1].sum;
         }
 
-        void modify (int l, int r, T v) {
-            l++, r++;
-            int lc = 0, rc = 0, len = 1;
-            for (l += m - 1, r += m + 1; l ^ r ^ 1; l >>= 1, r >>= 1, len <<= 1) {
-                if (l & 1 ^ 1) t[l ^ 1].lazy += v, lc += len;
-                if (r & 1) t[r ^ 1].lazy += v, rc += len;
-                t[l >> 1].sum += v * lc, t[r >> 1].sum += v * rc;
-            }
-            for (lc += rc; l > 1; l >>= 1) t[l >> 1].sum += v * lc;
+        void modify (int p, T x) {
+            p = p + m + 1;
+            for (; p > 1; p >>= 1) t[p].sum += x;
         }
 
+        void modify (int l, int r, T x) {
+            T lc = 0, rc = 0, len = 1;
+            l = l + m, r = r + m + 2;
+            for (; l ^ r ^ 1; l >>= 1, r >>= 1, len <<= 1) {
+                if (l & 1 ^ 1) t[l ^ 1].add += x, lc += len;
+                if (r & 1) t[r ^ 1].add += x, rc += len;
+                t[l >> 1].sum += x * lc;
+                t[r >> 1].sum += x * rc;
+            }
+
+            lc += rc;
+            for (; l > 1; l >>= 1) t[l >> 1].sum += x * lc;
+        }
+
+        T qry (int p) {return qry (p, p);}
         T qry (int l, int r) {
-            l++, r++;
-            T ans = 0;
-            int lc = 0, rc = 0, len = 1;
-            for (l += m - 1, r += m + 1; l ^ r ^ 1; l >>= 1, r >>= 1, len <<= 1) {
-                if (l & 1 ^ 1) ans += t[l ^ 1].sum + t[l ^ 1].lazy * len, lc += len;
-                if (r & 1) ans += t[r ^ 1].sum + t[r ^ 1].lazy * len, rc += len;
-                ans += t[l >> 1].lazy * lc + t[r >> 1].lazy * rc;
+            T ans = 0, lc = 0, rc = 0, len = 1;
+            l = l + m, r = r + m + 2;
+            for (; l ^ r ^ 1; l >>= 1, r >>= 1, len <<= 1) {
+                if (l & 1 ^ 1) ans += t[l ^ 1].sum + len * t[l ^ 1].add, lc += len;
+                if (r & 1) ans += t[r ^ 1].sum + len * t[r ^ 1].add, rc += len;
+                ans += t[l >> 1].add * lc;
+                ans += t[r >> 1].add * rc;
             }
-            for (lc += rc, l >>= 1; l; l >>= 1) ans += t[l].lazy * lc;
+
+            lc += rc;
+            for (; l > 1; l >>= 1) ans += t[l >> 1].add * lc;
             return ans;
         }
-
-        void modify (int l, T v) {modify (l, l, v);}
-        T qry (int l) {return qry (l, l);}
     };
 }
