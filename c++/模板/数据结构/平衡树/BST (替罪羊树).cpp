@@ -1,5 +1,5 @@
 namespace BST {
-    static constexpr int MAXN = 1e6 + 7;
+    static constexpr int MAXN = 3e5 + 7;
     static constexpr db alpha = 0.75;
 
     template <typename T>
