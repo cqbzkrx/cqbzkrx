@@ -95,6 +95,7 @@ namespace BST {
 
         T qry_kth (int k) {return qry_kth (rt, k);}
         T qry_kth (int p, int k) {
+            if (!p) return 0;
             if (k == t[t[p].lc].siz + 1) return t[p].val;
             if (k <= t[t[p].lc].siz) return qry_kth (t[p].lc, k);
             else return qry_kth (t[p].rc, k - t[t[p].lc].siz - 1);
