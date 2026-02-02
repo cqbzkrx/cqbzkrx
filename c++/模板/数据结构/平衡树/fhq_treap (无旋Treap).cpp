@@ -15,12 +15,12 @@ namespace BST {
         vector <info> t;
         int rt, num;
         
-        int new_node (T x) {
+        inline int new_node (T x) {
             t.emplace_back (x);
             return ++num;
         }
 
-        void get (int p) {
+        inline void get (int p) {
             t[p].siz = t[t[p].lc].siz + t[t[p].rc].siz + 1;
         }
 
@@ -101,6 +101,6 @@ namespace BST {
             else return qry_kth (t[p].rc, k - t[t[p].lc].siz - 1);
         }
 
-        int size () {return t[rt].siz;}
+        inline int size () {return t[rt].siz;}
     };
 }
