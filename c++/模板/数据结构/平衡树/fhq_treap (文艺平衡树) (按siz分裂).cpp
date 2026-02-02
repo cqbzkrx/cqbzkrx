@@ -1,5 +1,5 @@
 namespace BST {
-    constexpr int MAXN = 3e6 + 7;
+    constexpr int MAXN = 3e5 + 7;
     mt19937 rd (time (0));
 
     template <typename T>
@@ -68,6 +68,8 @@ namespace BST {
             t.reserve (n + 10);
             t.emplace_back ();
         }
+
+        void insert (T x) {rt = merge (rt, new_node (x));}
         
         fhq_treap (const vector <T> &a) {init (a);}
         void init (const vector <T> &a) {
@@ -96,4 +98,22 @@ namespace BST {
             dfs (t[p].rc, ans);
         }
     };
+}
+
+void solve () {
+    int n, m; cin >> n >> m;
+    vector a (n, 0); iota (all(a), 1);
+    BST :: fhq_treap <int> bst (a);
+
+    // BST :: fhq_treap <int> bst (n);
+    // for (int i = 1; i <= n; i++) bst.insert (i);
+    
+    while (m--) {
+        int l, r; cin >> l >> r;
+        bst.reverse (l, r);
+    }
+
+    vector ans = bst.dfs ();
+    for (auto &v : ans) cout << v << ' ';
+    cout << '\n';
 }
