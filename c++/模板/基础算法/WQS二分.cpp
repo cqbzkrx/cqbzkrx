@@ -1,6 +1,8 @@
 // https://www.luogu.com.cn/problem/P2619
 // https://www.luogu.com.cn/record/263587041
 
+const int M = 100 + 7;
+
 void solve () {
     int n, m, k; cin >> n >> m >> k;
     vector e (0, tuple (0, 0, 0)), e2 (0, tuple (0, 0, 0));
