@@ -8,6 +8,8 @@ namespace BST {
         int lc, rc, siz, rnd;
         Node () : val (0), lc (0), rc (0), siz (0), rnd (0) {}
         Node (T x, int _siz = 1, int _lc = 0, int _rc = 0) : val (x), lc (_lc), rc (_rc), siz (_siz), rnd (rd ()) {}
+
+        int size () {return siz;}
     };
 
     template <typename T, class info = Node <T>>
@@ -67,22 +69,25 @@ namespace BST {
             rt = merge (merge (x, z), y);
         }
 
-        void erase_node (T val) {
+        void erase_node (T val) {erase_node (rt, val);}
+        void erase_node (int &p, T val) {
             int x, y, z;
-            split (rt, val, x, z);
+            split (p, val, x, z);
             split (x, val - 1, x, y);
-            rt = merge (merge (x, merge (t[y].lc, t[y].rc)), z);
+            p = merge (merge (x, merge (t[y].lc, t[y].rc)), z);
         }
 
-        void erase (T val) {
+        void erase (T val) {erase (rt, val);}
+        void erase (int &p, T val) {
             int x, y, z;
-            split (rt, val, x, z);
+            split (p, val, x, z);
             split (x, val - 1, x, y);
-            rt = merge (x, z);
+            p = merge (x, z);
         }
 
-        void erase_kth (int k) {
-            erase_node (qry_kth (k));
+        void erase_kth (int k) {erase_kth (rt, k);}
+        void erase_kth (int p, int k) {
+            erase_node (p, qry_kth (k));
         }
 
         int qry_rank (T val) {
@@ -101,6 +106,7 @@ namespace BST {
             else return qry_kth (t[p].rc, k - t[t[p].lc].siz - 1);
         }
 
-        inline int size () {return t[rt].siz;}
+        inline int size () {return size (rt);}
+        inline int size (int p) {return t[p].siz;}
     };
 }
