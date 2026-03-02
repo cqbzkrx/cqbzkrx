@@ -86,7 +86,7 @@ namespace BST {
         }
 
         void erase_kth (int k) {erase_kth (rt, k);}
-        void erase_kth (int p, int k) {
+        void erase_kth (int &p, int k) {
             erase_node (p, qry_kth (p, k));
         }
 
