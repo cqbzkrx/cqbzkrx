@@ -33,7 +33,7 @@ void solve () {
     }
 
     vector ans (num, 0ll);
-    auto dfs = [&](auto &&self, int l, int r) -> void {
+    auto cdq = [&](auto &&self, int l, int r) -> void {
         if (l >= r) return ;
         int mid = (l + r) >> 1;
 
@@ -72,7 +72,7 @@ void solve () {
     };
 
     int m = a.size ();
-    dfs (dfs, 0, m - 1);
+    cdq (cdq, 0, m - 1);
 
     for (auto v : ans) cout << v << '\n';
 }
