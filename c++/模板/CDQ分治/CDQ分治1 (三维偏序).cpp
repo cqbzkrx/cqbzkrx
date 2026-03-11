@@ -59,7 +59,7 @@ void solve () {
     });
 
     BIT <int> bit (k + 1);
-    auto dfs = [&](auto &&self, int l, int r) -> void {
+    auto cdq = [&](auto &&self, int l, int r) -> void {
         if (l >= r) return ;
         int mid = (l + r) >> 1;
 
@@ -97,7 +97,7 @@ void solve () {
         for (int i = l; i <= r; i++) a[i] = s[i - l];
     };
 
-    dfs (dfs, 0, n - 1);
+    cdq (cdq, 0, n - 1);
 
     vector res (n, 0);
     for (int i = 0; i < n; i++) res[ans[i]]++;
