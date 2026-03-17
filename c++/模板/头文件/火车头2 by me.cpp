@@ -307,6 +307,9 @@ int main () {
 #endif
 
     init ();
+    
+    cout << setprecision (15) << fixed;
+    cerr << setprecision (2) << fixed;
 
     int t = 1;
     // cin >> t;
