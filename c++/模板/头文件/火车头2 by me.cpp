@@ -109,17 +109,17 @@ ostream & operator << (ostream &os, const vector <T> &a) {
     return os;
 }
 
-namespace ModInt {
-    template <class T>
-    constexpr T qpow (T a, ll b, T res = 1) {
-        while (b) {
-            if (b & 1) res *= a;
-            a *= a;
-            b >>= 1;
-        }
-        return res;
+template <class T>
+constexpr T qpow (T a, ll b, T res = 1) {
+    while (b) {
+        if (b & 1) res *= a;
+        a *= a;
+        b >>= 1;
     }
+    return res;
+}
 
+namespace ModInt {
     template <u32 P>
     constexpr u32 mul_mod (u32 a, u32 b) {
         return u64 (a) * b % P;
