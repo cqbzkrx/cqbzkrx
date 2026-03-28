@@ -11,7 +11,6 @@ namespace chtholly_tree {
     class ODT {
     public:
         set <info> s;     // 核心
-        vector <pair <T, int>> vec;
 
         set <info> :: iterator split (int pos) {  // iterator -> 迭代器  将含有pos的区间分成[l, pos - 1] and [pos + 1, r]
             auto it = s.lower_bound (info (pos));
@@ -43,7 +42,6 @@ namespace chtholly_tree {
             T ans = 0;
             split (l);
             auto itr = split (r + 1), itl = split (l);
-            vec.clear ();
             for (; itl != itr; itl++) ans = (ans + (math :: qpow (itl -> val, x, k) * (T) (itl -> r - itl -> l + 1)) % k) % k;
             return ans;
         }
@@ -52,7 +50,8 @@ namespace chtholly_tree {
             if (reversed) k = r - l + 2 - k;
             split (l);
             auto itr = split (r + 1), itl = split (l);
-            vec.clear ();
+            
+            vector vec (0, pair (T (0), 0));
             for (; itl != itr; itl++) vec.push_back ({itl -> val, itl -> r - itl -> l + 1});
 
             sort (all(vec));
