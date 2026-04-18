@@ -10,7 +10,9 @@ public:
     }
 
     matrix (const vector <vector <T>> &a) {
-        val = a;
+        val.assign (n, vector <T> (m, 0));
+        for (int i = 0; i < n; i++) for (int j = 0; j < m; j++)
+            val[i][j] = a[i][j];
     }
 
     inline vector <T> & operator [] (int i) {return val[i];}
