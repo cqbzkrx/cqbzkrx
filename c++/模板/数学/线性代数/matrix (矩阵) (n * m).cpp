@@ -1,16 +1,14 @@
 template <int n, int m, typename T = int>
 struct matrix {
 public:
-    vector <vector <T>> val;
+    array <array <T, m>, n> val;
 
     matrix (T x = 0) {
-        val.assign (n, vector <T> (m, 0));
         for (int i = 0; i < n; i++) for (int j = 0; j < m; j++)
             val[i][j] = (i == j ? x : 0);
     }
 
     matrix (const vector <vector <T>> &a) {
-        val.assign (n, vector <T> (m, 0));
         for (int i = 0; i < n; i++) for (int j = 0; j < m; j++)
             val[i][j] = a[i][j];
     }
