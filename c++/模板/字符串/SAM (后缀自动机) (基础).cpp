@@ -56,5 +56,11 @@ namespace SAM {
         inline int fa (int i) {return t[i].fa;}
         inline int ch (int i, int j) {return t[i].ch[j];}
         inline int len (int i) {return t[i].len;}
+
+        vector <vector <int>> e;
+        void init_pt () {
+            e.assign (tot + 1, vector <int> (0, 0));
+            for (int i = 1; i <= tot; i++) e[t[i].fa].push_back (i);
+        }
     };
 }
