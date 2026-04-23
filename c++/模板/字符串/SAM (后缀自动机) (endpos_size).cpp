@@ -50,6 +50,10 @@ namespace SAM {
 
         info & operator [] (int i) {return t[i];}
         const info operator [] (int i) const {return t[i];}
+        int fa (int i) {return t[i].fa;}
+        int ch (int i, int j) {return t[i].ch[j];}
+        int len (int i) {return t[i].len;}
+        int siz (int i) {return t[i].siz;}
 
         vector <vector <int>> e;
         void init_pt () {
