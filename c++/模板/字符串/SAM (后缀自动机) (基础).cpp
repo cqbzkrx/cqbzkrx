@@ -22,7 +22,7 @@ namespace SAM {
         SAM () : t (1, info ()), lst (0), tot (0) {}
         SAM (const string &str) : SAM () {Insert (str);}
 
-        int new_node (const info &s = info ()) {
+        inline int new_node (const info &s = info ()) {
             t.push_back (s);
             return ++tot;
         }
@@ -48,10 +48,10 @@ namespace SAM {
             for (; p != -1 && t[p].ch[v] == q; p = t[p].fa) t[p].ch[v] = nq;
         }
 
-        info & operator [] (int i) {return t[i];}
-        const info operator [] (int i) const {return t[i];}
-        int fa (int i) {return t[i].fa;}
-        int ch (int i, int j) {return t[i].ch[j];}
-        int len (int i) {return t[i].len;}
+        inline info & operator [] (int i) {return t[i];}
+        inline const info operator [] (int i) const {return t[i];}
+        inline int fa (int i) {return t[i].fa;}
+        inline int ch (int i, int j) {return t[i].ch[j];}
+        inline int len (int i) {return t[i].len;}
     };
 }
