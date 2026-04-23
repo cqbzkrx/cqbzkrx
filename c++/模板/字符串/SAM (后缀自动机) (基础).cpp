@@ -1,6 +1,6 @@
 namespace SAM {
-    static constexpr int MAXN = 1e5 + 7;
-    static constexpr int MAXM = 26;    
+    static constexpr int MAXN = 2e6 + 7;  // 2 * N
+    static constexpr int MAXM = 26;
 
     struct Node {
         array <int, MAXM> ch;
@@ -19,15 +19,18 @@ namespace SAM {
         vector <info> t;
         int lst, tot;
 
-        SAM () : t (1, info ()), lst (0), tot (0) {}
+        SAM () : lst (0), tot (0) {
+            t.reserve (MAXN);
+            t.emplace_back ();
+        }
         SAM (const string &str) : SAM () {Insert (str);}
 
-        inline int new_node (const info &s = info ()) {
-            t.push_back (s);
+        inline int new_node () {
+            t.emplace_back ();
             return ++tot;
         }
 
-        void Insert (const string &str) {
+        inline void Insert (const string &str) {
             for (auto v : str) Insert (v);
         }
 
@@ -42,8 +45,8 @@ namespace SAM {
             int q = t[p].ch[v];
             if (t[p].len + 1 == t[q].len) {t[np].fa = q; return ;}
 
-            int nq = new_node (t[q]);
-            t[nq].len = t[p].len + 1;
+            int nq = new_node ();
+            t[nq] = t[q]; t[nq].len = t[p].len + 1;
             t[q].fa = t[np].fa = nq;
             for (; p != -1 && t[p].ch[v] == q; p = t[p].fa) t[p].ch[v] = nq;
         }
