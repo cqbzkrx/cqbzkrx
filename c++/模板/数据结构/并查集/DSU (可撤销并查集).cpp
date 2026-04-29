@@ -5,7 +5,7 @@ public:
     DSU (int n = 0) {init (n);}
 
     int find (int x) {
-        return fa[x] == x ? x : fa[x] = find(fa[x]);
+        return fa[x] == x ? x : find(fa[x]);
     }
 
     bool same (int v, int u) {
