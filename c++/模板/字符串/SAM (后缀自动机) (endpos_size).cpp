@@ -1,5 +1,5 @@
 namespace SAM {
-    static constexpr int MAXN = 2e6 + 7;  // 2 * N
+    static constexpr int MAXN = 1e6 + 7;
     static constexpr int MAXM = 26;
 
     struct Node {
@@ -20,7 +20,7 @@ namespace SAM {
         int lst, tot;
 
         SAM () : lst (1), tot (1) {
-            t.reserve (MAXN);
+            t.reserve (MAXN << 1);
             t.emplace_back ();
             t.emplace_back ();
         }
