@@ -10,8 +10,8 @@ namespace Hash {
         b1.resize (MAXN); b1[0] = 1;
         b2.resize (MAXN); b2[0] = 1;
         for (int i = 1; i < MAXN; i++) {
-            b1.push_back ((b1[i - 1] * B) % mod1);
-            b2.push_back ((b2[i - 1] * B) % mod2);
+            b1[i] = (b1[i - 1] * B) % mod1;
+            b2[i] = (b2[i - 1] * B) % mod2;
         }
     };
     
