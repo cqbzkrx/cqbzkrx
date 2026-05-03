@@ -2,17 +2,17 @@ namespace Hash {
     static constexpr ll mod1 = 1000001011;
     static constexpr ll mod2 = 1000000297;
     static constexpr ll B = 131;
-    int maxn = 0;
+    static constexpr ll MAXN = 2e5 + 7;
 
-    vector <ll> b1 (1, 1ll), b2 (1, 1ll);
+    vector <ll> b1, b2;
 
-    void get (int n) {
-        if (maxn < n) b.reserve (n + 1), b2.reserve (n + 1);
-        for (int i = maxn + 1; i <= n; i++) {
+    void init_hash () {
+        b1.resize (N); b1[0] = 1;
+        b2.resize (N); b2[0] = 1;
+        for (int i = 1; i < N; i++) {
             b1.push_back ((b1[i - 1] * B) % mod1);
             b2.push_back ((b2[i - 1] * B) % mod2);
         }
-        maxn = n;
     };
     
     class hash_string {
@@ -25,8 +25,6 @@ namespace Hash {
 
         void init (const string &s) {
             n = s.size();
-            if (n > maxn) get (n);
-
             h1.resize (n + 1); h2.resize (n + 1);
             for (int i = 1; i <= n; i++) {
                 h1[i] = (h1[i - 1] * B + s[i - 1]) % mod1;
