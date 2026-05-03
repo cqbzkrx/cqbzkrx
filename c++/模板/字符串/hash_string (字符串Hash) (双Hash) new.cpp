@@ -7,9 +7,9 @@ namespace Hash {
     vector <ll> b1, b2;
 
     void init_hash () {
-        b1.resize (N); b1[0] = 1;
-        b2.resize (N); b2[0] = 1;
-        for (int i = 1; i < N; i++) {
+        b1.resize (MAXN); b1[0] = 1;
+        b2.resize (MAXN); b2[0] = 1;
+        for (int i = 1; i < MAXN; i++) {
             b1.push_back ((b1[i - 1] * B) % mod1);
             b2.push_back ((b2[i - 1] * B) % mod2);
         }
