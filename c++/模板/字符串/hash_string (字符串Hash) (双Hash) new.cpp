@@ -7,6 +7,7 @@ namespace Hash {
     vector <ll> b1 (1, 1ll), b2 (1, 1ll);
 
     void get (int n) {
+        if (maxn < n) b.reserve (n + 1), b2.reserve (n + 1);
         for (int i = maxn + 1; i <= n; i++) {
             b1.push_back ((b1[i - 1] * B) % mod1);
             b2.push_back ((b2[i - 1] * B) % mod2);
