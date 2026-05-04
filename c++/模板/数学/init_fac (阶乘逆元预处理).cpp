@@ -1,4 +1,4 @@
-template <u64 P, class T = ModInt :: mll <P>>
+template <u64 P, class T = ModInt :: m64 <P>>
 class _fac {
 public:
     vector <T> fac, ifac;
