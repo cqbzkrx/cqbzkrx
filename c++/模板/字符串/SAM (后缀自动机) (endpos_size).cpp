@@ -1,6 +1,7 @@
 namespace SAM {
     static constexpr int MAXN = 1e6 + 7;
     static constexpr int MAXM = 26;
+    static constexpr int A = 'a';
 
     struct Node {
         array <int, MAXM> ch;
@@ -9,7 +10,7 @@ namespace SAM {
     };
 
     inline int get (char c) {
-        return c - 'a';
+        return c - A;
     }
 
     template <class info = Node>
@@ -54,10 +55,10 @@ namespace SAM {
 
         inline info & operator [] (int i) {return t[i];}
         inline const info operator [] (int i) const {return t[i];}
-        inline int fa (int i) {return t[i].fa;}
-        inline int ch (int i, int j) {return t[i].ch[j];}
-        inline int len (int i) {return t[i].len;}
-        inline int siz (int i) {return t[i].siz;}
+        inline int & fa (int i) {return t[i].fa;}
+        inline int & ch (int i, int j) {return t[i].ch[j];}
+        inline int & len (int i) {return t[i].len;}
+        inline int & siz (int i) {return t[i].siz;}
 
         vector <vector <int>> e;
         void init_pt () {
@@ -71,6 +72,7 @@ namespace SAM {
             for (int i = 1; i <= tot; i++) cnt[i] += cnt[i - 1];
             for (int i = 2; i <= tot; i++) id[cnt[t[i].len]--] = i;
             for (int i = tot; i >= 2; i--) t[t[id[i]].fa].siz += t[id[i]].siz;
+            t[rt].siz = 0;
         }
     };
 }
