@@ -104,3 +104,17 @@ namespace SAM {
         }
     };
 }
+
+void solve () {
+    string s; cin >> s;
+    SAM :: SAM sam (s);
+ 
+    sam.init_pt ();
+    sam.calc_siz ();
+ 
+    int n; cin >> n;
+    for (int i = 0; i < n; i++) {
+        string c; cin >> c;
+        cout << sam.calc (c, i) << '\n';
+    }
+}
