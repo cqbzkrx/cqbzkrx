@@ -38,9 +38,9 @@ void solve () {
 
     vector ans (n, db (0));
     for (int i = 0; i < n; i++) {
-        if (fabs (a[i][i]) < eps) {cout << 0 << '\n'; return ;}
+        if (fabs (a[i][i]) < eps) {cout << 0 << '\n'; return ;}  // 无穷解
 
-        for (int j = 0; j < n; j++) if (i != j && fabs (a[i][j]) > eps) {
+        for (int j = 0; j < n; j++) if (i != j && fabs (a[i][j]) > eps) {  // 无穷解
             cout << 0 << '\n';
             return ;
         }
