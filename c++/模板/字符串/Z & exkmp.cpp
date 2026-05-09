@@ -1,5 +1,5 @@
 auto get_z = [&](const string &s, vector <int> &z) -> void {
-    z.resize (s.size ()); z[0] = 0;
+    z.assign (s.size (), 0);
 
     int l = 0, r = 0;
     for (int i = 1; i < s.size (); i++) {
