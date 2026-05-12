@@ -6,11 +6,12 @@ struct lb {
     ll & operator [] (int i) {return p[i];}
     const ll operator [] (int i) const {return p[i];}
 
-    void insert (ll x) {
+    bool insert (ll x) {
         for (int i = M - 1; i >= 0; i--) if (x & (1ll << i)) {
-            if (p[i] == 0) {p[i] = x; break;}
+            if (p[i] == 0) {p[i] = x; return 1;}
             else x ^= p[i];
         }
+        return 0;
     }
 
     lb operator += (const lb &rhs) & {
