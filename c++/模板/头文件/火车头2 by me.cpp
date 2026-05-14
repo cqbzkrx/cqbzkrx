@@ -14,7 +14,7 @@ const ll INF = (ll) (1e18) + 7;
 const int mod = 1e9 + 7;
 const ll N = 2e5 + 7;
 const ll M = 1e3 + 7;
-
+const db eps = 1e-6;
 template <typename T>
 inline void cmax (T &a, const T &b) {if (a < b) a = b;}
 template <typename T>
