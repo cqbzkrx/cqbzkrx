@@ -56,9 +56,13 @@ namespace SAM {
         inline info & operator [] (int i) {return t[i];}
         inline const info operator [] (int i) const {return t[i];}
         inline int & fa (int i) {return t[i].fa;}
+        inline const int fa (int i) const {return t[i].fa;}
         inline int & ch (int i, int j) {return t[i].ch[j];}
+        inline const int ch (int i, int j) const {return t[i].ch[j];}
         inline int & len (int i) {return t[i].len;}
+        inline const int len (int i) const {return t[i].len;}
         inline int & siz (int i) {return t[i].siz;}
+        inline const int siz (int i) const {return t[i].siz;}
 
         vector <vector <int>> e;
         void init_pt () {
