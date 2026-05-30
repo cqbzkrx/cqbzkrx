@@ -18,9 +18,9 @@ namespace PAM {
     public:
         vector <info> t;
         string s;
-        int num, lst;
+        int tot, lst;
 
-        PAM () : num (1), lst (0) {
+        PAM () : tot (1), lst (0) {
             t.reserve (MAXN);
             t.emplace_back (0);
             t.emplace_back (-1);
@@ -31,7 +31,7 @@ namespace PAM {
 
         inline int new_node (int len = 0) {
             t.emplace_back (len);
-            return ++num;
+            return ++tot;
         }
 
         void Insert (const string &s) {
@@ -50,9 +50,24 @@ namespace PAM {
                 int np = new_node (t[p].len + 2);
                 t[np].fail = t[find (t[p].fail)].ch[v];
                 t[p].ch[v] = np;
-                t[np].cnt = t[t[np].fail].cnt + 1;
             }
             lst = t[p].ch[v];
+            t[lst].cnt++;
+        }
+
+        inline info & operator [] (int i) {return t[i];}
+        inline const info operator [] (int i) const {return t[i];}
+        inline int & fail (int i) {return t[i].fail;}
+        inline const int fail (int i) const {return t[i].fail;}
+        inline int & ch (int i, int j) {return t[i].ch[j];}
+        inline const int ch (int i, int j) const {return t[i].ch[j];}
+        inline int & len (int i) {return t[i].len;}
+        inline const int len (int i) const {return t[i].len;}
+        inline int & cnt (int i) {return t[i].cnt;}
+        inline const int cnt (int i) const {return t[i].cnt;}
+
+        void calc_cnt () {
+            for (int i = tot; i >= 0; i--) t[t[i].fail].cnt += t[i].cnt;
         }
     };
 }
