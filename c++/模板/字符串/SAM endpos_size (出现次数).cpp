@@ -1,7 +1,6 @@
 namespace SAM {
     static constexpr int MAXN = 1e6 + 7;
     static constexpr int MAXM = 26;
-    static constexpr int A = 'a';
 
     struct Node {
         array <int, MAXM> ch;
@@ -10,7 +9,7 @@ namespace SAM {
     };
 
     inline int get (char c) {
-        return c - A;
+        return c - 'a';
     }
 
     template <class info = Node>
