@@ -1,4 +1,4 @@
-auto get_nxt = [&](const string &c, vector <int> &nxt) -> void {
+auto get_nxt = [&](const string &c, vector <int> &nxt) -> void {   // Border
     nxt.resize (c.size() + 1); nxt[0] = -1;
     int i = 0, j = -1;
     while (i < (int) c.size()) {
