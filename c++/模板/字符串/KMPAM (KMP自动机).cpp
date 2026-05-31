@@ -1,9 +1,8 @@
 namespace kmpam {
     constexpr int MAXM = 26;
-    const int A = 'a';
 
     inline int get (char c) {
-        return c - A;
+        return c - 'a';
     }
 
     void get_nxt (const string &c, vector <int> &nxt) {
