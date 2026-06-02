@@ -1,4 +1,4 @@
-auto dij = [&](int s, const vector <vector <pair <int, ll>>> &e) -> vector <ll> {
+auto dij = [&](int s) -> vector <ll> {
     vector dis (n + 1, INF); dis[s] = 0;
     vector vis (n + 1, 0);
     using T = pair <ll, int>;
