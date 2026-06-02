@@ -16,7 +16,8 @@ void solve () {
 
     auto spfa = [&](int s, int n) -> vector <ll> {
         vector dis (n + 1, INF); dis[s] = 0;
-        vector vis (n + 1, 0);        queue <int> q; q.push (s);
+        vector vis (n + 1, 0);
+        queue <int> q; q.push (s);
         while (q.size ()) {
             auto u = q.front (); q.pop ();
             vis[u] = 0;
