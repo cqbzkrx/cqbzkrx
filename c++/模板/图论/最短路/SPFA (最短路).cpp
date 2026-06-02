@@ -1,4 +1,4 @@
-auto spfa = [&](int s, const vector <vector <pair <int, ll>>> &e) -> pair <vector <ll>, bool> {
+auto spfa = [&](int s, int n) -> pair <vector <ll>, bool> {
     vector dis (n + 1, INF); dis[s] = 0;
     vector vis (n + 1, 0);
     // vector cnt (n + 1, 0);
