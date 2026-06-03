@@ -1,3 +1,7 @@
+// https://www.luogu.com.cn/problem/P2371
+// https://www.luogu.com.cn/record/280428046
+// *注意：必须 边权 = v[i]
+
 void solve () {
     int n; ll l, r; cin >> n >> l >> r;
     vector a (n, 0);
@@ -22,7 +26,7 @@ void solve () {
                 p = (rt + v) % m;
                 while (p != rt) {
                     cmin (dis[p], w);
-                    w = (dis[p] == INF ? INF : dis[p] + v);
+                    w = (dis[p] == INF ? INF : dis[p] + v);  // *
                     p = (p + v) % m;
                 }
             }
