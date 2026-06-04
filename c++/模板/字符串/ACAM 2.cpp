@@ -1,6 +1,3 @@
-// https://www.luogu.com.cn/problem/P5357
-// https://www.luogu.com.cn/record/280563341
-
 namespace ACAM {
     static constexpr int MAXN = 1e6 + 7;
     static constexpr int MAXM = 26;
@@ -66,29 +63,10 @@ namespace ACAM {
             }
         }
 
-        vector <int> calc (const string &s) {
-            vector dp (tot + 1, 0);
-            int p = 1;
-            for (auto c : s) {
-                p = t[p].ch[get (c)];
-                dp[p]++;
-            }
-
-            vector e (tot + 1, vector (0, 0));
+        vector <vector <int>> e;
+        void get_pt () {
+            e.assign (tot + 1, vector (0, 0));
             for (int i = 2; i <= tot; i++) e[t[i].fail].push_back (i);
-
-            auto dfs = [&](auto &&self, int u) -> void {
-                for (auto v : e[u]) {
-                    self (self, v);
-                    dp[u] += dp[v];
-                }
-            };
-
-            dfs (dfs, rt);
-
-            vector ans (id.size (), 0);
-            for (int i = 0; i < id.size (); i++) ans[i] = dp[id[i]];
-            return ans;
         }
 
         inline info & operator [] (int i) {return t[i];}
@@ -100,17 +78,4 @@ namespace ACAM {
         inline int & len (int i) {return t[i].len;}
         inline const int len (int i) const {return t[i].len;}
     };
-}
-
-void solve () {
-    int n; cin >> n;
-    vector a (n, string ());
-    for (auto &v : a) cin >> v;
-
-    ACAM :: trie t (a);
-    t.get_fail ();
-
-    string s; cin >> s;
-    auto ans = t.calc (s);
-    for (auto &v : ans) cout << v << '\n';
 }
