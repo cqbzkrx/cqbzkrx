@@ -83,7 +83,6 @@ namespace SAM {
                 cmax (t[fa (i)].lst, t[i].lst);
                 cmin (t[fa (i)].fst, t[i].fst);
             }
-
             t[rt].lst = t[rt].fst = -1;
         }
     };
