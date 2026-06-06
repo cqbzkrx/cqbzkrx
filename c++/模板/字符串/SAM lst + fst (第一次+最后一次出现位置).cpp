@@ -58,6 +58,7 @@ namespace SAM {
         inline int & fa (int i) {return t[i].fa;}
         inline int & ch (int i, int j) {return t[i].ch[j];}
         inline int & len (int i) {return t[i].len;}
+        inline int & siz (int i) {return t[i].siz;}
 
         vector <vector <int>> e;
         void init_pt () {
