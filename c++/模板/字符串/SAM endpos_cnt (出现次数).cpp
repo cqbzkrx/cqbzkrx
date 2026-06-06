@@ -4,8 +4,8 @@ namespace SAM {
 
     struct Node {
         array <int, MAXM> ch;
-        int fa, len, siz;
-        Node () : fa (0), len (0), siz (0) {fill (all(ch), 0);}
+        int fa, len, cnt;
+        Node () : fa (0), len (0), cnt (0) {fill (all(ch), 0);}
     };
 
     inline int get (char c) {
@@ -14,10 +14,11 @@ namespace SAM {
 
     template <class info = Node>
     class SAM {
+        vector <info> t;
+        int lst;
     public:
         static constexpr int rt = 1;
-        vector <info> t;
-        int lst, tot;
+        int tot;
 
         SAM () : lst (1), tot (1) {
             t.reserve (MAXN << 1);
@@ -39,7 +40,7 @@ namespace SAM {
             int v = get (c);
 
             int p = lst, np = lst = new_node ();
-            t[np].len = t[p].len + 1; t[np].siz = 1;
+            t[np].len = t[p].len + 1; t[np].cnt = 1;
             for (; p && !t[p].ch[v]; p = t[p].fa) t[p].ch[v] = np;
 
             if (!p) {t[np].fa = rt; return ;}
@@ -47,21 +48,15 @@ namespace SAM {
             if (t[p].len + 1 == t[q].len) {t[np].fa = q; return ;}
 
             int nq = new_node ();
-            t[nq] = t[q]; t[nq].siz = 0; t[nq].len = t[p].len + 1;
+            t[nq] = t[q]; t[nq].cnt = 0; t[nq].len = t[p].len + 1;
             t[q].fa = t[np].fa = nq;
             for (; p && t[p].ch[v] == q; p = t[p].fa) t[p].ch[v] = nq;
         }
 
         inline info & operator [] (int i) {return t[i];}
-        inline const info operator [] (int i) const {return t[i];}
         inline int & fa (int i) {return t[i].fa;}
-        inline const int fa (int i) const {return t[i].fa;}
         inline int & ch (int i, int j) {return t[i].ch[j];}
-        inline const int ch (int i, int j) const {return t[i].ch[j];}
         inline int & len (int i) {return t[i].len;}
-        inline const int len (int i) const {return t[i].len;}
-        inline int & siz (int i) {return t[i].siz;}
-        inline const int siz (int i) const {return t[i].siz;}
 
         vector <vector <int>> e;
         void init_pt () {
@@ -69,13 +64,15 @@ namespace SAM {
             for (int i = 2; i <= tot; i++) e[t[i].fa].push_back (i);
         }
 
-        void calc_siz () {
-            vector <int> cnt (tot + 1, 0), id (tot + 1, 0);
-            for (int i = 2; i <= tot; i++) cnt[t[i].len]++;
-            for (int i = 1; i <= tot; i++) cnt[i] += cnt[i - 1];
-            for (int i = 2; i <= tot; i++) id[cnt[t[i].len]--] = i;
-            for (int i = tot; i >= 2; i--) t[t[id[i]].fa].siz += t[id[i]].siz;
-            t[rt].siz = 0;
+        vector <int> cnt;
+        void calc_cnt () {
+            cnt.assign (tot + 1, 0);
+            vector <int> cnt2 (tot + 1, 0), id (tot + 1, 0);
+            for (int i = 2; i <= tot; i++) cnt2[t[i].len]++, cnt[i] = t[i].cnt;
+            for (int i = 1; i <= tot; i++) cnt2[i] += cnt2[i - 1];
+            for (int i = 2; i <= tot; i++) id[cnt2[t[i].len]--] = i;
+            for (int i = tot; i >= 2; i--) cnt[fa (id[i])] += cnt[id[i]];
+            cnt[rt] = 0;
         }
     };
 }
