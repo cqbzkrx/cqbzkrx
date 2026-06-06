@@ -55,15 +55,10 @@ namespace PAM {
         }
 
         inline info & operator [] (int i) {return t[i];}
-        inline const info operator [] (int i) const {return t[i];}
         inline int & fail (int i) {return t[i].fail;}
-        inline const int fail (int i) const {return t[i].fail;}
         inline int & ch (int i, int j) {return t[i].ch[j];}
-        inline const int ch (int i, int j) const {return t[i].ch[j];}
         inline int & len (int i) {return t[i].len;}
-        inline const int len (int i) const {return t[i].len;}
         inline int & cnt (int i) {return t[i].cnt;}
-        inline const int cnt (int i) const {return t[i].cnt;}
 
         void calc_cnt () {
             for (int i = tot; i >= 0; i--) t[t[i].fail].cnt += t[i].cnt;
