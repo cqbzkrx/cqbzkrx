@@ -65,7 +65,7 @@ namespace SAM {
             for (int i = 2; i <= tot; i++) e[t[i].fa].push_back (i);
         }
 
-        void calc_cnt () {
+        void calc_siz () {
             vector <int> cnt (tot + 1, 0), id (tot + 1, 0);
             for (int i = 2; i <= tot; i++) cnt[t[i].len]++;
             for (int i = 1; i <= tot; i++) cnt[i] += cnt[i - 1];
