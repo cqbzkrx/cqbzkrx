@@ -14,10 +14,10 @@ namespace SAM {
 
     template <class info = Node>
     class SAM {
-        vector <info> t;
         int lst;
     public:
         static constexpr int rt = 1;
+        vector <info> t;
         int tot, num;
 
         SAM () : lst (1), tot (1), num (0) {
@@ -59,6 +59,8 @@ namespace SAM {
         inline int & ch (int i, int j) {return t[i].ch[j];}
         inline int & len (int i) {return t[i].len;}
         inline int & siz (int i) {return t[i].siz;}
+        inline int & last (int i) {return t[i].lst;}
+        inline int & first (int i) {return t[i].fst;}
 
         vector <vector <int>> e;
         void init_pt () {
@@ -66,7 +68,7 @@ namespace SAM {
             for (int i = 2; i <= tot; i++) e[t[i].fa].push_back (i);
         }
 
-        void calc_cnt () {
+        void calc_siz () {
             vector <int> cnt (tot + 1, 0), id (tot + 1, 0);
             for (int i = 2; i <= tot; i++) cnt[t[i].len]++;
             for (int i = 1; i <= tot; i++) cnt[i] += cnt[i - 1];
@@ -81,8 +83,8 @@ namespace SAM {
             for (int i = 1; i <= tot; i++) cnt[i] += cnt[i - 1];
             for (int i = 2; i <= tot; i++) id[cnt[t[i].len]--] = i;
             for (int i = tot; i >= 2; i--) {
-                cmax (t[fa (i)].lst, t[i].lst);
-                cmin (t[fa (i)].fst, t[i].fst);
+                cmax (t[fa (id[i])].lst, t[id[i]].lst);
+                cmin (t[fa (id[i])].fst, t[id[i]].fst);
             }
             t[rt].lst = t[rt].fst = -1;
         }
