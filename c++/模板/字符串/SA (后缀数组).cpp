@@ -29,7 +29,7 @@ public:
             k <<= 1;
         }
 
-        h.resize (n);
+        h.resize (n - 1);
         for (int i = 0, j = 0; i < n; i++) {
             if (rk[i] == 0) j = 0;
             else {
