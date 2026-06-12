@@ -14,10 +14,10 @@ namespace SAM {
 
     template <class info = Node>
     class SAM {
-        vector <info> t;
         int lst;
     public:
         static constexpr int rt = 1;
+        vector <info> t;
         int tot;
 
         SAM () : lst (1), tot (1) {
