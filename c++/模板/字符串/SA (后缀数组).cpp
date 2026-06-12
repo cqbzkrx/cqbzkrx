@@ -1,7 +1,7 @@
 class SA {
 public:
     int n;
-    vector <int> sa, rk, height;
+    vector <int> sa, rk, h;
     SA (const string &s) {
         n = s.size ();
         sa.resize (n); iota (all(sa), 0);
@@ -29,13 +29,13 @@ public:
             k <<= 1;
         }
 
-        height.resize (n);
+        h.resize (n);
         for (int i = 0, j = 0; i < n; i++) {
             if (rk[i] == 0) j = 0;
             else {
                 j -= (j > 0);
                 while (i + j < n && sa[rk[i] - 1] + j < n && s[i + j] == s[sa[rk[i] - 1] + j]) j++;
-                height[rk[i] - 1] == j;
+                h[rk[i] - 1] == j;
             }
         }
     }
