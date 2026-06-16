@@ -6,7 +6,7 @@ namespace PAM {
 
     struct Node {
         array <int, MAXM> ch;
-        int fail, cnt, len;  // cnt -> 前缀包含当前点的回文串个数
+        int fail, cnt, len;  // cnt -> 以当前点为结尾的回文串个数
         Node (int _len = 0) : len (_len), cnt (0), fail (0) {fill (all(ch), 0);}
     };
 
