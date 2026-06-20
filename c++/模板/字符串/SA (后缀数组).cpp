@@ -35,7 +35,7 @@ public:
             else {
                 j -= (j > 0);
                 while (i + j < n && sa[rk[i] - 1] + j < n && s[i + j] == s[sa[rk[i] - 1] + j]) j++;
-                h[rk[i] - 1] == j;
+                h[rk[i] - 1] = j;
             }
         }
     }
