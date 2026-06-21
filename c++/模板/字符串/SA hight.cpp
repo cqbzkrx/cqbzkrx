@@ -2,13 +2,11 @@ template <class T = string>
 class SA {
 public:
     int n;
-    vector <int> sa, rk;
-    T s;
+    vector <int> sa, rk, h;
     SA () {}
     SA (const T &s) {init (s);}
 
     void init (const T &s) {
-        this -> s = s;
         n = s.size ();
         sa.resize (n); iota (all(sa), 0);
         sort (all(sa), [&](int lhs, int rhs)  {return s[lhs] < s[rhs];});
@@ -34,13 +32,7 @@ public:
                 rk[sa[i]] = rk[sa[i - 1]] + (tmp[sa[i - 1]] < tmp[sa[i]] || sa[i - 1] + k == n || tmp[sa[i - 1] + k] < tmp[sa[i] + k]);
             k <<= 1;
         }
-    }
 
-    vector <int> h;
-    vector <vector <int>> st;
-    int lim;
-
-    void get_hight () {
         h.resize (n - 1);
         for (int i = 0, j = 0; i < n; i++) {
             if (rk[i] == 0) j = 0;
@@ -50,7 +42,12 @@ public:
                 h[rk[i] - 1] = j;
             }
         }
+    }
 
+    vector <vector <int>> st;
+    int lim;
+
+    void get_st () {
         lim = __lg (n);
         st.assign (lim + 1, vector (n - 1, 0));
         for (int i = 0; i < n - 1; i++) st[0][i] = h[i];
