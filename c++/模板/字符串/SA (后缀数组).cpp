@@ -1,11 +1,14 @@
 class SA {
 public:
     int n;
-    vector <int> sa, rk;
-    SA (const string &s) {
+    vector <int> sa, rk, h;
+    SA () {}
+    SA (const T &s) {init (s);}
+
+    void init (const T &s) {
         n = s.size ();
         sa.resize (n); iota (all(sa), 0);
-        sort (all(sa), [&](int lhs, int rhs) {return s[lhs] < s[rhs];});
+        sort (all(sa), [&](int lhs, int rhs)  {return s[lhs] < s[rhs];});
         rk.resize (n); rk[sa[0]] = 0;
         for (int i = 1; i < n; i++) rk[sa[i]] = rk[sa[i - 1]] + (s[sa[i]] != s[sa[i - 1]]);
 
@@ -27,6 +30,16 @@ public:
             for (int i = 1; i < n; i++) 
                 rk[sa[i]] = rk[sa[i - 1]] + (tmp[sa[i - 1]] < tmp[sa[i]] || sa[i - 1] + k == n || tmp[sa[i - 1] + k] < tmp[sa[i] + k]);
             k <<= 1;
+        }
+
+        h.resize (n - 1);
+        for (int i = 0, j = 0; i < n; i++) {
+            if (rk[i] == 0) j = 0;
+            else {
+                if (j > 0) j--;
+                while (i + j < n && sa[rk[i] - 1] + j < n && s[i + j] == s[sa[rk[i] - 1] + j]) j++;
+                h[rk[i] - 1] = j;
+            }
         }
     }
 };
