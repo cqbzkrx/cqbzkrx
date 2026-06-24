@@ -25,9 +25,8 @@ public:
     }
 
     bool bfs () {
-        fill (all(dis), 0);
+        fill (all(dis), 0); dis[s] = 1;
         for (int i = 0; i <= n; i++) cur[i] = e[i].begin ();
-        dis[s] = 1;
         queue <int> q; q.push (s);
         while (q.size ()) {
             int u = q.front (); q.pop ();
