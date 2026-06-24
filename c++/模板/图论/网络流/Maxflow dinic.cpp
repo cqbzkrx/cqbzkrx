@@ -5,7 +5,7 @@ public:
     vector <vector <tuple <int, T, int>>> e;
     vector <int> dis;
 
-    using Iter = vector <tuple <int, T, int>> :: iterator;
+    using Iter = typename vector <tuple <int, T, int>> :: iterator;
     vector <Iter> cur;
     int n, s, t;
 
