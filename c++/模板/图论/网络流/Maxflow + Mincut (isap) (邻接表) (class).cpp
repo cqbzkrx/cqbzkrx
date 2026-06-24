@@ -1,7 +1,7 @@
 template <typename T>
 class maxflow {
 public:
-    static constexpr ll MAXX = INF;
+    static constexpr ll INVALID = INF;
     vector <vector <tuple <int, T, int>>> e;
     vector <int> dis, gap;
     int n, s, t;
@@ -61,7 +61,7 @@ public:
         bfs ();
         if (dis[s] == -1) return 0;
         T ans = 0;
-        while (dis[s] < n) ans += dfs (s, MAXX);
+        while (dis[s] < n) ans += dfs (s, INVALID);
         return ans;
     }
 
