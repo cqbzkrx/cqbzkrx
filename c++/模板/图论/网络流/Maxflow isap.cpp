@@ -19,6 +19,12 @@ public:
         this -> s = s; this -> t = t;
     }
 
+    void insert (int v, int u, T w) {
+        int idv = e[v].size (), idu = e[u].size ();
+        e[v].emplace_back (u, w, idu);
+        e[u].emplace_back (v, 0, idv);
+    }
+
     void bfs () {
         fill (all(dis), n); dis[t] = 0;
         fill (all(gap), 0); gap[0] = 1;
@@ -60,12 +66,6 @@ public:
         cur[u] = e[u].begin ();
 
         return sum;
-    }
-
-    void insert (int v, int u, T w) {
-        int idv = e[v].size (), idu = e[u].size ();
-        e[v].emplace_back (u, w, idu);
-        e[u].emplace_back (v, 0, idv);
     }
 
     T flow () {
