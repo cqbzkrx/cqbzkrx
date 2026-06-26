@@ -19,10 +19,11 @@ public:
         this -> s = s; this -> t = t;
     }
 
-    void Insert (int v, int u, T w) {
+    pair <int, int> Insert (int v, int u, T w) {
         int idv = e[v].size (), idu = e[u].size ();
         e[v].emplace_back (u, w, idu);
         e[u].emplace_back (v, 0, idv);
+        return {v, idv};
     }
 
     void bfs () {
