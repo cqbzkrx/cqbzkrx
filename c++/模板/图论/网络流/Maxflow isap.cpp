@@ -19,7 +19,7 @@ public:
         this -> s = s; this -> t = t;
     }
 
-    void insert (int v, int u, T w) {
+    void Insert (int v, int u, T w) {
         int idv = e[v].size (), idu = e[u].size ();
         e[v].emplace_back (u, w, idu);
         e[u].emplace_back (v, 0, idv);
