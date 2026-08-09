@@ -1,14 +1,17 @@
 namespace sgt {
     static constexpr ll INVALID = INF;
+    int num = 0;
 
     struct Node {
         ll k, b;
-        Node () : k (0), b (INVALID) {}
-        Node (ll _k, ll _b) : k (_k), b (_b) {}
+        int id;
+        Node () : k (0), b (INVALID), id (0) {}
+        Node (ll _k, ll _b) : k (_k), b (_b), id (++num) {}
         inline ll y (int x) const {return k * x + b;}
     };
 
     inline bool cmp (const Node &lhs, const Node &rhs, int x) {
+        if (lhs.y (x) == rhs.y (x)) return lhs.id < rhs.id;
         return lhs.y (x) < rhs.y (x);
     }
 
