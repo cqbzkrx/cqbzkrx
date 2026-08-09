@@ -9,7 +9,7 @@ namespace sgt {
     };
 
     inline bool cmp (const Node &lhs, const Node &rhs, int x) {
-        return lhs.y (x) <= rhs.y (x);
+        return lhs.y (x) < rhs.y (x);
     }
 
     class segtree {
